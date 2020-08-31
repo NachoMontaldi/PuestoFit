@@ -22,11 +22,6 @@
  }
 
 
- #logo h1{
-    font-family: 'Pacifico', cursive;
-
-  }
-
 #nav{
   height: 62px;
   background-color:rgb(26, 164, 53);
@@ -42,7 +37,7 @@
 
 #nav ul li{
     float: left;
-    margin-top: 3%;
+    margin-top: 2.9%;
 }
 
 #nav ul li a {
@@ -132,5 +127,5 @@ height: 25px;
 }
 
 
-
+/* ////////////////////////////////////GRILLA////////////////////////////////////////////////////// */
 
