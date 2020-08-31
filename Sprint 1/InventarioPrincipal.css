@@ -42,7 +42,7 @@
 
 #nav ul li{
     float: left;
-    margin-top: 20px;
+    margin-top: 3%;
 }
 
 #nav ul li a {
@@ -55,6 +55,7 @@
 
 #nav ul li a:hover{
   background-color:rgb(188, 232, 109);
+  color: rgb(68, 67, 67);
 }
 
 /* ///////////////////////////////SEARCH BOX//////////////////////////////////////////////////////////////////////////// */
@@ -62,6 +63,7 @@
 
 #busqueda {
   padding: 10px;
+  
 }
 
 
