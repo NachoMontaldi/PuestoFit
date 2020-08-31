@@ -1,12 +1,13 @@
 *{
     margin: 0;
     padding: 0;
-
+    
  }
 
  #header{
    background-color: #F9F8FC;
    height: 200px;
+   
  }
 
  #logo{
@@ -30,7 +31,8 @@
   height: 62px;
   background-color:rgb(91, 113, 199);
   text-align: center;
-  font-family: monospace;
+  font-family: 'Actor';
+
 }
 
 #nav ul{
@@ -45,11 +47,10 @@
 
 #nav ul li a {
     color: white;
-    font-weight: bold;
     text-decoration: none;
     font-size: 20px;
     padding: 20px;
-    font-family: Amaranth;
+    
 }
 
 #nav ul li a:hover{
@@ -59,9 +60,11 @@
 /* ///////////////////////////////SEARCH BOX//////////////////////////////////////////////////////////////////////////// */
 
 
-#barraBusqueda input {
-  width: 10px;
+#busqueda {
+  padding: 10px;
 }
+
+
 
 
 
