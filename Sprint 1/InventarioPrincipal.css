@@ -129,9 +129,14 @@ height: 25px;
 
 /* ////////////////////////////////////GRILLA NACHO////////////////////////////////////////////////////// */
 
-#grilla{
+.table-responsive-lg{
+  height: 300px;
+  overflow: auto;
   width: 85%;
   margin:auto;
+}
+
+#grilla{
   text-align: center;
   font-family: Actor;
 }
