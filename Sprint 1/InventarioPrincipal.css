@@ -136,6 +136,10 @@ height: 25px;
   font-family: Actor;
 }
 
+#grilla tbody {
+  cursor: pointer;
+}
+
 /* ////////////////////////////////////BOTONES (VER DERALLE, R. PEDIDO)////////////////////////////////////////////////////// */
 
 .contenedor3 {
