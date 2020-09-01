@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Modificar producto</title>
+    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/modificar producto.css">
+    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/header.css">
+    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+      <div id="logo">
+        <img src="puestoFit.png" alt="Puesto Fit">
+      </div>
+    </header>
+    <!--BARRA DE NAVEGACION-->
+    <div id="nav">
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Clientes</a></li>
+        <li><a href="#">Proveedores</a></li>
+        <li><a href="#">Inventario</a></li>
+        <li><a href="#">Facturas</a></li>
+      </ul>
+    </div>
+
+     <!---------------------------------------------------------------------------------------------------->
+    <div id="principal">
+
+        <div id="columnas" class="contenedor1">
+        <!--PRIMERA COLUMNA-->
+            <div class="c1">
+                <!--------INPUT NOMBRE-------------------------------------->
+                <input type="text" name="nombre" id="nombre">
+                <!--------LISTA PLEGABLE CATEGORIA----------------------------->
+                <form action="/action_page.php">
+                    <label for="categoria">Categoria:</label>
+                    <select name="categoria" id="categoria">
+                        <option selected value="0"> Elije una categoria </option>
+                        <option value="cereales">Cereales</option>
+                        <option value="yogures">Yogures</option>
+                        <option value="suplementos">Suplementos</option>
+                        <option value="barritas">Barritas</option>
+                    </select>
+                </form>
+                <!--------INPUTs-CATEGORIA, MARCA Y DESCRIPCION------------------------------------->
+                <input type="text" name="categoria" id="categoria">
+                <input type="text" name="marca" id="marca">
+                <input type="text" name="descripcion" id="descripcion">
+                <!--------CHECK BOXS---------------------------------->
+                <div class="checkbuttons">
+                    <label class="container"> Contiene T.A.C.C
+                        <input type="checkbox" checked="checked">
+                        <span class="checkmark"></span>
+                      </label>
+                      
+                      <label class="container"> Contiene azúcar
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      
+                      <label class="container">Contiene lactosa
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>   
+                </div>
+            </div>
+            <!--SEGUNDA COLUMNA-->
+            <div class="c2">
+                 <!--------LISTA PLEGABLE PROVEEDOR----------------------------->
+                 <form action="/action_page.php">
+                    <label for="proveedor">Proveedor:</label>
+                    <select name="preveedor" id="proveedor">
+                        <option selected value="0"> Elije una proveedor </option>
+                        <option value="prov1">prov1</option>
+                        <option value="prov2">prov2</option>
+                        <option value="prov3">prov3</option>
+                        <option value="prov4">prov4</option>
+                    </select>
+                </form>
+                <!--------INPUTs CANTIDAD, CANTIDAD MINIMA, PRECIO COMPRA Y PRECIO VENTA-------------------------------------->
+                <input type="number" name="cantidad" id="cantidad">
+                <input type="number" name="cantidadMin" id="cantidadMin">
+                <input type="number" name="precioC" id="precioC">
+                <input type="number" name="precioV" id="precioV">
+            </div>
+        </div>
+       
+       
+        <div id="botones" class="contenedor2">
+            <div class="bot1">
+                <input type="button" value="Guardar datos">
+                <input type="button" value="Limpiar Datos">
+            </div>
+            <div class="bot2">                
+                <input type="button" value="Volver">
+            </div>
+        </div>
+
+        
+    </div>
+
+
+   
+
+
+   
+
+
+    
+
+  </body>
+
+</html>
