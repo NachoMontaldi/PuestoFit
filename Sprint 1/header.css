@@ -45,6 +45,13 @@
     padding: 20px;
 }
 
+/* Mostrarlo como hover para saber que estamos dentro de esta pestaña, se diferencia del hover por el texto blanco*/
+.current {
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;background-color:rgb(188, 232, 109);/*cambiar el color si esta medio feo*/
+}
+
 #nav ul li a:hover{
   background-color:rgb(188, 232, 109);
   color: rgb(68, 67, 67);
