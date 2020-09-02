@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+ #header{
+   background-color: #F9F8FC;
+   height: 200px;
+}
+
+ #logo{
+   height: 25%;
+   width: 100%;
+   text-align: left;
+}
+
+#logo img {
+     height: 65px;
+     width: 130px;    
+}
+
+
+#nav{
+  height: 64px;
+  background-color:rgb(26, 164, 53);
+  text-align: center;
+  font-family: 'Actor';
+
+}
+
+#nav ul{
+   list-style: none;
+   display: inline-block;
+}
+
+#nav ul li{
+    float: left;
+    margin-top: 3%;
+}
+
+#nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px;
+}
+
+#nav ul li a:hover{
+  background-color:rgb(188, 232, 109);
+  color: rgb(68, 67, 67);
+}
+
+@media screen and (max-width: 800px) {
+  #nav ul li a {
+    font-size: 15px;
+    }
+    #nav ul li{
+      margin-top: 4%;
+  }
+  
+}
