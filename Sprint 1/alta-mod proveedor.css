@@ -1,0 +1,80 @@
+/* TABLA COMPLETA */
+table {
+    border-collapse: collapse;
+    width: 60%;
+    background-color: rgba(194, 201, 196, 0.288);
+    margin-top: 1%;
+    margin-left: 14%;
+
+}
+/* TITULO REGISTRAR/MODIFICAR */
+.titulo {
+    color: rgba(48, 46, 46, 0.726);
+    text-align: center;
+    font-family: 'Actor';
+    font-size: 25px;
+    font-stretch: ultra-condensed;
+    padding: 20px;
+}
+/* CONTENEDOR DE LA TABLA */
+.form {
+    padding: 20px 20px;
+    margin-left: 10%;
+}
+/* INPUTS DE LA TABLA */
+.form input {
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid rgba(14, 104, 104, 0.479);
+}
+/* CONTENEDOR DE INPUTS */
+.valor {
+    padding: 12px;
+}
+/* LABELS DE INPUTS */
+.titulos {
+    padding: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Actor';
+    font-weight: bold;
+}
+/* BOTONES */
+.botones {
+    width: 58%;
+    margin-left: 23.5%;
+}
+.boton {
+    padding: 7px;
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 13px;
+    border-radius: 4px;
+    color:white;
+    border: 2px solid rgba(80, 80, 80, 0.384);
+    cursor: pointer;
+}
+#gd{
+    background-color:rgb(26, 164, 53);
+}
+#ld{
+    background-color: rgb(189, 36, 36);  
+    float: right;
+    margin-right: 10%;
+}
+/*/BOTON VOLVER/*/
+.contenedor4 {
+    margin-bottom: 2%;
+    margin-left: 15%;
+  }
+.contenedor4 button {
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 13px;
+    border-radius: 4px;
+    border: 2px solid rgb(43, 44, 44);
+    cursor: pointer;
+    height: 30px;
+    width: 90px;
+}
+
