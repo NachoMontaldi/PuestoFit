@@ -30,89 +30,108 @@
     </div>
 
      <!---------------------------------------------------------------------------------------------------->
-    <div id="principal">
+    <div id="formulario" class="form">
+        <form name="formP1" action="" >
+            <table class="tabla" border="1px"> 
+                <tr>
+                    <td colspan="4" class="titulo">
+                        CARGAR UN NUEVO PRODUCTO
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titulos">Nombre producto:</td>
+                    <td class="valor">
+                        <input type="text" name="Nombre" id="Nombre">
+                    </td>
+                    <td class="titulos">Proveedor:</td>
+                    <td class="valor">
+                        <select name="preveedor" id="proveedor">
+                            <option selected value="0"> Elije un proveedor </option>
+                            <option value="prov1">prov1</option>
+                            <option value="prov2">prov2</option>
+                            <option value="prov3">prov3</option>
+                            <option value="prov4">prov4</option>
+                        </select>
+                    </td>   
+                </tr>
+                <tr>
+                    <td class="titulos">Categoria:</td>
+                    <td class="valor">
+                        <select name="categoria" id="categoria">
+                            <option selected value="0"> Elije una categoria</option>
+                            <option value="cereales">Cereales</option>
+                            <option value="yogures">Yogures</option>
+                            <option value="suplementos">Suplementos</option>
+                            <option value="barritas">Barritas</option>
+                        </select>
+                    </td>
+                    <td class="titulos">Cantidad:</td>
+                    <td class="valor">
+                        <input type="number" name="cantidad" id="cantidad">
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="titulos">Marca:</td>
+                    <td class="valor">
+                        <input type="text" name="marca" id="marca">
+                    </td>
+                    <td class="titulos">Cantidad Mínima:</td>
+                    <td class="valor">
+                        <input type="number" name="cantidadMin" id="cantidadMin">
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="titulos">Precio de costo:</td>
+                    <td class="valor">
+                        <input type="number" name="precioC" id="precioC">
+                    </td>
+                    
+                    <td class="titulos">Precio de venta:</td>
+                    <td class="valor">
+                        <input type="number" name="precioV" id="precioV">
+                    </td>
 
-        <div id="columnas" class="contenedor1">
-        <!--PRIMERA COLUMNA-->
-            <div class="c1">
-                <!--------INPUT NOMBRE-------------------------------------->
-                <input type="text" name="nombre" id="nombre">
-                <!--------LISTA PLEGABLE CATEGORIA----------------------------->
-                <form action="/action_page.php">
-                    <label for="categoria">Categoria:</label>
-                    <select name="categoria" id="categoria">
-                        <option selected value="0"> Elije una categoria </option>
-                        <option value="cereales">Cereales</option>
-                        <option value="yogures">Yogures</option>
-                        <option value="suplementos">Suplementos</option>
-                        <option value="barritas">Barritas</option>
-                    </select>
-                </form>
-                <!--------INPUTs-CATEGORIA, MARCA Y DESCRIPCION------------------------------------->
-                <input type="text" name="categoria" id="categoria">
-                <input type="text" name="marca" id="marca">
-                <input type="text" name="descripcion" id="descripcion">
-                <!--------CHECK BOXS---------------------------------->
-                <div class="checkbuttons">
-                    <label class="container"> Contiene T.A.C.C
-                        <input type="checkbox" checked="checked">
-                        <span class="checkmark"></span>
-                      </label>
-                      
-                      <label class="container"> Contiene azúcar
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                      </label>
-                      
-                      <label class="container">Contiene lactosa
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                      </label>   
-                </div>
-            </div>
-            <!--SEGUNDA COLUMNA-->
-            <div class="c2">
-                 <!--------LISTA PLEGABLE PROVEEDOR----------------------------->
-                 <form action="/action_page.php">
-                    <label for="proveedor">Proveedor:</label>
-                    <select name="preveedor" id="proveedor">
-                        <option selected value="0"> Elije una proveedor </option>
-                        <option value="prov1">prov1</option>
-                        <option value="prov2">prov2</option>
-                        <option value="prov3">prov3</option>
-                        <option value="prov4">prov4</option>
-                    </select>
-                </form>
-                <!--------INPUTs CANTIDAD, CANTIDAD MINIMA, PRECIO COMPRA Y PRECIO VENTA-------------------------------------->
-                <input type="number" name="cantidad" id="cantidad">
-                <input type="number" name="cantidadMin" id="cantidadMin">
-                <input type="number" name="precioC" id="precioC">
-                <input type="number" name="precioV" id="precioV">
-            </div>
-        </div>
-       
-       
-        <div id="botones" class="contenedor2">
-            <div class="bot1">
-                <input type="button" value="Guardar datos">
-                <input type="button" value="Limpiar Datos">
-            </div>
-            <div class="bot2">                
-                <input type="button" value="Volver">
-            </div>
-        </div>
+                </tr>
+                <tr>
+                    <td class="titulos" valign="top" >Observaciones:</td>
+                    <td class="valor">
+                        <div class="checkbuttons">
+                            <label class="container"> Contiene T.A.C.C
+                                <input type="checkbox" checked="checked">
+                                <span class="checkmark"></span>
+                              </label><br/>
+                              
+                              <label class="container"> Contiene azúcar
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                              </label><br/>
+                              
+                              <label class="container">Contiene lactosa
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                              </label><br/>   
+                        </div>
+                    </td>
+                    <td class="titulos" valign="top">Descripción:</td>
+                    <td class="valor">
+                        <textarea name="Descripcion" id="Descripcion"></textarea>
+                    </td>
 
-        
+                    
+                </tr>
+ 
+            </table>
+        </form>
     </div>
-
-
-   
-
-
-   
-
-
-    
+    <div class="botones">
+        <input type="button" value="GUARDAR CAMBIOS" id="gd"  class="boton">
+        <input type="button" value="LIMPIAR DATOS" id="ld" class="boton">
+    </div>
+    <div class="contenedor4">
+        <button type="button" id="volver"> VOLVER </i></button>
+    </div>   
 
   </body>
 
