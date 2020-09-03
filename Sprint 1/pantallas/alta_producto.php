@@ -1,10 +1,19 @@
+<?php
+
+
+include_once '../conexion.class.php';
+include_once '../config.inc.php';
+
+$inventario = new Inventario('');
+
+?>
 <!DOCTYPE html>
 <html>
 
   <head>
     <title>Registrar un producto</title>
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/alta-mod-det producto.css">
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/header.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_mod_det_producto.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -15,7 +24,7 @@
   <body>
     <header>
       <div id="logo">
-        <img src="puestoFit.png" alt="Puesto Fit">
+      <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
       </div>
     </header>
     <!--BARRA DE NAVEGACION-->
@@ -24,7 +33,7 @@
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
         <li><a href="#">Proveedores</a></li>
-        <li><a href="#" class="current">Inventario </a></li>
+        <li><a href="/puestofit/pantallas/inventario_principal.php" class="current">Inventario </a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
@@ -46,11 +55,13 @@
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
                         <select name="preveedor" id="proveedor">
+                            <?php 
+                               
+                            ?>
                             <option selected value="0"> Elije un proveedor </option>
-                            <option value="prov1">prov1</option>
-                            <option value="prov2">prov2</option>
-                            <option value="prov3">prov3</option>
-                            <option value="prov4">prov4</option>
+                            <?php
+                                
+                                        ?> 
                         </select>
                     </td>   
                 </tr>

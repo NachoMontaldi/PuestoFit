@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<?php
+    include_once '../config.inc.php';
+?>
 <html>
 
   <head>
-    <title>Modificar un proveedor</title>
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/header.css">
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/alta-mod proveedor.css">
+    <title>Registrar un proveedor</title>
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_mod_proveedor.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -15,7 +18,7 @@
   <body>
     <header>
       <div id="logo">
-        <img src="puestoFit.png" alt="Puesto Fit">
+        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
       </div>
     </header>
     <!--BARRA DE NAVEGACION-->
@@ -24,7 +27,7 @@
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
         <li><a href="#" class="current">Proveedores</a></li>
-        <li><a href="#">Inventario</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
@@ -36,7 +39,7 @@
                 <table class="tabla" border="1px"> 
                     <tr>
                         <td colspan="4" class="titulo">
-                            MODIFICAR UN NUEVO PROVEEDOR
+                            REGISTRAR UN NUEVO PROVEEDOR
                         </td>
                     </tr>
                     <tr>
@@ -77,13 +80,16 @@
             </form>
         </div>
         <div class="botones">
-            <input type="button" value="GUARDAR CAMBIOS" id="gd"  class="boton">
+            <input type="button" value="REGISTRAR" id="gd"  class="boton">
             <input type="button" value="LIMPIAR DATOS" id="ld" class="boton">
         </div>
         <div class="contenedor4">
             <button type="button" id="volver"> VOLVER </i></button>
         </div>   
-
+    
+     
+    
+    
     </body>
    
 </html>

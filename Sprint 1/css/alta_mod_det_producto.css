@@ -53,9 +53,8 @@ textarea {
 .botones {
     width: 87%;
     margin-left: 11.5%;
-
-
 }
+
 .boton {
     padding: 7px;
     box-sizing: border-box;
@@ -67,12 +66,14 @@ textarea {
     cursor: pointer;
 }
 #gd{
-    background-color:rgb(26, 164, 53);
+  background-color:rgb(26, 164, 53);
+  float: right;
+  margin-right: 10%;
 }
 #ld{
-    background-color: rgb(189, 36, 36);  
-    float: right;
-    margin-right: 10%;
+  background-color: rgb(189, 36, 36);  
+  float: right;
+  margin-right: 3px;
 }
  
 /*//////////////////////////BOTON VOLVER/////////////////////////*/

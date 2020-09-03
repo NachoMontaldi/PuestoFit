@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <title>Modificar producto</title>
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/alta-mod-det producto.css">
-    <link rel="stylesheet" type="text/css" href="C:/GitHub/PuestoFit/Sprint 1/header.css">
+    <title>Detalle producto</title>
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_mod_det_producto.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -15,7 +15,7 @@
   <body>
     <header>
       <div id="logo">
-        <img src="puestoFit.png" alt="Puesto Fit">
+        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
       </div>
     </header>
     <!--BARRA DE NAVEGACION-->
@@ -24,7 +24,7 @@
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
         <li><a href="#">Proveedores</a></li>
-        <li><a href="#" class="current">Inventario</a></li>
+        <li><a href="/puestofit/pantallas/inventario_principal.php" class="current">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
@@ -35,7 +35,7 @@
             <table class="tabla" border="1px"> 
                 <tr>
                     <td colspan="4" class="titulo">
-                        MODIFICAR PRODUCTO
+                        DETALLE DE PRODUCTO
                     </td>
                 </tr>
                 <tr>
@@ -125,10 +125,7 @@
             </table>
         </form>
     </div>
-    <div class="botones">
-        <input type="button" value="GUARDAR CAMBIOS" id="gd"  class="boton">
-        <input type="button" value="LIMPIAR DATOS" id="ld" class="boton">
-    </div>
+
     <div class="contenedor4">
         <button type="button" id="volver"> VOLVER </i></button>
     </div>   

@@ -56,12 +56,15 @@ table {
 }
 #gd{
     background-color:rgb(26, 164, 53);
+    float: right;
+    margin-right: 10%;
 }
 #ld{
     background-color: rgb(189, 36, 36);  
     float: right;
-    margin-right: 10%;
+    margin-right: 3px;
 }
+
 /*/BOTON VOLVER/*/
 .contenedor4 {
     margin-bottom: 2%;
