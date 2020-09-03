@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    include_once '../config.inc.php';
+?>
 <html>
 
   <head>
@@ -24,7 +27,7 @@
   <body>
     <header>
       <div id="logo">
-        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
+        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit" > 
       </div>
     </header>
     <!--BARRA DE NAVEGACION-->
@@ -32,8 +35,9 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="#">Proveedores</a></li>
-        <li><a href="/puestofit/pantallas/inventario_principal.php" class="current">Inventario</a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>"" class="current">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>

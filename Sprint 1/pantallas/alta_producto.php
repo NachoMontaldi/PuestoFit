@@ -3,9 +3,25 @@
 
 include_once '../conexion.class.php';
 include_once '../config.inc.php';
+include_once '../clases/inventario.class.php';
+include_once '../clases/repositorio_inventario.class.php';
+include_once '../clases/redireccion.class.php';
 
-$inventario = new Inventario('');
+if(isset($_POST['enviar'])){
 
+    Conexion :: abrirConexion();
+
+    $inventario = new Inventario('',$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion'],'');
+    
+    $inventario_insertado = repositorio_inventario :: insertar_inventario(Conexion :: obtenerConexion(),$inventario);
+    
+    if($inventario_insertado){
+                
+        Redireccion ::redirigir(ruta_inventario_principal);
+    }
+    
+    Conexion :: cerrarConexion();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,15 +48,16 @@ $inventario = new Inventario('');
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="#">Proveedores</a></li>
-        <li><a href="/puestofit/pantallas/inventario_principal.php" class="current">Inventario </a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Inventario </a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
 
      <!---------------------------------------------------------------------------------------------------->
     <div id="formulario" class="form">
-        <form name="formP1" action="" >
+        <form name="formP1" action="" method="post" >
             <table class="tabla" border="1px"> 
                 <tr>
                     <td colspan="4" class="titulo">
@@ -50,11 +67,11 @@ $inventario = new Inventario('');
                 <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
-                        <input type="text" name="Nombre" id="Nombre">
+                        <input type="text" name="nombre" id="nombre">
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <select name="preveedor" id="proveedor">
+                        <select name="proveedor" id="proveedor">
                             <?php 
                                
                             ?>
@@ -108,38 +125,53 @@ $inventario = new Inventario('');
                 <tr>
                     <td class="titulos" valign="top" >Observaciones:</td>
                     <td class="valor">
-                        <div class="checkbuttons">
-                            <label class="container"> Contiene T.A.C.C
-                                <input type="checkbox" checked="checked">
-                                <span class="checkmark"></span>
-                              </label><br/>
-                              
-                              <label class="container"> Contiene azúcar
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                              </label><br/>
-                              
-                              <label class="container">Contiene lactosa
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                              </label><br/>   
-                        </div>
+                    <select name="contieneT" id="contieneT"> 
+                            <option selected value="0"> ¿Contiene TACC?</option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
+                        <br>
+                        <br>
+                    <select name="contieneA" id="contieneA">
+                            <option selected value="0"> ¿Contiene Azúcar?</option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
+                        <br>
+                        <br>
+                    <select name="contieneL" id="contieneL">
+                            <option selected value="0"> ¿Contiene Lactosa?</option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
                     </td>
                     <td class="titulos" valign="top">Descripción:</td>
                     <td class="valor">
-                        <textarea name="descripcion" id="descripcion"></textarea>
+                        <textarea name="descripcion" id="Descripcion"></textarea>
                     </td>
-
+                    
                     
                 </tr>
- 
+                <tr>
+                <td colspan="4" style="text-align:right" class="valor">
+                    <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                    </td>
+                </tr>
             </table>
         </form>
     </div>
-    <div class="botones">
-        <input type="button" value="REGISTRAR" id="gd"  class="boton">
-        <input type="button" value="LIMPIAR DATOS" id="ld" class="boton">
+    
+                        
+                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
+    
+                        
+    
     <div class="contenedor4">
         <button type="button" id="volver"> VOLVER </i></button>
     </div>   

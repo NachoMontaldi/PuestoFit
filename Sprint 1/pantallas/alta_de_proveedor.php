@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <?php
+    include_once '../conexion.class.php';
     include_once '../config.inc.php';
+    include_once '../clases/proveedores.class.php';
+    include_once '../clases/repositorio_proveedores.class.php';
+    include_once '../clases/redireccion.class.php';
+    
+    if(isset($_POST['enviar'])){
+    
+        Conexion :: abrirConexion();
+    
+        $proveedor = new Proveedores('',$_POST['nombre'],$_POST['cuil'],$_POST['direccion'],$_POST['telefono'],$_POST['email']);
+        
+        $proveedor_insertado = repositorio_proveedores :: insertar_proveedor(Conexion :: obtenerConexion(),$proveedor);
+        
+        if($proveedor_insertado){
+                    
+            Redireccion ::redirigir(ruta_proveedor_principal);
+        }
+        
+        Conexion :: cerrarConexion();
+    }
 ?>
 <html>
 
@@ -20,22 +40,23 @@
       <div id="logo">
         <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
       </div>
-    </header>
+    
     <!--BARRA DE NAVEGACION-->
     <div id="nav">
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="#" class="current">Proveedores</a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>" class="current">Proveedores</a></li>
+        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
         <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
-
+    </header>
      <!--------------------------------------------------------------------------------------------------------------->
     <body>
         <div id="formulario" class="form">
-            <form name="formP1" action="" >
+            <form name="formP1" action="" method ="post" >
                 <table class="tabla" border="1px"> 
                     <tr>
                         <td colspan="4" class="titulo">
@@ -45,7 +66,7 @@
                     <tr>
                         <td class="titulos">Nombre:</td>
                         <td class="valor">
-                            <input type="text" name="Nombre" id="Nombre">
+                            <input type="text" name="nombre" id="nombre">
                         </td>
                     </tr>
                     <tr>
@@ -76,12 +97,14 @@
                             <input type="email" name="email" id="email">
                         </td>    
                     </tr>
+                    <tr>
+                <td colspan="4" style="text-align:right" class="valor">
+                    <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                </td>
+                </tr>
                 </table>
             </form>
-        </div>
-        <div class="botones">
-            <input type="button" value="REGISTRAR" id="gd"  class="boton">
-            <input type="button" value="LIMPIAR DATOS" id="ld" class="boton">
         </div>
         <div class="contenedor4">
             <button type="button" id="volver"> VOLVER </i></button>

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    include_once '../config.inc.php';
+?>
 <html>
 
   <head>
@@ -23,8 +26,9 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="#" class="current">Proveedores</a></li>
-        <li><a href="/puestofit/pantallas/inventario_principal.php">Inventario</a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>" class="current">Proveedores</a></li>
+        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>

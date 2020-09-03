@@ -1,0 +1,2 @@
+-Inventario Principal:
+	*si se busca con el signo "$" no va a devolver nada->convertir en el metodo escritor_filas_filtradas

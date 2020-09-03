@@ -1,0 +1,93 @@
+/* ///////////////////////////////SEARCH BOX//////////////////////////////////////////////////////////////////////////// */
+
+.form-group {
+    background-color: blue;
+    width: 45%;
+    margin-top: 2%;
+    margin-left: 2%;
+   }
+  
+  .form-control {
+    border-radius: 2px;   
+    font-family: 'Actor';
+  }
+  
+  #searchBotton{
+    background-color: rgb(188, 232, 109);
+    color: rgb(26, 164, 53);
+    width: 15%;
+    cursor: pointer;
+    float: right;
+  }
+  
+  #searchBox{  
+    float: left;
+    width: 80%;
+    border: 1px solid #39c;
+    border-color: rgb(83, 83, 83);
+    background-color: rgb(225, 241, 243);
+  }
+
+  /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */ 
+.table-responsive-lg{
+  height: 300px;
+  overflow: auto;
+  width: 85%;
+  margin:auto;
+}
+#grilla{
+  text-align: center;
+  font-family: Actor;
+}
+
+#grilla tbody {
+  cursor: pointer;
+}
+  
+   /* ///////////////////////////////BOTONES (VER DETALLE, MODIFICAR)//////////////////////////////////////////////////////////////////////////// */
+.contenedor1 {
+  width: 40%;
+  margin-left: 84.5%;
+  margin-top: 6%;
+  margin-bottom: 1%;
+}
+.contenedor1 button {
+  box-sizing: border-box;
+  font-family: 'Actor';
+  font-size: 12px;
+  color: antiquewhite;
+  border-radius: 4px;
+  border: 1px solid rgb(43, 44, 44);
+  cursor: pointer;
+} 
+#aceptar{
+  background-color:rgb(26, 164, 53);
+  width: 20%;
+  height: 25px;
+}
+@media screen and (max-width: 800px) {
+  .contenedor1 button {
+  font-size: 6px; 
+  }   
+}
+@media screen and (max-width: 1300px) {
+  .contenedor1 button {
+  font-size: 8px;
+  }
+}
+  
+   /* ///////////////////////////////BOTONES (COTIZACIONES, ORDENES DE COMPRA, REGISTRAR FACTURA Y REMITO)//////////////////////////////////////////////////////////////////////////// */
+.contenedor2 {
+  text-align: center;
+}
+.contenedor2 button {
+  font-family: 'Actor';
+  padding: 5px;
+  color: white;
+  background-color: black; 
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 4px;
+  border: 1px solid rgb(81, 83, 83);
+  cursor: pointer;
+}

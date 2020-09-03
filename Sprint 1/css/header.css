@@ -1,68 +1,68 @@
 *{
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
- #header{
-   background-color: #F9F8FC;
-   height: 200px;
+#header{
+ background-color: #F9F8FC;
+ height: 200px;
 }
 
- #logo{
-   height: 25%;
-   width: 100%;
-   text-align: left;
+#logo{
+ height: 25%;
+ width: 100%;
+ text-align: left;
 }
 
 #logo img {
-     height: 65px;
-     width: 130px;    
+   height: 65px;
+   width: 130px;    
 }
 
 
 #nav{
-  height: 64px;
-  background-color:rgb(26, 164, 53);
-  text-align: center;
-  font-family: 'Actor';
+height: 65px;
+background-color:rgb(26, 164, 53);
+text-align: center;
+font-family: 'Actor';
 
 }
 
 #nav ul{
-   list-style: none;
-   display: inline-block;
+ list-style: none;
+ display: inline-block;
 }
 
 #nav ul li{
-    float: left;
-    margin-top: 3%;
+  float: left;
+  margin-top: 2.5%;
 }
 
 #nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    padding: 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px;
 }
 
 /* Mostrarlo como hover para saber que estamos dentro de esta pestaña, se diferencia del hover por el texto blanco*/
 .current {
-  text-decoration: none;
-  font-size: 20px;
-  padding: 20px;background-color:rgb(188, 232, 109);/*cambiar el color si esta medio feo*/
+text-decoration: none;
+font-size: 20px;
+padding: 20px;background-color:rgb(188, 232, 109);/*cambiar el color si esta medio feo*/
 }
 
 #nav ul li a:hover{
-  background-color:rgb(188, 232, 109);
-  color: rgb(68, 67, 67);
+background-color:rgb(188, 232, 109);
+color: rgb(68, 67, 67);
 }
 
 @media screen and (max-width: 800px) {
-  #nav ul li a {
-    font-size: 15px;
-    }
-    #nav ul li{
-      margin-top: 4%;
+#nav ul li a {
+  font-size: 15px;
   }
-  
+  #nav ul li{
+    margin-top: 4%;
+}
+
 }

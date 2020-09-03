@@ -125,5 +125,50 @@
         
         return $filas;
     }
+    public static function actualizar_inventario($conexion, $cod_prod, $nombre, $existencia, $cantidad_min, $marca, $categoria, $precio_compra, $precio_venta, $contiene_T, $contiene_A, $contiene_L, $descripcion){
+        $actualizacion_correcta = false;
+
+        if (isset($conexion)){
+            
+            try{
+                $sql = "UPDATE inventario set nombre = :nombre, existencia = :existencia, cantidad_min = :cantidad_min, marca = :marca, categoria = :categoria, precio_compra = :precio_compra, precio_venta = :precio_venta, contiene_T = :contiene_T, contiene_A = :contiene_A, contiene_L = :contiene_L, descripcion = :descripcion WHERE
+                cod_prod = :cod_prod ";
+
+                $sentencia = $conexion ->prepare($sql);
+
+                $sentencia -> bindParam (':nombre', $nombre, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':existencia', $existencia, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':cantidad_min', $cantidad_min, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':marca', $marca, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':categoria', $categoria, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':precio_compra', $precio_compra, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':precio_venta', $precio_venta, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':contiene_T', $contiene_T, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':contiene_A', $contiene_A, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':contiene_L', $contiene_L, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':descripcion', $descripcion, PDO :: PARAM_STR);
+                $sentencia -> bindParam (':cod_prod', $cod_prod, PDO :: PARAM_STR);
+
+
+                $sentencia -> execute();
+
+                $resultado = $sentencia -> rowCount();
+
+                if (count($resultado)) {
+                    $actualizacion_correcta = true;
+                } else {
+                    $actualizacion_correcta = false;
+                }
+            
+        }catch(PDOException $ex){
+                print 'ERROR ' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion padre';}
+
+        return $actualizacion_correcta;
+    }
 }
     ?>
+            
+        
+       

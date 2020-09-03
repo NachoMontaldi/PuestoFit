@@ -40,10 +40,7 @@ table {
     font-weight: bold;
 }
 /* BOTONES */
-.botones {
-    width: 58%;
-    margin-left: 23.5%;
-}
+
 .boton {
     padding: 7px;
     box-sizing: border-box;
@@ -53,6 +50,7 @@ table {
     color:white;
     border: 2px solid rgba(80, 80, 80, 0.384);
     cursor: pointer;
+    
 }
 #gd{
     background-color:rgb(26, 164, 53);
