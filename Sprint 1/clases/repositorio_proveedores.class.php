@@ -44,6 +44,35 @@
         }
         
     }
+    public static function obtener_proveedores($conexion){
+        
+        $filas = [];
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from proveedores';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new Proveedores($fila['cod_prov'], $fila['CUIL'], $fila['nombre'],
+                                      $fila['direccion'], $fila['telefono'], $fila['email']);
+                    }
+                }
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
 
     
 }

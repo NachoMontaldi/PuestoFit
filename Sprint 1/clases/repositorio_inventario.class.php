@@ -152,13 +152,14 @@
 
                 $sentencia -> execute();
 
-                $resultado = $sentencia -> rowCount();
+                
+                /*$resultado = $sentencia -> rowCount();
 
                 if (count($resultado)) {
                     $actualizacion_correcta = true;
                 } else {
                     $actualizacion_correcta = false;
-                }
+                }*/
             
         }catch(PDOException $ex){
                 print 'ERROR ' . $ex -> getMessage();
@@ -166,6 +167,55 @@
         }else{ echo 'No hay conexion padre';}
 
         return $actualizacion_correcta;
+    }
+
+    public static function eliminar_inventario($conexion,$value){
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'delete from inventario where cod_prod=' . $value;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                    
+                print 'se ha borrado con exito!';}
+ 
+            catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }
+    }
+    public static function obtener_producto($conexion,$cod_prod){
+        
+        $filas = '';
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= " SELECT * from inventario where cod_prod =" .$cod_prod;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
+                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
+                    }
+                }
+            }
+                catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
     }
 }
     ?>

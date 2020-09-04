@@ -39,8 +39,7 @@
             <li><a href="#">Inicio</a></li>
             <li><a href="#">Clientes</a></li>
             <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-            <li><a href="<?php echo ruta_compras_principal?>"
-                    class="current">Compras</a></li>
+            <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
             <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
             <li><a href="#">Facturas</a></li>
         </ul>

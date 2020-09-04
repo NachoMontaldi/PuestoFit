@@ -46,7 +46,7 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>" class="current">Proveedores</a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
         <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
         <li><a href="#">Facturas</a></li>
@@ -98,16 +98,16 @@
                         </td>    
                     </tr>
                     <tr>
-                <td colspan="4" style="text-align:right" class="valor">
-                    <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
-                </td>
-                </tr>
+                        <td colspan="4" style="text-align:right" class="valor">
+                            <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                            <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                        </td>
+                    </tr>
                 </table>
             </form>
         </div>
         <div class="contenedor4">
-            <button type="button" id="volver"> VOLVER </i></button>
+            <a href="<?php echo ruta_proveedor_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
         </div>   
     
      

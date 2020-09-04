@@ -18,3 +18,5 @@ define('ruta_registrar_pedido_reposicion',servidor.'/pantallas/registrar_pedido_
 define('ruta_alta_de_proveedor',servidor.'/pantallas/alta_de_proveedor.php');
 define('ruta_proveedor_principal',servidor.'/pantallas/proveedores_principal.php');
 define('ruta_compras_principal',servidor.'/pantallas/compras_principal.php');
+define('ruta_ordenes_de_compra_principal',servidor.'/pantallas/ordenes_de_compra_principal.php');
+

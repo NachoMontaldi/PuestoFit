@@ -77,6 +77,7 @@
 }
   
    /* ///////////////////////////////BOTONES (COTIZACIONES, ORDENES DE COMPRA, REGISTRAR FACTURA Y REMITO)//////////////////////////////////////////////////////////////////////////// */
+
 .contenedor2 {
   text-align: center;
 }
@@ -84,10 +85,21 @@
   font-family: 'Actor';
   padding: 5px;
   color: white;
-  background-color: black; 
+  background-color: rgb(104, 104, 104); 
   margin-left: 5%;
   margin-right: 5%;
   border-radius: 4px;
   border: 1px solid rgb(81, 83, 83);
   cursor: pointer;
+}
+
+/*Para que los botones links no muestren texto azul de hipervínculo*/
+a:link, a:visited{
+  color: white;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: white;
+  text-decoration: none;
 }

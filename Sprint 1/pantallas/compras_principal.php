@@ -86,7 +86,8 @@
     <!---->
     <div class="contenedor2">  
       <button type="submit" name="cotizaciones" id="ct" class="boton">Cotizaciones</button>
-      <button type="submit" name="ordenes_compra" id="oc" class="boton">Oredenes de compra</button>               
+      <!--AQUI ESTA CÓMO HACER PARA QUE EL BOTON LLEVE A OTRA PAG, VER AL FINAL DEL CSS PARA ESTILO-->
+      <a href="<?php echo ruta_ordenes_de_compra_principal?>"><button type="submit" name="ordenes_compra" id="oc" class="boton">Ordenes de compra</button></a>           
       <button type="submit" name="reg_factura_remito" id="rfr" class="boton">Registrar factura y remito</button>
     </div>  
 

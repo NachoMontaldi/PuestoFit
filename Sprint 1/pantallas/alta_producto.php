@@ -28,7 +28,7 @@ if(isset($_POST['enviar'])){
 
   <head>
     <title>Registrar un producto</title>
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_mod_det_producto.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_producto.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -50,7 +50,7 @@ if(isset($_POST['enviar'])){
         <li><a href="#">Clientes</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Inventario </a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Inventario </a></li>
         <li><a href="#">Facturas</a></li>
       </ul>
     </div>
@@ -153,27 +153,20 @@ if(isset($_POST['enviar'])){
                     
                 </tr>
                 <tr>
-                <td colspan="4" style="text-align:right" class="valor">
-                    <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                    <td colspan="4" style="text-align:right" class="valor">
+                        <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
     
-                        
-                    <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
     
                         
     
     <div class="contenedor4">
-        <button type="button" id="volver"> VOLVER </i></button>
+    <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div>   
 
   </body>

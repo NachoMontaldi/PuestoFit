@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../clases/escritor_filas.class.php';
+    include_once '../conexion.class.php';
+    
+    Conexion::abrirConexion();
 ?>
 <html>
 
@@ -63,7 +67,9 @@
     </form>
     <!---BOTONES VER DETALLE/MODIFICAR-->
     <div class="contenedor2">
-        <button type="submit" name="rp" id="rp" class="boton">REGISTRAR UN PROVEEDOR</button>
+
+        
+        <a href="<?php echo ruta_alta_de_proveedor?>"><button type="submit" name="rp" id="rp" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR UN PROVEEDOR</button></a>
 
     </div>
     <!---->
@@ -85,11 +91,11 @@
               //Metodo para cargar la tabla desde la base
               if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
                 $criterio= $_POST['criterio'];
-                escritor_filas::escribir_filas_filtradas($criterio);
+                escritor_filas::escribir_filas_filtradas_proveedores($criterio);
                 
             }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
               
-              escritor_filas::escribir_filas();
+              escritor_filas::escribir_filas_proveedores();
             
             }
           ?>

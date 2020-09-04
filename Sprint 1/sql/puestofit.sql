@@ -37,8 +37,7 @@ create table proveedores (
     /*Carga tabla inventario*/
     insert into inventario (nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta,
                         	contiene_T,contiene_A,contiene_L,descripcion,fecha_registro)
-    values('Semillas de chia x 100grs',20,10,'Chiamix','Semillas','5','7',0,0,0,null,NOW()),
-          ('Barra de cereal',30,10,'CerealMix','Barras de cereal','4','7',1,1,0,null,NOW()),
-          ('Galletas dulces',40,15,'Frutigram','Galletas','8','14',1,1,0,null,NOW()),
-          ('Leche de coco x 1lt',5,10,'Ades','Bebidas','10','20',0,0,0,null,NOW())
-    );
+    values('Semillas de chia x 100grs',20,10,'Chiamix','Semillas','5','7','no','no','no','Ricas en proteinas!',NOW()),
+          ('Barra de cereal',30,10,'CerealMix','Barras de cereal','4','7','si','si','no',null,NOW()),
+          ('Galletas dulces',40,15,'Frutigram','Galletas','8','14','si','si','no','Lo mejor del mercado!',NOW()),
+          ('Leche de coco x 1lt',5,10,'Ades','Bebidas','10','20','no','no','no','Muy natural',NOW());
