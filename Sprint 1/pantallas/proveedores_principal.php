@@ -66,14 +66,7 @@
         </p>
       </div>
     </form>
-    <!---BOTONES VER DETALLE/MODIFICAR-->
-    <div class="contenedor2">
 
-        
-        <a href="<?php echo ruta_alta_de_proveedor?>"><button type="submit" name="rp" id="rp" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR UN PROVEEDOR</button></a>
-
-    </div>
-    <!---->
     <!-- GRILLA -->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
@@ -112,8 +105,12 @@
         </tbody>
       </table>
     </div>
-        <!---BOTONES VER DETALLE/MODIFICAR-->
-    <!---->
+    <!---BOTONES VER DETALLE/MODIFICAR-->
+    <div class="contenedor2">      
+      <a href="<?php echo ruta_alta_de_proveedor?>"><button type="submit" name="rp" id="rp" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR UN PROVEEDOR</button></a>
+    </div>
+<!---->
+ 
 
     
 

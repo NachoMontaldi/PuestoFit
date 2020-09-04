@@ -30,12 +30,15 @@
 
 
 
-/* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */
+/* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */ 
 .table-responsive-lg{
     height: 300px;
     overflow: auto;
     width: 85%;
-    margin:auto;
+    margin-top: 8%;
+    margin-left: auto;
+    margin-right: auto;
+    
   }
   
   #grilla{
@@ -47,24 +50,24 @@
     cursor: pointer;
   }
 
- /* ///////////////////////////////BOTONES (VER DETALLE, MODIFICAR)//////////////////////////////////////////////////////////////////////////// */
+ /* ///////////////////////////////BOTONES (REGISTRAR)//////////////////////////////////////////////////////////////////////////// */
 .contenedor2 {
-  width: 40%;
-  margin-left: 7.5%;
-  margin-top: 8%;
-  margin-bottom: 1%;
+  width: 100%;
+  text-align: right;
 }
 .contenedor2 #rp {
   font-family: 'Actor';
   font-size: 12px;
-  width: 35%;
+  width: 15%;
   padding: 8px;
   cursor: pointer;
   background-color:rgb(26, 164, 53);
   color: antiquewhite;
   border-radius: 4px;
   border: 1px solid rgb(43, 44, 44);
+  margin-right: 7.5%;
 }
+
 @media screen and (max-width: 800px) {
   .contenedor2 button {
     font-size: 6px;
