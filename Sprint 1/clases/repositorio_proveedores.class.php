@@ -61,7 +61,7 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new Proveedores($fila['cod_prov'], $fila['CUIL'], $fila['nombre'],
+                        $filas[] = new Proveedores($fila['cod_prov'], $fila['cuil'], $fila['nombre'],
                                       $fila['direccion'], $fila['telefono'], $fila['email']);
                     }
                 }
@@ -73,7 +73,56 @@
         
         return $filas;
     }
+    public static function eliminar_proveedor($conexion,$value){
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'delete from proveedores where cod_prov=' . $value;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                    
+                print 'se ha borrado con exito!';}
+ 
+            catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }
+     }
+     public static function obtener_proveedores_filtrado($conexion,$criterio){
+        
+        $filas = [];
+        $criterio_min=strtolower($criterio);
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from proveedores where (cod_prov LIKE "%'.$criterio_min. '%" 
+                       OR cuil LIKE "%' .$criterio_min. '%" OR nombre LIKE "%'. $criterio_min. '%" 
+                       OR direccion LIKE "%' .$criterio_min.'%" OR telefono LIKE "%'  .$criterio_min.'%" 
+                       OR email LIKE "%' .$criterio_min.'%")';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new Proveedores($fila['cod_prov'], $fila['cuil'], $fila['nombre'],
+                                      $fila['direccion'], $fila['telefono'], $fila['email']);
+                    }
+                }
 
-    
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
 }
     ?>

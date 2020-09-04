@@ -62,13 +62,13 @@ class escritor_filas{
                 </form>
             </td>
             <td>
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                    <button type="submit" class="btn btn-default btn-primary" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Eliminar</button>
+                <form method="post" action="<?php echo ruta_modificar_producto ?>">
+                    <button type="submit" class="btn btn-default btn-primary" id="editar" name="editar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Editar</button>
                 </form>
             </td>
             <td>
-                <form method="post" action="<?php echo ruta_modificar_producto ?>">
-                    <button type="submit" class="btn btn-default btn-primary" id="editar" name="editar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Editar</button>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                    <button type="submit" class="btn btn-default btn-primary" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Eliminar</button>
                 </form>
             </td>
 
@@ -104,23 +104,33 @@ class escritor_filas{
             <td class="text-center" widht= 15%> <?php echo $fila ->obtener_telefono() ?>  </td>
             <td class="text-center" widht= 15%> <?php echo $fila ->obtener_email() ?>  </td>
             <td>
-                <form method="post" action="<?php echo ruta_detalle_producto ?>">
-                    <button type="submit" class="btn btn-default btn-primary" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Detalle</button>
+                <form method="post" action="<?php echo ruta_modificar_proveedor ?>">
+                    <button type="submit" class="btn btn-default btn-primary" id="editar" name="editar" value="<?php echo $fila->obtener_cod_prov(); ?>" widht= 5%>Editar</button>
                 </form>
             </td>
             <td>
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                    <button type="submit" class="btn btn-default btn-primary" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Eliminar</button>
+                    <button type="submit" class="btn btn-default btn-primary" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_prov(); ?>" widht= 5%>Eliminar</button>
                 </form>
             </td>
-            <td>
-                <form method="post" action="<?php echo ruta_modificar_producto ?>">
-                    <button type="submit" class="btn btn-default btn-primary" id="editar" name="editar" value="<?php echo $fila->obtener_cod_prod(); ?>" widht= 5%>Editar</button>
-                </form>
-            </td>
-
     </tr>
 <?php
+        }
+        public static function escribir_filas_filtradas_proveedores($criterio){
+        
+            $filas = repositorio_proveedores::obtener_proveedores_filtrado(Conexion::obtenerConexion(),$criterio);
+            
+            if(count($filas)){
+    
+                foreach($filas as $fila){
+                
+                    self::escribir_fila_proveedores($fila);
+                
+                }
+    
+                }            else{
+                //$_SESSION['pedido']=0;
+            }
         }
 
 }    

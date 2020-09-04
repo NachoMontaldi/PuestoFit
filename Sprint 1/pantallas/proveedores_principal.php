@@ -3,6 +3,7 @@
     include_once '../config.inc.php';
     include_once '../clases/escritor_filas.class.php';
     include_once '../conexion.class.php';
+    include_once '../clases/repositorio_proveedores.class.php';
     
     Conexion::abrirConexion();
 ?>
@@ -78,17 +79,26 @@
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
           <tr>
-            <th>Cod. ProV</th>
+            <th>Cod. Prov</th>
+            <th>CUIL</th>
             <th>Nombre</th>
             <th>Dirección</th>
-            <th>CUIL</th>
             <th>Teléfono</th>
             <th>Email</th> 
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <?php
-              //Metodo para cargar la tabla desde la base
+          //Metodo para borrar un elemento de la tabla
+
+            if(isset($_POST['eliminar'])){
+                   
+              repositorio_proveedores::eliminar_proveedor(Conexion::obtenerConexion(),$_POST['eliminar']);
+           
+            }   
+            //Metodo para cargar la tabla desde la base
               if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
                 $criterio= $_POST['criterio'];
                 escritor_filas::escribir_filas_filtradas_proveedores($criterio);
@@ -102,6 +112,7 @@
         </tbody>
       </table>
     </div>
+        <!---BOTONES VER DETALLE/MODIFICAR-->
     <!---->
 
     
