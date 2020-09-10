@@ -1,0 +1,133 @@
+/* ///////////////////////////////SEARCH BOX//////////////////////////////////////////////////////////////////////////// */
+
+.form-group {
+    background-color: blue;
+    width: 45%;
+    margin-top: 2%;
+    margin-left: 2%;
+   }
+  
+  .form-control {
+    border-radius: 2px;   
+    font-family: 'Actor';
+  }
+  
+  #searchBotton{
+    background-color: rgb(188, 232, 109);
+    color: rgb(26, 164, 53);
+    width: 15%;
+    cursor: pointer;
+    float: right;
+  }
+  
+  #searchBox{  
+    float: left;
+    width: 80%;
+    border: 1px solid #39c;
+    border-color: rgb(83, 83, 83);
+    background-color: rgb(225, 241, 243);
+  }
+  
+  /* ///////////////////////////////BOTONES (ACEPTAR, MODIFICAR, BORRAR)//////////////////////////////////////////////////////////////////////////// */
+  .contenedor2 {
+    width: 40%;
+    margin-left: 68%;
+    margin-top: 5%;
+  }
+  .contenedor2 button {
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 12px;
+    color: antiquewhite;
+    border-radius: 4px;
+    border: 1px solid rgb(43, 44, 44);
+    cursor: pointer;
+  }
+  #aceptar{
+  background-color:rgb(26, 164, 53);
+  width: 20%;
+  height: 25px;
+  }
+  #modificar {
+    background-color: rgb(248, 93, 36);
+    width: 20%;
+    height: 25px;
+  }
+  #borrar {
+    background-color: rgb(189, 36, 36);
+    width: 20%;
+    height: 25px;
+  }
+  @media screen and (max-width: 800px) {
+    .contenedor2 button {
+      font-size: 6px;
+  
+    }
+    
+  }
+  @media screen and (max-width: 1300px) {
+    .contenedor2 button {
+      font-size: 8px;
+  
+    }
+  }
+  
+  
+  
+  /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */
+  
+  .table-responsive-lg{
+    height: 300px;
+    overflow: auto;
+    width: 86%;
+    margin-top: 8%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #grilla{
+    text-align: center;
+    font-family: Actor;
+  }
+  
+  #grilla tbody {
+    cursor: pointer;
+  }
+  
+  /* ////////////////////////////////////BOTONES (VER DERALLE, R. PEDIDO)////////////////////////////////////////////////////// */
+  
+  .contenedor3 {
+    margin-top: 2%;
+    width: 50%;
+    float: right;
+    margin-right: 9%;
+  }
+  .contenedor3 button {
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 13px;
+    border-radius: 4px;
+    border: 1px solid rgb(43, 44, 44);
+    background-color:rgb(26, 164, 53);
+    color: white;
+    cursor: pointer;
+    margin-left: 1%;
+    padding: 5px;
+    float: right;
+  }
+  
+  /*//////////////////////////BOTON VOLVER/////////////////////////*/
+.contenedor4 {
+  margin-top: 5%;
+  margin-left: 4%;
+}
+.contenedor4 button {
+  box-sizing: border-box;
+  font-family: 'Actor';
+  font-size: 13px;
+  border-radius: 4px;
+  border: 2px solid rgb(43, 44, 44);
+  cursor: pointer;
+  height: 30px;
+  width: 90px;
+}

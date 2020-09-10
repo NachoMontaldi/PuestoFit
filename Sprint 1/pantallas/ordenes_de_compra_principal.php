@@ -2,7 +2,7 @@
 <?php include_once '../config.inc.php'; ?>
 <html>
 
-    <head></head>
+    <head>
     <title>Ordenes de Compras</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css"
@@ -36,12 +36,12 @@
     <!--BARRA DE NAVEGACION-->
     <div id="nav">
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Clientes</a></li>
-            <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-            <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-            <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
-            <li><a href="#">Facturas</a></li>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Clientes</a></li>
+          <li><a href="#">Ventas</a></li>
+          <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+          <li><a href="<?php echo ruta_compras_principal?>" class="current">Compras</a></li>
+          <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
         </ul>
     </div>
     <!---BARRA DE BUSQUEDA-->
@@ -61,107 +61,120 @@
       </form>
     </div>
     <!--TABLA NACHO-->
-    <form>
-        <div class="table-responsive-lg"  style="padding-top: 15px;">
-            <table id="grilla" class="table-hover table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Fecha Emisión</th>
-                        <th>Fecha Entrega (Estimada)</th>
-                        <th>Proveedor</th>
-                        <th>Total</th>
-                        <th>Estado</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <!--Lógica de la tabla -->
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ID</td>
-                    <td>Fecha Emisión</td>
-                    <td>Fecha Entrega (Estimada)</td>
-                    <td>Proveedor</td>
-                    <td>Total</td>
-                    <td>Estado</td>
-                    <td></td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
-    </form>
+    <div class="table-responsive-lg"  style="padding-top: 15px;">
+        <table id="grilla" class="table-hover table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Emisión</th>
+                    <th>Fecha Entrega (Estimada)</th>
+                    <th>Proveedor</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!--Lógica de la tabla -->
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--Cambienlo por los botones azules que hicieron en inventario principal-->
+                  <a href="<?php echo ruta_detalle_orden_de_compra?>">
+                    <button type="submit" name="registrar_pedido" id="rped" class="boton">ver detalle</button>
+                    </a>
+                </td>
+              </tr>
+              <tr>    
+                <td>ID</td>            
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+              <tr>
+                <td>ID</td>
+                <td>Fecha Emisión</td>
+                <td>Fecha Entrega (Estimada)</td>
+                <td>Proveedor</td>
+                <td>Total</td>
+                <td>Estado</td>
+                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- BOTONES AÑADIR/REGISTRAR -->
+
+    <div class="contenedor3">
+      
+    <a href="<?php echo ruta_registrar_orden_de_compra?>"><button type="submit" name="registrar_oc" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR ORDEN COMPRA</button></a>
+  
+    </div>
+    <div class="contenedor4">
+        <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
+    </div> 
 
 
 </html>

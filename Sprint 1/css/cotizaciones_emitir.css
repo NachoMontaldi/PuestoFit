@@ -6,7 +6,12 @@ table {
     margin-top: 1%;
 
 }
-/* TITULO PRINCIPAL */
+textarea {
+    max-width: 100%;
+    max-height: 150px;
+    min-height: 150px;
+    min-width: 100%;
+}
 .titulo {
     color: rgba(48, 46, 46, 0.726);
     text-align: center;
@@ -15,48 +20,38 @@ table {
     font-stretch: ultra-condensed;
     padding: 20px;
 }
-/* --- */
 .form {
     padding: 20px 20px;
     margin-left: 10%;
 }
-
 .form input, #proveedor {
-  text-align: center;
-  height: 30px;
   width: 100%;
   border-radius: 5px;
   border: 2px solid rgba(14, 104, 104, 0.479);
 }
 
-.form label {
-  margin-left: 5%;
+.valor {
+    padding: 12px;
+    box-sizing: border-box;
+    text-align: left;
+    width:30%;
 }
 
-.valor{
-    width: 50%;
-    border-radius: 5px;
-    padding: 5px;
-}
 .titulos {
-    padding: 10px;
+    padding: 15px;
     text-align: right;
     font-size: 18px;
     font-family: 'Actor';
     font-weight: bold;
+    width: 18%;
 }
 
-#Descripcion  {
-  height: 100px;
-  width: 100%;
+#celda-avp{
+    padding: 12px;
+    box-sizing: border-box;
+    text-align: left;
+    width:30%;
 }
-
-#contieneA , #contieneT , #contieneL {
-  width: 10%;
-  margin-left: 3%;
-}
-
-/* BOTONES */
 
 
 .boton {
@@ -70,13 +65,26 @@ table {
     cursor: pointer;
 }
 #gd{
-  background-color:rgb(26, 164, 53);
-  width: 108px;
+    background-color:rgb(26, 164, 53);
 }
 #ld{
-  background-color: rgb(189, 36, 36);  
+    background-color: rgb(189, 36, 36);  
 }
  
+/*//////////////////////////BOTON AGREGAR A VISTA PREVIA/////////////////////////*/
+#avp{
+    padding: 7px;
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 13px;
+    border-radius: 4px;
+    color:white;
+    border: 2px solid rgba(80, 80, 80, 0.384);
+    cursor: pointer;
+    background-color:rgb(26, 164, 53);
+}
+
+
 /*//////////////////////////BOTON VOLVER/////////////////////////*/
 .contenedor4 {
   margin-bottom: 2%;
@@ -92,3 +100,19 @@ table {
   height: 30px;
   width: 90px;
 }
+
+
+/* ////////////////////////////////////GRILLA PRODUCTOS ////////////////////////////////////////////////////// */
+
+.table-responsive-lg{
+    height: 380px;
+    overflow: auto;
+    width: 85%;
+    margin:auto;
+    vertical-align: top;
+  }
+  
+  #grilla{
+    text-align: center;
+    font-family: Actor;
+  }

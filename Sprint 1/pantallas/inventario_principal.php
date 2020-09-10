@@ -12,12 +12,13 @@
     $_SESSION['id_fila']='';
     if(isset($_POST['guardar_cambios'])){
         
-        
+      
+      
       $cambio = repositorio_inventario :: actualizar_inventario(Conexion :: obtenerConexion(),$_POST['id'],$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion']);
-      print 'se guardo con exito!';
+      print 'se guardo el cambio realizado con exito!';
      
       
-      //onexion :: cerrarConexion();
+      //Conexion :: cerrarConexion();
   }
                         
 ?>
@@ -52,10 +53,10 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
+        <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Inventario</a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
     <!---BARRA DE BUSQUEDA-->
@@ -69,26 +70,8 @@
         </p>
       </div>
     </form>
-    <!---BOTONES VER DETALLE/MODIFICAR/BORRAR-->
     
-<!--
-    <div <?php/*class="contenedor2"*/?> >   
-      <p id="botones">
-        <button type="button" id="aceptar"><i class="fa fa-book"></i> VER DETALLE </i></button>
-        <button type="button" id="modificar"><i class="fa fa-edit"></i> MODIFICAR</i></button>
-        <button type="button" id="borrar"><i class="fa fa-trash"></i> BORRAR </i></button>
-      </p>
-    </div>
--->
-
     <!--TABLA NACHO-->
-    <!--<form method="post" action="<?php /*if(isset($_POST['ver_detalle'])){
-        echo ruta_detalle_producto;
-      }
-      else{
-        echo $_SERVER['PHP_SELF'];
-      }*/?>
-      ">-->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">

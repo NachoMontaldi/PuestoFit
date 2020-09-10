@@ -13,7 +13,7 @@ class Proveedores {
 
     //Constructor 
 
-    public function __construct($cod_prov,$nombre,$CUIL,$direccion,$telefono,$email){
+    public function __construct($cod_prov,$CUIL,$nombre,$direccion,$telefono,$email){
         $this -> cod_prov =$cod_prov;
         $this -> nombre =$nombre;
         $this -> CUIL =$CUIL;

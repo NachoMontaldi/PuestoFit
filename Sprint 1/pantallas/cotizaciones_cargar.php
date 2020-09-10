@@ -5,9 +5,9 @@
 <html>
 
   <head>
-    <title>Registrar Pedido de Reposición</title>
+    <title>Cargar datos de cotización</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -38,7 +38,7 @@
         <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
 
@@ -48,57 +48,50 @@
             <table class="tabla" border="1px"> 
                 <tr>
                   <td colspan="3" class="titulo">
-                        REGISTRAR PEDIDO DE REPOSICION
-                    </td>
+                        CARGAR DATOS DE COTIZACIÓN
+                  </td>
                 </tr>
                 <tr>
-                  <td class="titulos">Fecha:</td>
-                  <td class="valor">
-                        <input type="date" name="Fecha" id="Fecha" readonly>
-                  </td>
-                  <td colspan="2" rowspan="5">
-                      <!--Grilla de productos-->
+                    <td class="titulos" readonly >Proveedor:</td>
+                    <td class="valor">
+                            <!-- MUESTRA PROVEEDOR DE LA COTIZACIÓN -->
+                      <input type="text" name="Nombre" id="Nombre">
+                    </td> 
+                    <td colspan="2" rowspan="4">
+                          <!--Grilla de productos para cotizacion-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
                           <thead class="thead-dark">
                             <tr>
-                              <th id="vp" colspan="3">Vista Previa</th>
+                              <th id="vp" colspan="6">Vista Previa</th>
                             </tr>
                             <tr>
                               <th>Nombre</th>
+                              <th>Marca</th>
+                              <th>Categoria</th>
                               <th>Cantidad</th>
-                              <th>Observaciones</th>
+                              <th>Precio Unitario</th>
+                              <th>Subtotal</th>
                             </tr>
-                            <?php
-                            /*
-                            
-                              escritor_detalle::escribir_detalles();
+                                <?php
+                                /*
+                                
+                                  
 
-                            */
-                            ?>
-                          </tbody>
+                                */
+                                ?>
+                          </thead>
                         </table>
                       </div>
-                    </td>
-                </tr>
+                  </tr>  
+                </td>
                 <tr>
-                    <td class="titulos">Nombre producto:</td>
-                    <td class="valor">
-                        <input type="text" name="Nombre" id="Nombre">
-                    </td>   
-                </tr>
-                <tr>
-                <td class="titulos">Cantidad:</td>
-                  <td class="valor">
-                      <input type="number" name="cantidad" id="cantidad" min="1">
-                  </td>      
-                </tr>
-                </tr>
-                <tr>
-                  <td class="titulos" valign="top">Observaciones:</td>
-                  <td class="valor">
-                      <textarea name="Descripcion" id="Descripcion"></textarea>
+                     <!-- CAMPO PARA QUE EL USUARIO INGRESE UNO A UNO LOS PRECIOS DE LOS PRODUCTOS -->
+                  <td class="titulos">Precio Unitario:
                   </td>
+                  <td class="valor">
+                      <input type="number" name="precio_unitario" id="pu">
+                  </td>   
                 </tr>
                 <tr>
                   <td class="valor" colspan="2">
@@ -108,18 +101,16 @@
                   </td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="text-align:right" class="valor">
-                        <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                <tr>
+                    <td colspan="4 " style="text-align:right" class="valor">
+                      <button type="submit" name="enviar" id="gd" class="boton">CARGAR</button>
+                      <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                     </td>
                 </tr>
- 
             </table>
         </form>
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
+        <a href="<?php echo ruta_cotizaciones_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div> 
-  </body>
-</html>

@@ -1,10 +1,12 @@
 -General:
 	*hacer carteles emergentes para borrado con exito y modificacion exitosa.
-	*corregir descripcions! solo se ve una linea
+	*decidir que hacer con los delete o update (on cascade o cual)
+	*cambiar los textarea de editar
 
 -Inventario Principal:
-	*!!! AGREGAR PROVEEDORES EN PRODUCTO!!!!
 	*si se busca con el signo "$" no va a devolver nada->convertir en el metodo escritor_filas_filtradas
 	*mostrar emergente en caso de que la busqueda no devuelva nada
--
+-Modificar PRODUCTO:
+	*revisar el input de provedores
+	*no permitir cambiar: nombre, proveedor, precio_compra 
 

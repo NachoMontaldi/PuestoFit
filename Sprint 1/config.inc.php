@@ -19,4 +19,11 @@ define('ruta_alta_de_proveedor',servidor.'/pantallas/alta_de_proveedor.php');
 define('ruta_proveedor_principal',servidor.'/pantallas/proveedores_principal.php');
 define('ruta_compras_principal',servidor.'/pantallas/compras_principal.php');
 define('ruta_ordenes_de_compra_principal',servidor.'/pantallas/ordenes_de_compra_principal.php');
-
+define('ruta_registrar_orden_de_compra',servidor.'/pantallas/registrar_orden_de_compra.php');
+define('ruta_alta_producto_orden_de_compra',servidor.'/pantallas/alta_producto_orden_de_compra.php');
+define('ruta_detalle_orden_de_compra',servidor.'/pantallas/detalle_orden_de_compra.php');
+define('ruta_cotizaciones_principal',servidor.'/pantallas/cotizaciones_principal.php');
+define('ruta_cotizaciones_cargar',servidor.'/pantallas/cotizaciones_cargar.php');
+define('ruta_cotizaciones_emitir',servidor.'/pantallas/cotizaciones_emitir.php');
+define('ruta_factura_registrar',servidor.'/pantallas/factura_registrar.php');
+define('ruta_remito_registrar',servidor.'/pantallas/remito_registrar.php');

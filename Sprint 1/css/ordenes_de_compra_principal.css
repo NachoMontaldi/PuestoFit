@@ -31,10 +31,12 @@
 /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */
 
 .table-responsive-lg{
-    height: 350px;
+    height: 300px;
     overflow: auto;
     width: 85%;
-    margin:auto;
+    margin-top: 8%;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   #grilla{
@@ -44,4 +46,42 @@
   
   #grilla tbody {
     cursor: pointer;
+  }
+
+  /* ////////////////////////////////////BOTONES (VER DERALLE, R. PEDIDO)////////////////////////////////////////////////////// */
+
+.contenedor3 {
+  margin-top: 2%;
+  width: 50%;
+  float: right;
+  margin-right: 9%;
+}
+.contenedor3 button {
+  box-sizing: border-box;
+  font-family: 'Actor';
+  font-size: 13px;
+  border-radius: 4px;
+  border: 1px solid rgb(43, 44, 44);
+  background-color:rgb(26, 164, 53);
+  color: white;
+  cursor: pointer;
+  margin-left: 1%;
+  padding: 5px;
+  float: right;
+}
+
+  /*//////////////////////////BOTON VOLVER/////////////////////////*/
+  .contenedor4 {
+    margin-top: 5%;
+    margin-left: 4%;
+  }
+  .contenedor4 button {
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 13px;
+    border-radius: 4px;
+    border: 2px solid rgb(43, 44, 44);
+    cursor: pointer;
+    height: 30px;
+    width: 90px;
   }

@@ -2,6 +2,7 @@
     
     include_once '../conexion.class.php';
     include_once 'inventario.class.php';
+    include_once 'repositorio_proveedores.class.php';
 
     class repositorio_inventario{
         
@@ -10,9 +11,11 @@
         
         if (isset($conexion)){
             try{
-                $sql = "insert into inventario(nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta, contiene_T,contiene_A,contiene_L,descripcion, fecha_registro) values
-                 (:nombre,:existencia,:cantidad_min,:marca,:categoria,:precio_compra,:precio_venta,:contiene_T,:contiene_A,:contiene_L,:descripcion,NOW())";
+                $sql = "insert into inventario(nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta, contiene_T,contiene_A,contiene_L,descripcion, fecha_registro,cod_prov,cod_deposito) values
+                 (:nombre,:existencia,:cantidad_min,:marca,:categoria,:precio_compra,:precio_venta,:contiene_T,:contiene_A,:contiene_L,:descripcion,NOW(), :cod_prov, :cod_deposito)";
                 
+
+
                 $nombretemp = $inventario -> obtener_nombre();
                 $existenciatemp = $inventario -> obtener_existencia();
                 $cantidadmintemp = $inventario -> obtener_cantidad_min();
@@ -24,6 +27,8 @@
                 $contieneAtemp = $inventario -> obtener_contiene_A();
                 $contieneLtemp = $inventario -> obtener_contiene_L();
                 $descripciontemp = $inventario -> obtener_descripcion();
+                $codprovtemp = $inventario -> obtener_cod_prov();
+                $coddepositotemp = $inventario -> obtener_cod_deposito();
                 
                 
                 $sentencia = $conexion ->prepare($sql);
@@ -40,6 +45,8 @@
                 $sentencia -> bindParam(':contiene_A', $contieneAtemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':contiene_L', $contieneLtemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':descripcion', $descripciontemp, PDO::PARAM_STR);
+                $sentencia -> bindParam(':cod_prov', $codprovtemp, PDO::PARAM_STR);
+                $sentencia -> bindParam(':cod_deposito', $coddepositotemp, PDO::PARAM_STR);
                 
                 
             $inventario_insertado = $sentencia -> execute();
@@ -56,6 +63,7 @@
         
     }
     
+//Devuelve todas las filas del inventario
  public static function obtener_inventario($conexion){
         
         $filas = [];
@@ -63,7 +71,7 @@
         if (isset($conexion)){
         
             try{
-                $sql= 'select * from inventario';
+                $sql= 'select * from inventario where cod_deposito=1';
                 
                 $sentencia = $conexion ->prepare($sql);
                 
@@ -76,7 +84,8 @@
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov'],
+                                      $fila['cod_deposito']);
                     }
                 }
 
@@ -88,7 +97,7 @@
         
         return $filas;
     }
-
+//Devuelve todas las filas del inventario que coincidan con la busqueda($criterio)
     public static function obtener_inventario_filtrado($conexion,$criterio){
         
         $filas = [];
@@ -100,7 +109,8 @@
                 $sql= 'select * from inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
                        nombre LIKE "%'. $criterio_min. '%" OR existencia LIKE "%'  .$criterio_min. '%"
                        OR marca LIKE "%' .$criterio_min.'%" OR categoria LIKE "%'  .$criterio_min.'%" 
-                       OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%")';
+                       OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%") 
+                       AND (cod_deposito=1)';
                 
                 $sentencia = $conexion ->prepare($sql);
                 
@@ -113,7 +123,8 @@
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
+                                      $fila['cod_prov'],$fila['cod_deposito']);
                     }
                 }
 
@@ -125,7 +136,10 @@
         
         return $filas;
     }
-    public static function actualizar_inventario($conexion, $cod_prod, $nombre, $existencia, $cantidad_min, $marca, $categoria, $precio_compra, $precio_venta, $contiene_T, $contiene_A, $contiene_L, $descripcion){
+
+    public static function actualizar_inventario($conexion, $cod_prod, $nombre, $existencia, $cantidad_min, $marca, 
+                                                 $categoria, $precio_compra, $precio_venta, $contiene_T, $contiene_A, 
+                                                 $contiene_L, $descripcion){
         $actualizacion_correcta = false;
 
         if (isset($conexion)){
@@ -206,7 +220,8 @@
                         $filas = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
+                                      $fila['cod_prov'],$fila['cod_deposito']);
                     }
                 }
             }

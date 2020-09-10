@@ -7,7 +7,9 @@ include_once '../config.inc.php';
 include_once '../clases/inventario.class.php';
 include_once '../clases/repositorio_inventario.class.php';
 include_once '../clases/redireccion.class.php';
+include_once '../clases/repositorio_proveedores.class.php';
 
+//Conexion::abrirConexion();
 
 if(isset($_POST['ver_detalle'])){
 
@@ -15,7 +17,7 @@ if(isset($_POST['ver_detalle'])){
 
         $producto=repositorio_inventario::obtener_producto(Conexion::obtenerConexion(),$_POST['ver_detalle']);
         
-        Conexion::cerrarConexion();
+        
     }
     
 ?>
@@ -44,10 +46,10 @@ if(isset($_POST['ver_detalle'])){
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
+        <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" >Inventario </a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
       </ul>
     </div>
 
@@ -67,7 +69,7 @@ if(isset($_POST['ver_detalle'])){
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-<!--  -->           <input type="text" readonly name="proveedor" id="proveedor" value="">
+              <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo repositorio_proveedores::obtener_nombre_proveedor(Conexion::obtenerConexion(),$producto -> obtener_cod_prov())?>">
                     </td>   
                 </tr>
                 <tr>
@@ -123,12 +125,6 @@ if(isset($_POST['ver_detalle'])){
                         <textarea name="descripcion" readonly id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
                     </td>
                     
-                    
-                </tr>
-               
-            </table>
-        </form>
-    </div>
     
                         
                     

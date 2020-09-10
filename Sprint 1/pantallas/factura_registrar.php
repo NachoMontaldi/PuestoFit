@@ -1,3 +1,7 @@
+<!-- Al registrar una factura, se ingresa el ID de OC. Los productos y sus datos, que se registran como detalle
+de la factura, se cargan automaticamente de acuerdo a al ID de OC ingresado, permitiendose la opcion de 
+eliminar alguno de los productos (porque puede darse el caso de que el proveedor no tenia cierto producto para 
+vendernos). -->
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
@@ -5,9 +9,9 @@
 <html>
 
   <head>
-    <title>Registrar Pedido de Reposición</title>
+    <title>Registrar una factura</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/factura_registrar.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -38,7 +42,7 @@
         <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
 
@@ -48,13 +52,13 @@
             <table class="tabla" border="1px"> 
                 <tr>
                   <td colspan="3" class="titulo">
-                        REGISTRAR PEDIDO DE REPOSICION
+                        REGISTRAR FACTURA
                     </td>
                 </tr>
                 <tr>
-                  <td class="titulos">Fecha:</td>
+                  <td class="titulos">ID Orden de compra:</td>
                   <td class="valor">
-                        <input type="date" name="Fecha" id="Fecha" readonly>
+                        <input type="text" name="oc" id="oc">
                   </td>
                   <td colspan="2" rowspan="5">
                       <!--Grilla de productos-->
@@ -62,16 +66,21 @@
                         <table id="grilla" class="table-hover table table-bordered">
                           <thead class="thead-dark">
                             <tr>
-                              <th id="vp" colspan="3">Vista Previa</th>
+                              <th id="vp" colspan="6">Vista Previa</th>
                             </tr>
                             <tr>
                               <th>Nombre</th>
-                              <th>Cantidad</th>
-                              <th>Observaciones</th>
+                              <th>Marca</th>
+                              <th>Precio U.</th>
+                              <th>Cant.</th>
+                              <th>Subtotal</th>
+                              <th>BTN ELIMINAR</th>
                             </tr>
+                          <tbody>
                             <?php
                             /*
-                            
+                            LA GRILLA SE CARGA CON LOS DATOS DE LA ORDEN DE COMPRA
+                            DE ACUERDO AL ID INGRESADO.                            
                               escritor_detalle::escribir_detalles();
 
                             */
@@ -82,23 +91,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos">Nombre producto:</td>
+                    <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <input type="text" name="Nombre" id="Nombre">
+                        <input type="text" name="proveedor" id="prov" readonly>
                     </td>   
                 </tr>
-                <tr>
-                <td class="titulos">Cantidad:</td>
-                  <td class="valor">
-                      <input type="number" name="cantidad" id="cantidad" min="1">
-                  </td>      
+                <tr>    
                 </tr>
                 </tr>
                 <tr>
-                  <td class="titulos" valign="top">Observaciones:</td>
-                  <td class="valor">
-                      <textarea name="Descripcion" id="Descripcion"></textarea>
-                  </td>
+
                 </tr>
                 <tr>
                   <td class="valor" colspan="2">
@@ -119,7 +121,5 @@
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
+        <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div> 
-  </body>
-</html>

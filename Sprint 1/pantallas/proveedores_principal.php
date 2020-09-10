@@ -6,6 +6,18 @@
     include_once '../clases/repositorio_proveedores.class.php';
     
     Conexion::abrirConexion();
+
+    if(isset($_POST['guardar_cambios'])){
+        
+      
+
+      $cambio = repositorio_proveedores :: actualizar_proveedores(Conexion :: obtenerConexion(),$_POST['id'],
+                $_POST['cuil'],$_POST['nombre'],$_POST['direccion'],$_POST['telefono'],$_POST['email']);
+      print 'se guardo el cambio realizado con exito!';
+     
+      
+      //Conexion :: cerrarConexion();
+  }
 ?>
 <html>
 
@@ -47,10 +59,10 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
+        <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>" class="current">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
 
@@ -73,8 +85,8 @@
         <thead class="thead-dark">
           <tr>
             <th>Cod. Prov</th>
-            <th>CUIL</th>
             <th>Nombre</th>
+            <th>CUIL</th>
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Email</th> 

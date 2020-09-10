@@ -5,9 +5,9 @@
 <html>
 
   <head>
-    <title>Registrar Pedido de Reposición</title>
+    <title>Emitir solicitud de cotización</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_emitir.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -38,7 +38,7 @@
         <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
 
@@ -48,7 +48,7 @@
             <table class="tabla" border="1px"> 
                 <tr>
                   <td colspan="3" class="titulo">
-                        REGISTRAR PEDIDO DE REPOSICION
+                        EMITIR SOLICITUD DE COTIZACIÓN
                     </td>
                 </tr>
                 <tr>
@@ -56,8 +56,8 @@
                   <td class="valor">
                         <input type="date" name="Fecha" id="Fecha" readonly>
                   </td>
-                  <td colspan="2" rowspan="5">
-                      <!--Grilla de productos-->
+                  <td colspan="2" rowspan="6">
+                      <!--Grilla de productos para cotizacion-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
                           <thead class="thead-dark">
@@ -66,13 +66,13 @@
                             </tr>
                             <tr>
                               <th>Nombre</th>
+                              <th>Marca</th>
                               <th>Cantidad</th>
-                              <th>Observaciones</th>
                             </tr>
                             <?php
                             /*
                             
-                              escritor_detalle::escribir_detalles();
+                             
 
                             */
                             ?>
@@ -82,23 +82,36 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="titulos">Proveedor:</td>
+                    <td class="valor">
+                        <!-- desplegable -->
+                        <select name="proveedor" id="proveedor">
+                            <option selected value="0"> Elije un proveedor</option>
+                            <option value="Prov1">Prov1</option>
+                            <option value="Prov2">Prov2</option>
+                            <option value="Prov3">Prov3</option>
+                            <option value="Prov4">Prov4</option>
+                        </select>
+                    </td>   
+                </tr>
+                <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
                         <input type="text" name="Nombre" id="Nombre">
                     </td>   
                 </tr>
                 <tr>
-                <td class="titulos">Cantidad:</td>
+                <td class="titulos">Marca:</td>
                   <td class="valor">
-                      <input type="number" name="cantidad" id="cantidad" min="1">
+                      <input type="text" name="marca" id="marca">
                   </td>      
                 </tr>
                 </tr>
                 <tr>
-                  <td class="titulos" valign="top">Observaciones:</td>
+                <td class="titulos">Cantidad:</td>
                   <td class="valor">
-                      <textarea name="Descripcion" id="Descripcion"></textarea>
-                  </td>
+                      <input type="number" name="cantidad" id="cantidad" min="1">
+                  </td>      
                 </tr>
                 <tr>
                   <td class="valor" colspan="2">
@@ -119,7 +132,5 @@
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
+        <a href="<?php echo ruta_cotizaciones_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div> 
-  </body>
-</html>

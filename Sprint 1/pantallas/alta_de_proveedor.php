@@ -10,7 +10,7 @@
     
         Conexion :: abrirConexion();
     
-        $proveedor = new Proveedores('',$_POST['nombre'],$_POST['cuil'],$_POST['direccion'],$_POST['telefono'],$_POST['email']);
+        $proveedor = new Proveedores('',$_POST['cuil'],$_POST['nombre'],$_POST['direccion'],$_POST['telefono'],$_POST['email']);
         
         $proveedor_insertado = repositorio_proveedores :: insertar_proveedor(Conexion :: obtenerConexion(),$proveedor);
         
@@ -46,10 +46,10 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+        <li><a href="#">Ventas</a></li>
+        <li><a href="<?php echo ruta_proveedor_principal?>" class="current">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Inventario</a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
     </header>

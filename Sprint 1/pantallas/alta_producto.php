@@ -4,14 +4,17 @@
 include_once '../conexion.class.php';
 include_once '../config.inc.php';
 include_once '../clases/inventario.class.php';
+include_once '../clases/repositorio_proveedores.class.php';
 include_once '../clases/repositorio_inventario.class.php';
 include_once '../clases/redireccion.class.php';
 
 if(isset($_POST['enviar'])){
 
     Conexion :: abrirConexion();
+        
+    $id_proveedor = repositorio_proveedores::obtener_id_proveedor(Conexion::obtenerConexion(),$_POST['proveedor']);
 
-    $inventario = new Inventario('',$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion'],'');
+    $inventario = new Inventario('',$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion'],'',$id_proveedor,1);
     
     $inventario_insertado = repositorio_inventario :: insertar_inventario(Conexion :: obtenerConexion(),$inventario);
     
@@ -20,8 +23,11 @@ if(isset($_POST['enviar'])){
         Redireccion ::redirigir(ruta_inventario_principal);
     }
     
-    Conexion :: cerrarConexion();
+   
 }
+
+Conexion :: cerrarConexion();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,10 +54,10 @@ if(isset($_POST['enviar'])){
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
+        <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Inventario </a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
       </ul>
     </div>
 
@@ -71,15 +77,7 @@ if(isset($_POST['enviar'])){
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <select name="proveedor" id="proveedor">
-                            <?php 
-                               
-                            ?>
-                            <option selected value="0"> Elije un proveedor </option>
-                            <?php
-                                
-                                        ?> 
-                        </select>
+                    <input type="text" name="proveedor" id="proveedor">
                     </td>   
                 </tr>
                 <tr>

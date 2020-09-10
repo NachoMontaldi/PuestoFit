@@ -28,52 +28,6 @@
   background-color: rgb(225, 241, 243);
 }
 
-/* ///////////////////////////////BOTONES (ACEPTAR, MODIFICAR, BORRAR)//////////////////////////////////////////////////////////////////////////// */
-.contenedor2 {
-  width: 40%;
-  margin-left: 68%;
-  margin-top: 5%;
-}
-.contenedor2 button {
-  box-sizing: border-box;
-  font-family: 'Actor';
-  font-size: 12px;
-  color: antiquewhite;
-  border-radius: 4px;
-  border: 1px solid rgb(43, 44, 44);
-  cursor: pointer;
-}
-#aceptar{
-background-color:rgb(26, 164, 53);
-width: 20%;
-height: 25px;
-}
-#modificar {
-  background-color: rgb(248, 93, 36);
-  width: 20%;
-  height: 25px;
-}
-#borrar {
-  background-color: rgb(189, 36, 36);
-  width: 20%;
-  height: 25px;
-}
-@media screen and (max-width: 800px) {
-  .contenedor2 button {
-    font-size: 6px;
-
-  }
-  
-}
-@media screen and (max-width: 1300px) {
-  .contenedor2 button {
-    font-size: 8px;
-
-  }
-}
-
-
-
 /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */
 
 .table-responsive-lg{

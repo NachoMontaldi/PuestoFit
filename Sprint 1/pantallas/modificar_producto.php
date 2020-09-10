@@ -44,10 +44,10 @@
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
+        <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" >Inventario</a></li>
-        <li><a href="#">Facturas</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
       </ul>
     </div>
 
@@ -63,17 +63,12 @@
                 <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
-                        <input type="text" name="nombre" id="nombre" value="<?php echo $producto -> obtener_nombre();?>">
+                        <input type="text" readonly name="nombre" id="nombre" value="<?php echo $producto -> obtener_nombre();?>">
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <select name="preveedor" id="proveedor">
-                            <option selected value="0"> Elije un proveedor </option>
-                            <option value="prov1">prov1</option>
-                            <option value="prov2">prov2</option>
-                            <option value="prov3">prov3</option>
-                            <option value="prov4">prov4</option>
-                        </select>
+                        
+                    <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo repositorio_proveedores::obtener_nombre_proveedor(Conexion::obtenerConexion(),$producto -> obtener_cod_prov())?>">
                     </td>   
                 </tr>
                 <tr>
@@ -107,7 +102,7 @@
                 <tr>
                     <td class="titulos">Precio de costo:</td>
                     <td class="valor">
-                        <input type="number" name="precioC" id="precioC" value="<?php echo $producto -> obtener_precio_compra();?>">
+                        <input type="number" readonly name="precioC" id="precioC" value="<?php echo $producto -> obtener_precio_compra();?>">
                     </td>
                     
                     <td class="titulos">Precio de venta:</td>
@@ -119,29 +114,22 @@
                 <tr>
                     <td class="titulos" valign="top" >Observaciones:</td>
                     <td class="valor">
-                    <select name="contieneT" id="contieneT"> 
-                            <option selected value="0"> ¿Contiene TACC?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
+                    <label for="contieneT">Contiene T.A.C.C</label>
+                    <input type="text"  name="contieneT" id="contieneT" value="<?php echo $producto -> obtener_contiene_T();?>">
                         <br>
                         <br>
-                    <select name="contieneA" id="contieneA">
-                            <option selected value="0"> ¿Contiene Azúcar?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
+                    <label for="contieneA">Contiene azúcar</label>
+                    <input type="text"  name="contieneA" id="contieneA" value="<?php echo $producto -> obtener_contiene_A();?>">
                         <br>
                         <br>
-                    <select name="contieneL" id="contieneL">
-                            <option selected value="0"> ¿Contiene Lactosa?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
+                    <label for="contieneL">Contiene lactosa</label>
+                    <input type="text"  name="contieneL" id="contieneL" value="<?php echo $producto -> obtener_contiene_L();?>">
+                    
                     </td>
                     <td class="titulos" valign="top">Descripción:</td>
                     <td class="valor">
                     <textarea name="descripcion"  id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
+                    </td>
                     </td>
                     <input type="hidden" name="id"  id="id" value="<?php echo $producto -> obtener_cod_prod();?>"></input>
                     
