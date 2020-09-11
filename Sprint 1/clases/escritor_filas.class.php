@@ -306,6 +306,7 @@ class escritor_filas{
                             
         public static function escribir_carga_cotizacion($fila){
                                             if(!isset($fila)){
+
                                                 return;
                                             }
 
