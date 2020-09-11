@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/detalle_pedido.class.php';
+    include_once '../clases/repositorio_pedido_reposicion.class.php';
+    include_once '../clases/pedido_reposicion.class.php';
+    include_once '../clases/redireccion.class.php';
+    include_once '../clases/escritor_filas.class.php';
+
+    Conexion::abrirConexion();
+    
+    $id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
+
+    if(isset($_POST['registrar_pedido'])){
+  
+      $pedido = new pedido_reposicion('','',0);
+      
+      $detalle_insertado = repositorio_pedido_reposicion :: insertar_pedido(Conexion :: obtenerConexion(),$pedido);
+      
+   
+    }
+
+    if(isset($_POST['vista'])){
+      
+      $detalle_pedido = new detalle_pedido('',$id, $_POST['nombre'],$_POST['cantidad'],$_POST['observaciones']);
+      
+      $detalle_insertado = repositorio_pedido_reposicion :: insertar_detalle_pedido(Conexion :: obtenerConexion(),$detalle_pedido);
+
+    }
+    
+
+    if(isset($_POST['enviar'])){
+  
+      $pedido_validado = repositorio_pedido_reposicion :: validar_pedido(Conexion :: obtenerConexion(),$id);
+      Redireccion::redirigir(ruta_inventario_principal);
+     
+    }    
+                   
+    
 ?>
 <html>
 
-  <head>
+<head>
     <title>Registrar Pedido de Reposición</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
@@ -23,103 +60,116 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!---->
 
-  </head>
+</head>
+
   <body>
-    <header>
-      <div id="logo">
-        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit" > 
+      <header>
+          <div id="logo">
+              <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
+          </div>
+      </header>
+      <!--BARRA DE NAVEGACION-->
+      <div id="nav">
+          <ul>
+              <li><a href="#">Inicio</a></li>
+              <li><a href="#">Clientes</a></li>
+              <li><a href="#">Ventas</a></li>
+              <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+              <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+              <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
+          </ul>
       </div>
-    </header>
-    <!--BARRA DE NAVEGACION-->
-    <div id="nav">
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Clientes</a></li>
-        <li><a href="#">Ventas</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
-      </ul>
-    </div>
 
       <!---------------------------------------------------------------------------------------------------->
       <div id="formulario" class="form">
-        <form name="formP1" action="" >
-            <table class="tabla" border="1px"> 
-                <tr>
+          <table class="tabla" border="1px">
+              <tr>
                   <td colspan="3" class="titulo">
-                        REGISTRAR PEDIDO DE REPOSICION
-                    </td>
-                </tr>
-                <tr>
+                      REGISTRAR PEDIDO DE REPOSICION
+                  </td>
+              </tr>
+              <tr>
                   <td class="titulos">Fecha:</td>
                   <td class="valor">
-                        <input type="date" name="Fecha" id="Fecha" readonly>
+                      <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
-                  <td colspan="2" rowspan="5">
+                  <td colspan="2" rowspan="6">
                       <!--Grilla de productos-->
                       <div class="table-responsive-lg">
-                        <table id="grilla" class="table-hover table table-bordered">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th id="vp" colspan="3">Vista Previa</th>
-                            </tr>
-                            <tr>
-                              <th>Nombre</th>
-                              <th>Cantidad</th>
-                              <th>Observaciones</th>
-                            </tr>
-                            <?php
-                            /*
-                            
-                              escritor_detalle::escribir_detalles();
+                          <table id="grilla" class="table-hover table table-bordered">
+                              <thead class="thead-dark">
+                                  <tr>
+                                      <th id="vp" colspan="4">Vista Previa</th>
+                                  </tr>
+                                  <tr>
+                                      <th>Nombre</th>
+                                      <th>Cantidad</th>
+                                      <th>Observaciones</th>
+                                      <th></th>
+                                  </tr>
+                                  <tbody>
+                                      <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
+                                          <?php
+                                    
+                                      //Metodo para borrar un elemento de la tabla
 
-                            */
-                            ?>
-                          </tbody>
-                        </table>
+                                      if(isset($_POST['eliminar'])){
+                          
+                                      repositorio_pedido_reposicion::eliminar_detalle(Conexion::obtenerConexion(),$_POST['eliminar']);
+                    
+                                      }
+
+                                      escritor_filas::escribir_detalles_pedido($id);
+
+                                    ?>
+                                    </form>
+                                  </tbody>
+                          </table>
                       </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="titulos">Nombre producto:</td>
-                    <td class="valor">
-                        <input type="text" name="Nombre" id="Nombre">
-                    </td>   
-                </tr>
-                <tr>
-                <td class="titulos">Cantidad:</td>
-                  <td class="valor">
-                      <input type="number" name="cantidad" id="cantidad" min="1">
-                  </td>      
-                </tr>
-                </tr>
-                <tr>
-                  <td class="titulos" valign="top">Observaciones:</td>
-                  <td class="valor">
-                      <textarea name="Descripcion" id="Descripcion"></textarea>
                   </td>
-                </tr>
-                <tr>
+              </tr>
+              <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
+                  <tr>
+                      <td class="titulos">Nombre producto:</td>
+                      <td class="valor">
+                          <input type="text" name="nombre" id="nombre">
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="titulos">Cantidad:</td>
+                      <td class="valor">
+                          <input type="number" name="cantidad" id="cantidad" min="1">
+                      </td>
+                  </tr>
+                  </tr>
+                  <tr>
+                      <td class="titulos" valign="top">Observaciones:</td>
+                      <td class="valor">
+                          <textarea name="observaciones" id="observaciones"></textarea>
+                      </td>
+                  </tr>
+                  <tr></tr>
                   <td class="valor" colspan="2">
-                    <div class="botones">
-                      <input type="button" value="Agregar a Vista Previa" id="avp">
-                    </div>
+                      <div class="botones">
+                          <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
+                      </div>
                   </td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align:right" class="valor">
-                        <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
-                    </td>
-                </tr>
- 
-            </table>
-        </form>
-    </div>
+                  </tr>
+              </form>
+              <form method="post">
+                  <tr>
+                      <td colspan="4" style="text-align:right" class="valor">
+                          <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                      </td>
+                  </tr>
+              </form>
+          </table>
+      </div>
 
-    <div class="contenedor4">
-        <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
-    </div> 
+      <div class="contenedor4">
+          <a href="<?php echo ruta_inventario_principal?>"><button type="submit" name="volver"
+                  id="volver">VOLVER</button></a>
+      </div>
   </body>
+
 </html>

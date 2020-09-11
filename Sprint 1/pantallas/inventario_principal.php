@@ -6,10 +6,12 @@
     include_once '../config.inc.php';
     include_once '../clases/escritor_filas.class.php';
     include_once '../clases/repositorio_inventario.class.php';
+    include_once '../clases/repositorio_pedido_reposicion.class.php';
+
 
     Conexion::abrirConexion(); //cuando este el index pasar esta linea ahi!!!
+  
 
-    $_SESSION['id_fila']='';
     if(isset($_POST['guardar_cambios'])){
         
       
@@ -19,7 +21,7 @@
      
       
       //Conexion :: cerrarConexion();
-  }
+    }
                         
 ?>
 
@@ -127,8 +129,9 @@
     <div class="contenedor3">
       
     <a href="<?php echo ruta_alta_producto?>"><button type="submit" name="alta_producto" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  AÑADIR PRODUCTO</button></a>
-    <a href="<?php echo ruta_registrar_pedido_reposicion?>"><button type="submit" name="registrar_pedido" id="rped" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR UN PEDIDO</button></a>                      
-       
+    <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
+      <a href="<?php echo ruta_registrar_pedido_reposicion?>"><button type="submit" name="registrar_pedido" id="rped" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR UN PEDIDO</button></a>                      
+    </form>
     </div>
 
     

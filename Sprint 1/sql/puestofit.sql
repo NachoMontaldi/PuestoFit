@@ -49,6 +49,42 @@ create table stock_deposito (
     primary key(cod_prod,cod_deposito)
 );
 
+create table pedidos_reposicion(
+    cod_pedido int unique auto_increment,
+    fecha datetime,
+    estado int,
+    primary key(cod_pedido) 
+);
+
+create table detalle_pedidos_reposicion(
+    cod_det_pedido int unique auto_increment,
+    cod_pedido int,
+    nombre varchar(255),
+    cantidad int,
+    observaciones varchar(255),
+    primary key (cod_det_pedido),
+    FOREIGN key (cod_pedido) REFERENCES pedidos_reposicion(cod_pedido)
+);
+
+create table cotizaciones(
+    cod_cotizacion int unique auto_increment,
+    fecha_emision datetime,
+    fecha_presupuesto datetime,
+    proveedor varchar(255),
+    total int,
+    estado int,
+    primary key(cod_cotizacion) 
+);
+
+create table detalle_cotizacion(
+    cod_det_cotizacion int unique auto_increment,
+    cod_cotizacion int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    primary key (cod_det_cotizacion),
+    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion)
+);
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);

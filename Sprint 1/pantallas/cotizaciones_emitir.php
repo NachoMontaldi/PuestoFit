@@ -1,6 +1,51 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../clases/escritor_filas.class.php';
+    include_once '../clases/repositorio_proveedores.class.php';
+    include_once '../clases/proveedores.class.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/repositorio_cotizacion.class.php';
+    include_once '../clases/cotizaciones.class.php';
+    include_once '../clases/detalle_cotizacion.class.php';
+    include_once '../clases/redireccion.class.php';
+
+    Conexion::abrirConexion();
+    
+    $id = repositorio_cotizacion::obtener_ultimo_id(Conexion::obtenerConexion());
+
+    if(isset($_POST["emitir_cot"])){
+
+      
+  
+      $cotizacion = new cotizaciones('','','','','',0);
+      
+      $cotizacion_insertada = repositorio_cotizacion :: insertar_cotizacion(Conexion :: obtenerConexion(),$cotizacion);
+      
+   
+    }
+
+    if(isset($_POST['vista'])){
+
+
+      echo $_POST['marca'];
+
+      $detalle_cotizacion = new detalle_cotizacion('',$id, $_POST['nombre'],$_POST['marca'],$_POST['cantidad']);
+      
+      $detalle_insertado = repositorio_cotizacion :: insertar_detalle_cotizacion(Conexion :: obtenerConexion(),$detalle_cotizacion);
+
+    }
+    
+
+    if(isset($_POST['enviar'])){
+
+      $pedido_validado = repositorio_cotizacion:: estado_cotizacion(Conexion :: obtenerConexion(),$id);
+      $pedido_proveedor = repositorio_cotizacion :: proveedor_cotizacion(Conexion :: obtenerConexion(),$id,$_POST['proveedor_mod']);
+      Redireccion::redirigir(ruta_cotizaciones_principal);
+     
+    }    
+
+
 ?>
 <html>
 
@@ -44,7 +89,6 @@
 
       <!---------------------------------------------------------------------------------------------------->
       <div id="formulario" class="form">
-        <form name="formP1" action="" >
             <table class="tabla" border="1px"> 
                 <tr>
                   <td colspan="3" class="titulo">
@@ -54,7 +98,7 @@
                 <tr>
                   <td class="titulos">Fecha:</td>
                   <td class="valor">
-                        <input type="date" name="Fecha" id="Fecha" readonly>
+                    <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
                   <td colspan="2" rowspan="6">
                       <!--Grilla de productos para cotizacion-->
@@ -62,19 +106,15 @@
                         <table id="grilla" class="table-hover table table-bordered">
                           <thead class="thead-dark">
                             <tr>
-                              <th id="vp" colspan="3">Vista Previa</th>
-                            </tr>
-                            <tr>
                               <th>Nombre</th>
                               <th>Marca</th>
                               <th>Cantidad</th>
+                              <th></th>
                             </tr>
                             <?php
-                            /*
                             
-                             
+                             escritor_filas :: escribir_detalles_cotizacion($id);
 
-                            */
                             ?>
                           </tbody>
                         </table>
@@ -82,22 +122,31 @@
                     </td>
                 </tr>
                 <tr>
+                <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
                         <!-- desplegable -->
                         <select name="proveedor" id="proveedor">
-                            <option selected value="0"> Elije un proveedor</option>
-                            <option value="Prov1">Prov1</option>
-                            <option value="Prov2">Prov2</option>
-                            <option value="Prov3">Prov3</option>
-                            <option value="Prov4">Prov4</option>
+                            <option selected value="<?php 
+                                /*if(isset($_POST['vista'])){
+                                    echo $_POST['proveedor'];
+                                }else{
+                                  print "0";
+                                }*/
+                            ?>0"> Elije un proveedor</option>
+                            <?php
+
+                              escritor_filas::escribir_lista_proveedores();
+                            
+                            ?>
+
                         </select>
                     </td>   
                 </tr>
                 <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
-                        <input type="text" name="Nombre" id="Nombre">
+                        <input type="text" name="nombre" id="nombre">
                     </td>   
                 </tr>
                 <tr>
@@ -116,19 +165,26 @@
                 <tr>
                   <td class="valor" colspan="2">
                     <div class="botones">
-                      <input type="button" value="Agregar a Vista Previa" id="avp">
+                      <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
                     </div>
                   </td>
                 </tr>
+                </form>
+                <form method="post" >
                 <tr>
                     <td colspan="4" style="text-align:right" class="valor">
+                    <?php if(isset($_POST['vista'])){
+                      ?>
+                        <input type="hidden" name="proveedor_mod"  id="proveedor_mod" value="<?php echo $_POST['proveedor'] ;?>">
+                    <?php } ?>
+                       
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                       
+                        
                     </td>
                 </tr>
- 
+                </form>
             </table>
-        </form>
     </div>
 
     <div class="contenedor4">

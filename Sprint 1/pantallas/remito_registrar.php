@@ -120,7 +120,6 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
                     <tr>
                         <td colspan="4" style="text-align:right" class="valor">
                             <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                            <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                         </td>
                     </tr>
 

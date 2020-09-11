@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+
+ 
 ?>
 <html>
 

@@ -85,11 +85,7 @@
                     <td>Proveedor</td>
                     <td>Total</td>
                     <td>Estado</td>
-                    <td><!--Cambienlo por los botones azules que hicieron en inventario principal-->
-                    <a href="<?php echo ruta_detalle_orden_de_compra?>">
-                        <button type="submit" name="registrar_pedido" id="rped" class="boton">ver detalle</button>
-                        </a>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>    
                     <td>ID</td>            

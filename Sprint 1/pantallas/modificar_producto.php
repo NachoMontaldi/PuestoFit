@@ -128,11 +128,11 @@
                     </td>
                     <td class="titulos" valign="top">Descripción:</td>
                     <td class="valor">
-                    <textarea name="descripcion"  id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
+                    <textarea name="descripcion" id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
                     </td>
-                    </td>
+                    <td>
                     <input type="hidden" name="id"  id="id" value="<?php echo $producto -> obtener_cod_prod();?>"></input>
-                    
+                    </td>
                 </tr>
                 <tr>
                 <td colspan="4" style="text-align:right" class="valor">
@@ -143,15 +143,6 @@
             </table>
         </form>
     </div>
-    
-                        
-                    
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    
                         
     
     <div class="contenedor4">

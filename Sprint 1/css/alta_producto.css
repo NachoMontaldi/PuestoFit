@@ -67,9 +67,12 @@ textarea {
   background-color:rgb(26, 164, 53);
   width: 108px;
 }
+
 #ld{
-  background-color: rgb(189, 36, 36);  
+  background-color: rgba(177, 60, 30, 0.9);  
+
 }
+
  
 /*//////////////////////////BOTON VOLVER/////////////////////////*/
 .contenedor4 {

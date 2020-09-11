@@ -7,7 +7,8 @@
     class repositorio_inventario{
         
         public static function insertar_inventario($conexion,$inventario){
-        $inventario_insertado = false;
+        
+            $inventario_insertado = false;
         
         if (isset($conexion)){
             try{

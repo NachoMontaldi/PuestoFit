@@ -24,7 +24,7 @@ textarea {
     padding: 20px 20px;
     margin-left: 10%;
 }
-.form input {
+.form input, #observaciones { 
   width: 100%;
   border-radius: 5px;
   border: 2px solid rgba(14, 104, 104, 0.479);
@@ -68,7 +68,7 @@ textarea {
     background-color:rgb(26, 164, 53);
 }
 #ld{
-    background-color: rgb(189, 36, 36);  
+    background-color: rgba(177, 60, 30, 0.9);  
 }
  
 /*//////////////////////////BOTON AGREGAR A VISTA PREVIA/////////////////////////*/

@@ -4,7 +4,7 @@
 ?>
 <html>
 
-  <head>
+<head>
     <title>Cargar datos de cotización</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css">
@@ -23,88 +23,62 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!---->
 
-  </head>
-  <body>
+</head>
+
+<body>
     <header>
-      <div id="logo">
-        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit" > 
-      </div>
+        <div id="logo">
+            <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
+        </div>
     </header>
     <!--BARRA DE NAVEGACION-->
     <div id="nav">
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Clientes</a></li>
-        <li><a href="#">Ventas</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
-      </ul>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Clientes</a></li>
+            <li><a href="#">Ventas</a></li>
+            <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
+            <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+            <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
+        </ul>
     </div>
 
-      <!---------------------------------------------------------------------------------------------------->
-      <div id="formulario" class="form">
-        <form name="formP1" action="" >
-            <table class="tabla" border="1px"> 
+    <!---------------------------------------------------------------------------------------------------->
+    <div id="formulario" class="form">
+        <form name="formP1" action="">
+            <table class="tabla" border="1px">
                 <tr>
-                  <td colspan="3" class="titulo">
+                    <td colspan="3" class="titulo">
                         CARGAR DATOS DE COTIZACIÓN
-                  </td>
+                    </td>
                 </tr>
                 <tr>
-                    <td class="titulos" readonly >Proveedor:</td>
-                    <td class="valor">
-                            <!-- MUESTRA PROVEEDOR DE LA COTIZACIÓN -->
-                      <input type="text" name="Nombre" id="Nombre">
-                    </td> 
-                    <td colspan="2" rowspan="4">
-                          <!--Grilla de productos para cotizacion-->
-                      <div class="table-responsive-lg">
-                        <table id="grilla" class="table-hover table table-bordered">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th id="vp" colspan="6">Vista Previa</th>
-                            </tr>
-                            <tr>
-                              <th>Nombre</th>
-                              <th>Marca</th>
-                              <th>Categoria</th>
-                              <th>Cantidad</th>
-                              <th>Precio Unitario</th>
-                              <th>Subtotal</th>
-                            </tr>
-                                <?php
-                                /*
-                                
-                                  
-
-                                */
-                                ?>
-                          </thead>
-                        </table>
-                      </div>
-                  </tr>  
-                </td>
-                <tr>
-                     <!-- CAMPO PARA QUE EL USUARIO INGRESE UNO A UNO LOS PRECIOS DE LOS PRODUCTOS -->
-                  <td class="titulos">Precio Unitario:
-                  </td>
-                  <td class="valor">
-                      <input type="number" name="precio_unitario" id="pu">
-                  </td>   
+                    <td>
+                        <!--Grilla de productos para cotizacion-->
+                        <div class="table-responsive-lg">
+                            <table id="grilla" class="table-hover table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th id="vp" colspan="6">Vista Previa</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Marca</th>
+                                        <th>Categoria</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                    <?php/**/?>
+                                </thead>
+                            </table>
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                  <td class="valor" colspan="2">
-                    <div class="botones">
-                      <input type="button" value="Agregar a Vista Previa" id="avp">
-                    </div>
-                  </td>
-                </tr>
-                <tr>
                 <tr>
                     <td colspan="4 " style="text-align:right" class="valor">
-                      <button type="submit" name="enviar" id="gd" class="boton">CARGAR</button>
-                      <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                        <button type="submit" name="enviar" id="gd" class="boton">CARGAR</button>
+                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                     </td>
                 </tr>
             </table>
@@ -112,5 +86,6 @@
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_cotizaciones_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
-    </div> 
+        <a href="<?php echo ruta_cotizaciones_principal?>"><button type="submit" name="volver"
+                id="volver">VOLVER</button></a>
+    </div>

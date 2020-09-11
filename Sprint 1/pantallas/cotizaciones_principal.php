@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/escritor_filas.class.php';
+    include_once '../clases/repositorio_proveedores.class.php';
+
+    Conexion::abrirConexion();
 
                         
 ?>
@@ -62,15 +67,15 @@
             <th>Proveedor</th>
             <th>Cotización</th>
             <th>VER DETALLE</th>
-            <th>CARGAR</th>
             <th>ELIMINAR</th>
             <!-- AGREGAR BOTON DE VER DETALLE Y ELIMINAR EN LA GRILLA -->
             <!-- BOTON CARGAR TAMBIEN PUEDE IR EN LA GRILLA -->
           </tr>
         </thead>
         <tbody>
-        
-        <!-- PHP PARA LLENAR GRILLA -->
+          <?php
+              escritor_filas::escribir_cotizaciones(Conexion::obtenerConexion());
+          ?>
         </tbody>
       </table>
     </div>
@@ -78,11 +83,14 @@
     <!-- BOTONES EMITIR/CARGAR -->
 
     <div class="contenedor3">
-      
-    <a href="<?php echo ruta_cotizaciones_emitir?>"><button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button></a>
-    <a href="<?php echo ruta_cotizaciones_cargar?>"><button type="submit" name="cargar_cot" id="cc" class="boton"><i class="fa fa-usd" aria-hidden="true"></i> BTN PROVISORIO CARGAR COTIZACIÓN</button></a>                      
+    <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">   
+      <a href="<?php echo ruta_cotizaciones_emitir?>"><button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button></a>
+    </form>
+      <a href="<?php echo ruta_cotizaciones_cargar?>"><button type="submit" name="cargar_cot" id="cc" class="boton"><i class="fa fa-usd" aria-hidden="true"></i> BTN PROVISORIO CARGAR COTIZACIÓN</button></a>                      
        
     </div>
+
+
     <div class="contenedor4">
         <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div> 

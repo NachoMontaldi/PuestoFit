@@ -6,7 +6,10 @@
 -Inventario Principal:
 	*si se busca con el signo "$" no va a devolver nada->convertir en el metodo escritor_filas_filtradas
 	*mostrar emergente en caso de que la busqueda no devuelva nada
--Modificar PRODUCTO:
-	*revisar el input de provedores
-	*no permitir cambiar: nombre, proveedor, precio_compra 
+
+-Registrar_pedido_reposicion:
+	*proponer eliminar el boton limpiar datos
+
+
+
 
