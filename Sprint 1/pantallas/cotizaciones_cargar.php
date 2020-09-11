@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../clases/escritor_filas.class.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/repositorio_cotizacion.class.php';
+    include_once '../clases/cotizaciones.class.php';
+    include_once '../clases/detalle_cotizacion.class.php';
+    include_once '../clases/redireccion.class.php';
+    
+    Conexion::abrirConexion();
+
+    if(isset($_POST['cargar'])){
+        
+        $id = $_POST['cargar'];
+       
+      }
+
+    //$precio= EscritorDetalle::calcularPrecios();   
+
+    if(isset($_POST['enviar_carga'])){
+        
+        $cotizacion_cargada = repositorio_cotizacion:: estado_cotizacion_cargada(Conexion :: obtenerConexion(),$_POST['id_mod']);
+        $cotizacion_cargada_fecha = repositorio_cotizacion :: fecha_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod']);
+        //$cotizacion_cargada_total = repositorio_cotizacion :: total_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod'],$_POST['total']);
+        Redireccion::redirigir(ruta_cotizaciones_principal);
+       
+      }    
+
 ?>
 <html>
 
@@ -45,7 +71,8 @@
 
     <!---------------------------------------------------------------------------------------------------->
     <div id="formulario" class="form">
-        <form name="formP1" action="">
+       
+
             <table class="tabla" border="1px">
                 <tr>
                     <td colspan="3" class="titulo">
@@ -59,30 +86,51 @@
                             <table id="grilla" class="table-hover table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th id="vp" colspan="6">Vista Previa</th>
-                                    </tr>
-                                    <tr>
                                         <th>Nombre</th>
                                         <th>Marca</th>
-                                        <th>Categoria</th>
                                         <th>Cantidad</th>
                                         <th>Precio Unitario</th>
                                         <th>Subtotal</th>
                                     </tr>
-                                    <?php/**/?>
                                 </thead>
+                                <tbody>
+                                    <?php
+                               
+                                     escritor_filas :: escribir_cargas_cotizacion($id);
+                           
+                                    ?>
+                            <tr>
+
+                            <tr>
+
+                                <td colspan="4" align="right">
+                                    <h3>Total</h3>
+                                </td>
+                                <td align="right">
+                                    <h3>$ <?php //echo number_format($precio,2) ?> </h3>
+                                </td>
+
+                                </tr>
+                            </tr>
+                                </tbody>
                             </table>
                         </div>
                     </td>
                 </tr>
+
+                <form method="post">
                 <tr>
                     <td colspan="4 " style="text-align:right" class="valor">
-                        <button type="submit" name="enviar" id="gd" class="boton">CARGAR</button>
+                        <button type="submit" name="enviar_carga" id="gd" class="boton">CARGAR</button>
                         <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
+                        <?php if(isset($_POST['cargar'])){
+                      ?>
+                        <input  type="hidden" name="id_mod"  id="id_mod" value="<?php echo $_POST['cargar'] ;?>">
+                    <?php } ?>
                     </td>
                 </tr>
+                </form>
             </table>
-        </form>
     </div>
 
     <div class="contenedor4">

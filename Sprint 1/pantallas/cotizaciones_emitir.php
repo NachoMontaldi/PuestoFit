@@ -12,7 +12,6 @@
 
     Conexion::abrirConexion();
     
-    $id = repositorio_cotizacion::obtener_ultimo_id(Conexion::obtenerConexion());
 
     if(isset($_POST["emitir_cot"])){
 
@@ -25,10 +24,11 @@
    
     }
 
+    $id = repositorio_cotizacion::obtener_ultimo_id(Conexion::obtenerConexion());
+
     if(isset($_POST['vista'])){
 
 
-      echo $_POST['marca'];
 
       $detalle_cotizacion = new detalle_cotizacion('',$id, $_POST['nombre'],$_POST['marca'],$_POST['cantidad']);
       
@@ -38,6 +38,8 @@
     
 
     if(isset($_POST['enviar'])){
+
+      echo $_POST['proveedor_mod'];
 
       $pedido_validado = repositorio_cotizacion:: estado_cotizacion(Conexion :: obtenerConexion(),$id);
       $pedido_proveedor = repositorio_cotizacion :: proveedor_cotizacion(Conexion :: obtenerConexion(),$id,$_POST['proveedor_mod']);

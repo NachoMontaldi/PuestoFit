@@ -291,6 +291,35 @@ class escritor_filas{
                             </tr>
                         <?php
                                 }
+
+        public static function escribir_cargas_cotizacion($id){
+        
+                                    $filas = repositorio_cotizacion::obtener_detalles(Conexion::obtenerConexion(),$id);
+                                    if(count($filas)){
+                                        foreach($filas as $fila){
+                                            self::escribir_carga_cotizacion($fila);
+                                         }
+                                
+                                        }            
+                            
+                                    }
+                            
+        public static function escribir_carga_cotizacion($fila){
+                                            if(!isset($fila)){
+                                                return;
+                                            }
+
+                                            ?>
+                                        <tr>
+                                                <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
+                                                <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?> </td>
+                                                <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
+                                                <td class="valor">
+                                                    <input type="text" name="precio_unitario" id="precio_unitario"> 
+                                                </td>     
+                                        </tr>
+                                    <?php
+                                            }
         
         
 }    

@@ -82,6 +82,7 @@ create table detalle_cotizacion(
     nombre varchar(255),
     marca varchar(255),
     cantidad int,
+    precio_unitario int,
     primary key (cod_det_cotizacion),
     FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion)
 );

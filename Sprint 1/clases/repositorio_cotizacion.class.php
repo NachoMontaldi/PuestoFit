@@ -127,6 +127,88 @@
         }
         
     }
+    public static function estado_cotizacion_cargada($conexion,$cod_cotizacion){
+        
+        $cotizacion_actualizada = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update cotizaciones set estado = 2 WHERE cod_cotizacion =' . $cod_cotizacion;
+                
+                
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                
+                
+                $cotizacion_actualizada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $cotizacion_actualizada;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+        
+    }
+    public static function fecha_cotizacion_cargada ($conexion,$cod_cotizacion){
+        
+        $cotizacion_actualizada = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update cotizaciones set fecha_presupuesto = NOW() WHERE cod_cotizacion =' . $cod_cotizacion;
+                
+                
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                
+                
+                $cotizacion_actualizada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $cotizacion_actualizada;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+        
+    }
+    public static function total_cotizacion_cargada ($conexion,$cod_cotizacion, $total){
+        
+        $cotizacion_actualizada = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update cotizaciones set total = :total WHERE cod_cotizacion =' . $cod_cotizacion;
+                
+                $totaltemp = $total;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> bindParam(':total', $totaltemp, PDO::PARAM_STR);
+                
+                $cotizacion_actualizada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $cotizacion_actualizada;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+        
+    }
+
     public static function proveedor_cotizacion($conexion,$cod_cotizacion,$proveedor){
         
         $cotizacion_actualizada = false;
@@ -214,4 +296,37 @@
 
 return $filas;
     }
+
+public static function calcular_precios($id){
+        
+        $detalles = self :: obtener_detalles(Conexion::obtenerConexion(),$id);
+        $total=0;
+        if(count($detalles)){
+
+            foreach($detalles as $detalle){
+                
+            $precio = self::calcular_precio($detalle);
+            $total= $total + $precio;
+            }
+
+            }
+        return $total;
+        
+    }
+public static function calcular_precio($detalle){
+        $precio=0;
+        
+        if(!isset($detalle)){
+            
+            return $precio;
+        }
+        $precio=($detalle->obtener_precio_unitario() * $detalle->obtenerCantidadHamburguesa()) + ($detalle->obtenerPrecioBebida() * $detalle->obtenerCantidadBebida()); 
+
+    return $precio;
+    }
+
+public static function obtener_precio($cod_det_cotizacion){
+        
+    }
+
 }

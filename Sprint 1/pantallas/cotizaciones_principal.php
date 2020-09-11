@@ -86,7 +86,7 @@
     <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">   
       <a href="<?php echo ruta_cotizaciones_emitir?>"><button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button></a>
     </form>
-      <a href="<?php echo ruta_cotizaciones_cargar?>"><button type="submit" name="cargar_cot" id="cc" class="boton"><i class="fa fa-usd" aria-hidden="true"></i> BTN PROVISORIO CARGAR COTIZACIÓN</button></a>                      
+      
        
     </div>
 
