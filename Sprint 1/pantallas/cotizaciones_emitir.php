@@ -84,7 +84,7 @@
         <li><a href="#">Clientes</a></li>
         <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
+        <li><a href="<?php echo ruta_compras_principal?>"class="current" >Compras</a></li>
         <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
       </ul>
     </div>
@@ -102,7 +102,7 @@
                   <td class="valor">
                     <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
-                  <td colspan="2" rowspan="6">
+                  <td colspan="2" rowspan="4">
                       <!--Grilla de productos para cotizacion-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
@@ -122,6 +122,19 @@
                         </table>
                       </div>
                     </td>
+                </tr>
+                <tr>
+                  <td class="titulos"> Pedido Reposición:</td>
+                  <td class="valor">
+                    <input type="text" style="width: 75%; margin-right: 1,5%" readonly name="cod_pedido" id="codigo_ped_rep" value="<?php
+                    
+                    if(isset($_POST['seleccionar'])){
+  
+                          echo $_POST['seleccionar'];
+
+                    }?>">
+                    <a href="<?php echo ruta_seleccionar_pedido_rep ?>"><button type="button" name="buscar" id="gd" class="boton" >BUSCAR</button></a>
+                  </td>
                 </tr>
                 <tr>
                 <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">
@@ -146,25 +159,6 @@
                     </td>   
                 </tr>
                 <tr>
-                    <td class="titulos">Nombre producto:</td>
-                    <td class="valor">
-                        <input type="text" name="nombre" id="nombre">
-                    </td>   
-                </tr>
-                <tr>
-                <td class="titulos">Marca:</td>
-                  <td class="valor">
-                      <input type="text" name="marca" id="marca">
-                  </td>      
-                </tr>
-                </tr>
-                <tr>
-                <td class="titulos">Cantidad:</td>
-                  <td class="valor">
-                      <input type="number" name="cantidad" id="cantidad" min="1">
-                  </td>      
-                </tr>
-                <tr>
                   <td class="valor" colspan="2">
                     <div class="botones">
                       <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
@@ -174,7 +168,7 @@
                 </form>
                 <form method="post" >
                 <tr>
-                    <td colspan="4" style="text-align:right" class="valor">
+                    <td colspan="3" style= "text-align:right" class="valor">
                     <?php if(isset($_POST['vista'])){
                       ?>
                         <input type="hidden" name="proveedor_mod"  id="proveedor_mod" value="<?php echo $_POST['proveedor'] ;?>">

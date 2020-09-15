@@ -11,6 +11,9 @@ include_once '../clases/repositorio_cotizacion.class.php';
 
 class escritor_filas{
     
+
+//----------------------------------------------------Inventario--------------------------------------------------------
+
     public static function escribir_filas(){
         
         $filas = repositorio_inventario::obtener_inventario(Conexion::obtenerConexion());
@@ -53,12 +56,12 @@ class escritor_filas{
         ?>
     <tr>
 
-            <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cod_prod() ?>  </td>
-            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
-            <td class="text-center" widht= 10%> <?php echo $fila ->obtener_existencia() ?>  </td>
-            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_categoria() ?>  </td>
-            <td class="text-center" widht= 15%> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
-            <td class="text-center" widht= 15%> <?php echo $fila ->obtener_precio_venta(). " $" ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_prod() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_existencia() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_precio_venta(). " $" ?>  </td>
             <td>
                 <form method="post" action="<?php echo ruta_detalle_producto ?>">
                     <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_prod(); ?>" >Detalle</button>
@@ -78,6 +81,10 @@ class escritor_filas{
     </tr>
 <?php
         }
+
+//-------------------------------------------------------Proveedores---------------------------------------------------
+
+
    public static function escribir_filas_proveedores(){
         
         $filas = repositorio_proveedores::obtener_proveedores(Conexion::obtenerConexion());
@@ -116,12 +123,12 @@ class escritor_filas{
         }
         ?>
     <tr>
-            <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cod_prov() ?>  </td>
-            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
-            <td class="text-center" widht= 10%> <?php echo $fila ->obtener_CUIL() ?>  </td>
-            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_direccion() ?>  </td>
-            <td class="text-center" widht= 15%> <?php echo $fila ->obtener_telefono() ?>  </td>
-            <td class="text-center" widht= 15%> <?php echo $fila ->obtener_email() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_prov() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_CUIL() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_direccion() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_telefono() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_email() ?>  </td>
             <td>
                 <form method="post" action="<?php echo ruta_modificar_proveedor ?>">
                     <button type="submit"  style="background-color:light-gray; padding:6% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="editar" name="editar" value="<?php echo $fila->obtener_cod_prov(); ?>" widht= 5%>Editar</button>
@@ -135,6 +142,37 @@ class escritor_filas{
     </tr>
 <?php
         }
+
+        public static function escribir_lista_proveedores(){
+
+
+            $proveedores = repositorio_proveedores::obtener_proveedores(Conexion::obtenerConexion());
+                
+            if(count($proveedores)){
+        
+                foreach($proveedores as $proveedor){
+                    
+                    self::escribir_proveedor($proveedor);
+                    
+                    }
+                }
+            else{
+                print 'to';
+            }
+            }
+            
+    public static function escribir_proveedor($proveedor){
+            if(!isset($proveedor)){
+
+                    return;
+                }
+
+        ?>
+            <option value="<?php echo $proveedor-> obtener_nombre() ?>"> <?php echo $proveedor-> obtener_nombre() ?> </option>
+        <?php        
+            }
+
+//------------------------------------------------------Pedidos Reposicion---------------------------------------------
 
         public static function escribir_detalles_pedido($id){
         
@@ -168,35 +206,102 @@ class escritor_filas{
             </tr>
         <?php
                 }
+
+                public static function escribir_filas_agregar_producto(){
         
-        public static function escribir_lista_proveedores(){
-
-
-                $proveedores = repositorio_proveedores::obtener_proveedores(Conexion::obtenerConexion());
+                    $filas = repositorio_inventario::obtener_inventario_pedido(Conexion::obtenerConexion());
                     
-                if(count($proveedores)){
+                    if(count($filas)){
             
-                    foreach($proveedores as $proveedor){
+                        foreach($filas as $fila){
                         
-                        self::escribir_proveedor($proveedor);
+                            self::escribir_fila_agregar_producto($fila);
                         
                         }
+            
+                        }            else{
+                        //$_SESSION['pedido']=0;
                     }
-                else{
-                    print 'to';
-                }
                 }
                 
-        public static function escribir_proveedor($proveedor){
-                if(!isset($proveedor)){
-
+                public static function escribir_filas_filtradas_producto($criterio){
+        
+                    $filas = repositorio_inventario::obtener_inventario_filtrado_producto(Conexion::obtenerConexion(),$criterio);
+                    
+                    if(count($filas)){
+            
+                        foreach($filas as $fila){
+                        
+                            self::escribir_fila_agregar_producto($fila);
+                        
+                        }
+            
+                        }            else{
+                        //$_SESSION['pedido']=0;
+                    }
+                }
+                public static function escribir_fila_agregar_producto($fila){
+                    if(!isset($fila)){
+            
                         return;
                     }
+                    ?>
+                <tr>
+            
+                        <td class="text-center"> <?php echo $fila ->obtener_cod_prod() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_existencia() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
+                        <td>
+                            <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
 
-            ?>
-                <option value="<?php echo $proveedor-> obtener_nombre() ?>"> <?php echo $proveedor-> obtener_nombre() ?> </option>
-            <?php        
-                }
+                                <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="agregar" value="<?php echo $fila->obtener_nombre(); ?>" >Agregar</button>
+
+                            </form>
+                        </td>
+            
+                </tr>
+            <?php
+                    }
+
+                public static function escribir_pedidos(){
+        
+                        $filas = repositorio_pedido_reposicion::obtener_pedidos(Conexion::obtenerConexion());
+                        
+                        if(count($filas)){
+                
+                            foreach($filas as $fila){
+                                self::escribir_pedido($fila);
+                            }
+                
+                            }            
+            
+                        }
+            
+                public static function escribir_pedido($fila){
+                            if(!isset($fila)){
+                    
+                                return;
+                            }
+                            ?>
+                        <tr>
+                                <td class="text-center" widht= 20%> <?php echo $fila ->obtener_cod_pedido() ?>  </td>
+                                <td class="text-center" widht= 10%> <?php echo $fila ->obtener_fecha() ?>  </td>
+                                <td>
+                                <form method="post" action="<?php echo ruta_cotizaciones_emitir; ?>">
+
+                                    <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
+
+                                </form>
+                                </td>
+                        </tr>
+                    <?php
+                        }
+        
+//-----------------------------------------------------------Cotizaciones--------------------------------------------------
+
 
         public static function escribir_detalles_cotizacion($id){
         

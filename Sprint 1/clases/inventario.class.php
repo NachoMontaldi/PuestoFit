@@ -3,8 +3,6 @@
 include_once '../conexion.class.php';
 
 class Inventario {
-
-
     private $cod_prod;
     private $nombre;
     private $existencia;

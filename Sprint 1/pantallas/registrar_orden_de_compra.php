@@ -68,7 +68,7 @@
                     </td>
                     <td colspan="2" style="text-align:right" class="valor">
                         <div class="contenedor3">
-                            <a href="<?php echo ruta_alta_producto_orden_de_compra?>"><button type="button" name="alta_prod_oc" id="alpoc" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> AÑADIR PRODUCTO</button></a>
+                            <a href="#"><button type="button" name="alta_prod_oc" id="alpoc" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> AÑADIR PRODUCTO</button></a>
                         </div>
                     </td>
                 </tr>

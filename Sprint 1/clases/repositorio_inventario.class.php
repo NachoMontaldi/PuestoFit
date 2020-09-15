@@ -98,6 +98,39 @@
         
         return $filas;
     }
+    public static function obtener_inventario_pedido($conexion){
+        
+        $filas = [];
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from inventario';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
+                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov'],
+                                      $fila['cod_deposito']);
+                    }
+                }
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
 //Devuelve todas las filas del inventario que coincidan con la busqueda($criterio)
     public static function obtener_inventario_filtrado($conexion,$criterio){
         
@@ -112,6 +145,45 @@
                        OR marca LIKE "%' .$criterio_min.'%" OR categoria LIKE "%'  .$criterio_min.'%" 
                        OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%") 
                        AND (cod_deposito=1)';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
+                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
+                                      $fila['cod_prov'],$fila['cod_deposito']);
+                    }
+                }
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
+
+    public static function obtener_inventario_filtrado_producto($conexion,$criterio){
+        
+        $filas = [];
+        $criterio_min=strtolower($criterio);
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
+                       nombre LIKE "%'. $criterio_min. '%" OR existencia LIKE "%'  .$criterio_min. '%"
+                       OR marca LIKE "%' .$criterio_min.'%" OR categoria LIKE "%'  .$criterio_min.'%" 
+                       OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%") 
+                       ';
                 
                 $sentencia = $conexion ->prepare($sql);
                 

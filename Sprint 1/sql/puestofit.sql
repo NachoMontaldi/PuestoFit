@@ -63,7 +63,7 @@ create table detalle_pedidos_reposicion(
     cantidad int,
     observaciones varchar(255),
     primary key (cod_det_pedido),
-    FOREIGN key (cod_pedido) REFERENCES pedidos_reposicion(cod_pedido)
+    FOREIGN key (cod_pedido) REFERENCES pedidos_reposicion(cod_pedido) ON DELETE CASCADE
 );
 
 create table cotizaciones(

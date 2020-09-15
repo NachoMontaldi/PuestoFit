@@ -2,6 +2,7 @@
     
     include_once '../conexion.class.php';
     include_once 'detalle_pedido.class.php';
+    include_once 'pedido_reposicion.class.php';
 
     class repositorio_pedido_reposicion{
         
@@ -171,6 +172,53 @@
             }
         }
      }
+
+    public static function eliminar_falsos($conexion){
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'delete from pedidos_reposicion where estado = 0';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                    
+                print 'se ha borrado con exito!';}
+ 
+            catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }
+     }
+
+    public static function obtener_pedidos($conexion){
+        
+        $filas = [];
+
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from pedidos_reposicion where estado= 1';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new pedido_reposicion($fila['cod_pedido'],$fila['fecha'],$fila['estado']);
+                    }
+                }
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
 }
 
 

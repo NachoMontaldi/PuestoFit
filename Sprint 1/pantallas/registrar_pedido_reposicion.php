@@ -10,7 +10,7 @@
 
     Conexion::abrirConexion();
     
-    $id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
+   
 
     if(isset($_POST['registrar_pedido'])){
   
@@ -20,7 +20,7 @@
       
    
     }
-
+    $id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
     if(isset($_POST['vista'])){
       
       $detalle_pedido = new detalle_pedido('',$id, $_POST['nombre'],$_POST['cantidad'],$_POST['observaciones']);
@@ -33,10 +33,16 @@
     if(isset($_POST['enviar'])){
   
       $pedido_validado = repositorio_pedido_reposicion :: validar_pedido(Conexion :: obtenerConexion(),$id);
+
+        
+
+      $borrar = repositorio_pedido_reposicion :: eliminar_falsos (Conexion :: obtenerConexion());
+      
       Redireccion::redirigir(ruta_inventario_principal);
      
     }    
-                   
+
+   
     
 ?>
 <html>
@@ -86,7 +92,7 @@
               <tr>
                   <td colspan="3" class="titulo">
                       REGISTRAR PEDIDO DE REPOSICION
-                  </td>
+                  </td> 
               </tr>
               <tr>
                   <td class="titulos">Fecha:</td>
@@ -132,7 +138,14 @@
                   <tr>
                       <td class="titulos">Nombre producto:</td>
                       <td class="valor">
-                          <input type="text" name="nombre" id="nombre">
+                            <input type="text" style="width: 75%; margin-right: 1,5%" readonly name="nombre" id="nombre" value='<?php
+                            if(isset($_POST['agregar'])){
+  
+                                echo $_POST['agregar'];
+
+                                }?>
+'>
+                            <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="buscar" id="gd" class="boton">BUSCAR</button></a>
                       </td>
                   </tr>
                   <tr>

@@ -58,7 +58,7 @@
         <li><a href="#">Ventas</a></li>
         <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
         <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
+        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
       </ul>
     </div>
     <!---BARRA DE BUSQUEDA-->
