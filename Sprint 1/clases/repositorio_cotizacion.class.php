@@ -412,21 +412,23 @@ public static function calcular_precios($cod_cotizacion){
                 return $total;
                 
             }
-public static function calcular_precio($detalle){
-                $precio=0;
-                
-                if(!isset($detalle)){
-                    
-                    return $precio;
+public static function eliminar_cotizacion($conexion,$cod_cotizacion){
+                if (isset($conexion)){
+ 
+                    try{
+                        $sql= 'delete from cotizaciones where cod_cotizacion=' . $cod_cotizacion;
+                        
+                        $sentencia = $conexion ->prepare($sql);
+                        
+                        $sentencia -> execute();
+                            
+                       // print 'se ha borrado con exito!';
+                    }
+         
+                    catch(PDOException $ex){
+                        print 'ERROR OT' . $ex -> getMessage();
+                    }
                 }
-                $precio=($detalle->obtener_precio_unitario() * $detalle->obtenerCantidadHamburguesa()) + ($detalle->obtenerPrecioBebida() * $detalle->obtenerCantidadBebida()); 
-        
-            return $precio;
-            }
-        
-        
-public static function obtener_precio($cod_det_cotizacion){
-                
             }
 
 

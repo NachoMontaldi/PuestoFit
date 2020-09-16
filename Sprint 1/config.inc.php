@@ -24,6 +24,7 @@ define('ruta_registrar_orden_de_compra',servidor.'/pantallas/registrar_orden_de_
 define('ruta_detalle_orden_de_compra',servidor.'/pantallas/detalle_orden_de_compra.php');
 define('ruta_cotizaciones_principal',servidor.'/pantallas/cotizaciones_principal.php');
 define('ruta_cotizaciones_cargar',servidor.'/pantallas/cotizaciones_cargar.php');
+define('ruta_cotizaciones_detalle',servidor.'/pantallas/cotizaciones_detalle.php');
 define('ruta_seleccionar_pedido_rep',servidor.'/pantallas/seleccionar_pedido_rep.php');
 define('ruta_cotizaciones_emitir',servidor.'/pantallas/cotizaciones_emitir.php');
 define('ruta_factura_registrar',servidor.'/pantallas/factura_registrar.php');

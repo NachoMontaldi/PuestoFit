@@ -35,9 +35,12 @@
             <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td> 
             <td class="text-center"> <?php echo $fila ->obtener_total() ?></td>
             <td class="text-center"> <?php echo $fila ->obtener_estado() ?></td>
-            <td></td>
+            <td>
+                <form method="post" action="<?php echo ruta_detalle_orden_de_compra;?>">
+                    <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>">Ver detalle</button>
+                </form>               
+            </td>
         </tr><?php
         }
-    }
-
+    }   
 ?>

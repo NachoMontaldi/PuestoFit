@@ -56,9 +56,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos">Pedido Reposición:</td>
+                    <td class="titulos">Cotización:</td>
                     <td class="valor seg_col">
-                        <input type="text" style="width:85%;" readonly name="cod_cotizacion" id="cod_cotizacion">
+                        <input type="text" style="width:85%;" readonly name="cod_cotizacion" id="cod_cotizacion" value=<?php
+                        
+                        if(isset($_POST['seleccionar'])){
+  
+                            echo $_POST['seleccionar'];
+
+                        }?>>
+                        
                         <a href="<?php echo ruta_seleccionar_cotizacion?>">
                             <button type="button" name="buscar" id="buscar" class="boton">
                             <i class="fa fa-search"></i></button>
@@ -66,10 +73,16 @@
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <input type="text" readonly name="proveedor" id="proveedor">
+                        <input type="text" readonly name="proveedor" id="proveedor" value=<?php
+                        
+                        if(isset($_POST['proveedor'])){
+  
+                            echo $_POST['proveedor'];
+
+                        }?>>
                     </td>
                 </tr>
-                <tr></tr>
+                
                 <td colspan="4">
                       <!--Grilla de productos-->
                       <div class="table-responsive-lg">
@@ -87,7 +100,7 @@
                               <th>Precio Compra</th>
                               <th>Cantidad Pedido</th>
                               <th>Subtotal</th>
-                              <th><!--Aqui agregan los botones de borrar--></th>
+                              <th>ELIMINAR</th>
                             </tr>
                             <?php
                             /*

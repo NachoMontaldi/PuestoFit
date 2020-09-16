@@ -110,7 +110,7 @@ create table detalle_ordenes_de_compra(
     cantidad int,
     precio_unitario int,
     primary key (cod_det_orden_de_compra),
-    FOREIGN key (cod_orden_de_compra) REFERENCES orden_de_compra(cod_orden_de_compra) on DELETE CASCADE
+    FOREIGN key (cod_orden_de_compra) REFERENCES ordenes_de_compra(cod_orden_de_compra) on DELETE CASCADE
 );
 
 /* Claves*/

@@ -10,46 +10,22 @@
     
     Conexion::abrirConexion();
 
-    if(isset($_POST['cargar'])){
+    if(isset($_POST['ver_detalle'])){
         
-        $id = $_POST['cargar'];
+        $id = $_POST['ver_detalle'];
         
        
-    }elseif(isset($_POST['agregar'])){
-
-        $id = $_POST['cod_cotizacion'];
-
     }
 
+    $total = repositorio_cotizacion:: calcular_precios($id);
 
-
-    if (isset($_POST['agregar'])){
-
-
-        $cotizacion_precio = repositorio_cotizacion :: precio_unitario(Conexion :: obtenerConexion(),$_POST['agregar'],$_POST['precio_unitario']);
-
-        $total = repositorio_cotizacion:: calcular_precios($id); 
-        
-        
-    }
-
-
-    if(isset($_POST['enviar_carga'])){
-        
-    $cotizacion_cargada = repositorio_cotizacion:: estado_cotizacion_cargada(Conexion :: obtenerConexion(),$_POST['id_mod']);
-    $cotizacion_cargada_fecha = repositorio_cotizacion :: fecha_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod']);
-    $total = repositorio_cotizacion:: calcular_precios($_POST['id_mod']); 
-    $cotizacion_cargada_total = repositorio_cotizacion :: total_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod'],$total);
-    repositorio_cotizacion :: eliminar_falsos (Conexion :: obtenerConexion());
-    Redireccion::redirigir(ruta_cotizaciones_principal);
-       
-      }    
+    
 
 ?>
 <html>
 
 <head>
-    <title>Cargar datos de cotización</title>
+    <title>Ver detalle de cotización</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
@@ -94,9 +70,16 @@
             <table class="tabla" border="1px">
                 <tr>
                     <td colspan="3" class="titulo">
-                        CARGAR DATOS DE COTIZACIÓN
+                        DATOS DE COTIZACIÓN
                     </td>
                 </tr>
+                <br>
+                <br>
+
+                <td>Proveedor: <input type="text" readonly name="proveedor" id="proveedor" value=" <?php echo $_POST['proveedor']; ?> "></td> 
+                    
+                    
+                     
                 <tr>
                     <td>
                         <!--Grilla de productos para cotizacion-->
@@ -114,7 +97,7 @@
                                 <tbody>
                                     <?php
                                
-                                     escritor_filas :: escribir_cargas_cotizacion($id);
+                                     escritor_filas :: escribir_ver_detalles_cotizacion($id);
                            
                                     ?>
                             <tr>
@@ -125,7 +108,7 @@
                                     <h3>Total</h3>
                                 </td>
                                 <td align="center">
-                                    <h3>$ <?php  if (isset($_POST['agregar'])){ echo $total; }//echo number_format($precio,2) ?> </h3>
+                                    <h3>$ <?php   echo $total; ?> </h3>
                                 </td>
 
                                 </tr>
@@ -135,19 +118,6 @@
                         </div>
                     </td>
                 </tr>
-
-                <form method="post">
-                <tr>
-                    <td colspan="4 " style="text-align:right" class="valor">
-                        <button type="submit" name="enviar_carga" id="gd" class="boton">CARGAR</button>
-                        <?php if(isset($_POST['agregar'])){
-                        ?>
-                            <input  type="hidden" name="id_mod"  id="id_mod" value="<?php echo $_POST['cod_cotizacion'] ;?>">
-                            
-                        <?php } ?>
-                    </td>
-                </tr>
-                </form>
             </table>
     </div>
 

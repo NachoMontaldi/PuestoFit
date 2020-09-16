@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php 
     include_once '../config.inc.php'; 
-    include_once '../clases/escritor_filas.class.php';
     include_once '../conexion.class.php';
+    include_once '../clases/escritor_filas_cotizaciones_seleccion.class.php';
     include_once '../clases/repositorio_pedido_reposicion.class.php';
 
     Conexion::abrirConexion();
@@ -13,7 +13,7 @@
 <html>
 
     <head></head>
-    <title>Seleccionar pedido de reposicion</title>
+    <title>Seleccionar cotización</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css"
         href="/puestofit/css/seleccionar_pedido_rep.css">
@@ -53,7 +53,7 @@
             <li><a href="<?php echo ruta_compras_principal?>" class="current">Compras</a></li>
             <li><a href="<?php echo ruta_inventario_principal?>" >Stock</a></li>
             </ul>
-        </div>
+        </div> 
 
         <!---------------------------------------------------------------------------------------------------->
         <div id="formulario" class="form">
@@ -74,17 +74,21 @@
                                     <th>Fecha presupuesto</th>
                                     <th>Proveedor</th>
                                     <th>Cotización</th>
+                                    <th></th> 
                                     <th></th>                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-<!--                                 <?php
+                                <?php
                                 
-                                    /*escritor_filas :: escribir_pedidos();*/
+                                    
+                                     escritor_filas_cotizaciones_seleccion::obtener_cotizaciones_cargadas(Conexion::obtenerConexion());
 
                                 
-                                ?> -->
+                                ?> 
+                                
+                                 
                                 </tr>
                             </tbody>
                             </table>
