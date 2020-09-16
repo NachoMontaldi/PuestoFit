@@ -9,6 +9,7 @@
     include_once '../clases/cotizaciones.class.php';
     include_once '../clases/detalle_cotizacion.class.php';
     include_once '../clases/redireccion.class.php';
+    include_once '../clases/repositorio_pedido_reposicion.class.php';
 
     Conexion::abrirConexion();
     
@@ -36,13 +37,31 @@
 
     }
     
+    
 
     if(isset($_POST['enviar'])){
 
-      echo $_POST['proveedor_mod'];
+      //echo $_POST['proveedor'];
 
+      //actualiza el estado a 1
       $pedido_validado = repositorio_cotizacion:: estado_cotizacion(Conexion :: obtenerConexion(),$id);
-      $pedido_proveedor = repositorio_cotizacion :: proveedor_cotizacion(Conexion :: obtenerConexion(),$id,$_POST['proveedor_mod']);
+
+      //actualiza el proveedor al que se seleccionó
+      $pedido_proveedor = repositorio_cotizacion :: proveedor_cotizacion(Conexion :: obtenerConexion(),$id,$_POST['proveedor']);
+
+      //actualiza el codigo pedido en cotizaciones
+      $codigo = repositorio_cotizacion :: pedido_cotizacion (Conexion :: obtenerConexion(),$id,$_POST['cod_pedido']);
+
+
+      // insertar los detalles
+      
+      repositorio_cotizacion :: cargar_detalles($_POST['cod_pedido'], $id);
+      
+      
+      // borrar los estados igual a 0
+      repositorio_cotizacion :: eliminar_falsos (Conexion :: obtenerConexion());
+
+      //redirige despues de insertar
       Redireccion::redirigir(ruta_cotizaciones_principal);
      
     }    
@@ -102,7 +121,7 @@
                   <td class="valor">
                     <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
-                  <td colspan="2" rowspan="4">
+                  <td rowspan="3">
                       <!--Grilla de productos para cotizacion-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
@@ -111,13 +130,16 @@
                               <th>Nombre</th>
                               <th>Marca</th>
                               <th>Cantidad</th>
-                              <th></th>
                             </tr>
+                          </thead>
+                          <tbody>
                             <?php
+                            if(isset($_POST['seleccionar'])){
+  
+                              escritor_filas :: escribir_detalles_pedido_cot($_POST['seleccionar']);
+                        
+                            }?>
                             
-                             escritor_filas :: escribir_detalles_cotizacion($id);
-
-                            ?>
                           </tbody>
                         </table>
                       </div>
@@ -126,18 +148,22 @@
                 <tr>
                   <td class="titulos"> Pedido Reposición:</td>
                   <td class="valor">
-                    <input type="text" style="width: 75%; margin-right: 1,5%" readonly name="cod_pedido" id="codigo_ped_rep" value="<?php
+                  <form method="post">
+                    <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="cod_pedido" id="codigo_ped_rep" value="<?php
                     
                     if(isset($_POST['seleccionar'])){
   
                           echo $_POST['seleccionar'];
 
                     }?>">
-                    <a href="<?php echo ruta_seleccionar_pedido_rep ?>"><button type="button" name="buscar" id="gd" class="boton" >BUSCAR</button></a>
+                    <a href="<?php echo ruta_seleccionar_pedido_rep ?>">
+                      <button type="button" name="buscar" id="gd" class="boton" >
+                      <i class="fa fa-search"></i></button>
+                    </a>
                   </td>
                 </tr>
                 <tr>
-                <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">
+
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
                         <!-- desplegable -->
@@ -158,27 +184,19 @@
                         </select>
                     </td>   
                 </tr>
-                <tr>
-                  <td class="valor" colspan="2">
-                    <div class="botones">
-                      <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
-                    </div>
-                  </td>
-                </tr>
-                </form>
                 <form method="post" >
-                <tr>
-                    <td colspan="3" style= "text-align:right" class="valor">
-                    <?php if(isset($_POST['vista'])){
-                      ?>
-                        <input type="hidden" name="proveedor_mod"  id="proveedor_mod" value="<?php echo $_POST['proveedor'] ;?>">
-                    <?php } ?>
-                       
-                        <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                       
+                  <tr>
+                      <td colspan="3" style= "text-align:right" class="valor">
+                      <?php /* if(isset($_POST['vista'])){
+                        ?>
+                          <input type="hidden" name="proveedor_mod"  id="proveedor_mod" value="<?php echo $_POST['proveedor'] ;?>">
+                      <?php } */ ?>
                         
-                    </td>
-                </tr>
+                          <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                        
+                          
+                      </td>
+                  </tr>
                 </form>
             </table>
     </div>

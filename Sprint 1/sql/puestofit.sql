@@ -60,6 +60,7 @@ create table detalle_pedidos_reposicion(
     cod_det_pedido int unique auto_increment,
     cod_pedido int,
     nombre varchar(255),
+    marca varchar(255),
     cantidad int,
     observaciones varchar(255),
     primary key (cod_det_pedido),
@@ -68,12 +69,14 @@ create table detalle_pedidos_reposicion(
 
 create table cotizaciones(
     cod_cotizacion int unique auto_increment,
+    cod_pedido int,
     fecha_emision datetime,
     fecha_presupuesto datetime,
     proveedor varchar(255),
     total int,
     estado int,
-    primary key(cod_cotizacion) 
+    primary key(cod_cotizacion),
+    FOREIGN key (cod_pedido) REFERENCES pedidos_reposicion(cod_pedido) ON DELETE CASCADE 
 );
 
 create table detalle_cotizacion(
@@ -84,8 +87,32 @@ create table detalle_cotizacion(
     cantidad int,
     precio_unitario int,
     primary key (cod_det_cotizacion),
-    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion)
+    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion) on DELETE CASCADE
 );
+
+create table ordenes_de_compra(
+    cod_orden_de_compra int unique auto_increment,
+    fecha_emision datetime,
+    fecha_entrega_estimada datetime,
+    proveedor varchar(255),
+    total int,
+    estado varchar(100),
+    primary key(cod_orden_de_compra),
+    cod_cotizacion int,
+    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion) ON DELETE CASCADE 
+);
+
+create table detalle_ordenes_de_compra(
+    cod_det_orden_de_compra int unique auto_increment,
+    cod_orden_de_compra int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    precio_unitario int,
+    primary key (cod_det_orden_de_compra),
+    FOREIGN key (cod_orden_de_compra) REFERENCES orden_de_compra(cod_orden_de_compra) on DELETE CASCADE
+);
+
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);

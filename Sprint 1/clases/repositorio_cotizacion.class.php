@@ -3,10 +3,11 @@
     include_once '../conexion.class.php';
     include_once 'detalle_pedido.class.php';
     include_once 'cotizaciones.class.php';
+    include_once 'repositorio_pedido_reposicion.class.php';
 
     class repositorio_cotizacion{
         
-        public static function insertar_detalle_cotizacion($conexion,$detalle){
+        public static function insertar_detalle_cotizacion($conexion,$cod_cotizacion,$nombre,$marca,$cantidad){
         
             $detalle_insertado = false;
           
@@ -15,10 +16,10 @@
                 $sql = "insert into detalle_cotizacion (cod_cotizacion,nombre,marca,cantidad) values
                  (:cod_cotizacion,:nombre,:marca,:cantidad)";
                 
-                $cod_cotizaciontemp = $detalle -> obtener_cod_cotizacion();
-                $nombretemp = $detalle -> obtener_nombre();
-                $marcatemp = $detalle -> obtener_marca();
-                $cantidadtemp = $detalle -> obtener_cantidad();
+                $cod_cotizaciontemp = $cod_cotizacion;
+                $nombretemp = $nombre;
+                $marcatemp = $marca;
+                $cantidadtemp = $cantidad;
                 
 
                 $sentencia = $conexion ->prepare($sql);
@@ -43,6 +44,7 @@
         }
         
     }
+    
     public static function obtener_ultimo_id($conexion){        
         if (isset($conexion)){
             $id = 0;
@@ -236,6 +238,34 @@
         }
         
     }
+
+    public static function pedido_cotizacion($conexion,$cod_cotizacion,$cod_pedido){
+        
+        $cotizacion_actualizada = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update cotizaciones set cod_pedido = :codpedido WHERE cod_cotizacion =' . $cod_cotizacion;
+                
+                $codpedidotemp = $cod_pedido; 
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> bindParam(':codpedido', $codpedidotemp, PDO::PARAM_STR);
+                
+                $cotizacion_actualizada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $cotizacion_actualizada;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+        
+    }
     public static function obtener_detalles($conexion,$id){
         
         $filas = [];
@@ -255,7 +285,7 @@
                 if(count($resultado)){
                     foreach($resultado as $fila){
                         $filas[] = new detalle_cotizacion($fila['cod_det_cotizacion'],$fila['cod_cotizacion'],
-                                    $fila['nombre'], $fila['marca'], $fila['cantidad']);
+                                    $fila['nombre'], $fila['marca'], $fila['cantidad'], $fila['precio_unitario']);
                  }
             }
             }catch(PDOException $ex){
@@ -297,36 +327,107 @@
 return $filas;
     }
 
-public static function calcular_precios($id){
-        
-        $detalles = self :: obtener_detalles(Conexion::obtenerConexion(),$id);
-        $total=0;
-        if(count($detalles)){
+    public static function precio_unitario($conexion,$cod_det,$precio){
 
-            foreach($detalles as $detalle){
+        $cotizacion_actualizada = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update detalle_cotizacion set precio_unitario = :precio WHERE cod_det_cotizacion =' . $cod_det;
                 
-            $precio = self::calcular_precio($detalle);
-            $total= $total + $precio;
+                $preciotemp = $precio; 
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> bindParam(':precio', $preciotemp);
+                
+                $cotizacion_actualizada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
             }
-
-            }
-        return $total;
-        
-    }
-public static function calcular_precio($detalle){
-        $precio=0;
-        
-        if(!isset($detalle)){
             
-            return $precio;
+            return $cotizacion_actualizada;
         }
-        $precio=($detalle->obtener_precio_unitario() * $detalle->obtenerCantidadHamburguesa()) + ($detalle->obtenerPrecioBebida() * $detalle->obtenerCantidadBebida()); 
-
-    return $precio;
-    }
-
-public static function obtener_precio($cod_det_cotizacion){
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
         
     }
+    
+
+public static function eliminar_falsos($conexion){
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'delete from cotizaciones where estado = 0';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                    
+                print 'se ha borrado con exito!';}
+ 
+            catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }
+     }
+
+public static function cargar_detalles($cod_pedido, $cod_cotizacion){
+
+        $filas = repositorio_pedido_reposicion::obtener_detalles(Conexion::obtenerConexion(),$cod_pedido);
+
+        if(count($filas)){
+
+            foreach($filas as $fila){
+
+               // $detalle = new detalle_cotizacion($fila['cod_det_cotizacion'], $fila['cod_cotizacion'], $fila['nombre'],
+                                    //  $fila['marca'], $fila['cantidad']);
+                $marca=$fila -> obtener_marca();
+                $nombre = $fila -> obtener_nombre();
+                $cantidad = $fila -> obtener_cantidad();
+                self::insertar_detalle_cotizacion( Conexion :: obtenerConexion(),$cod_cotizacion,$nombre,$marca,$cantidad); 
+
+                }
+
+            }
+
+            }
+    
+public static function calcular_precios($cod_cotizacion){
+        
+                $detalles = self :: obtener_detalles(Conexion::obtenerConexion(),$cod_cotizacion);
+                $total=0;
+                if(count($detalles)){
+        
+                    foreach($detalles as $detalle){
+                        
+                        //$precio = self::calcular_precio($detalle);
+                        $subtotal = $detalle -> obtener_precio_unitario() * $detalle -> obtener_cantidad();
+                        $total= $total + $subtotal;
+                    }
+        
+                    }
+                return $total;
+                
+            }
+public static function calcular_precio($detalle){
+                $precio=0;
+                
+                if(!isset($detalle)){
+                    
+                    return $precio;
+                }
+                $precio=($detalle->obtener_precio_unitario() * $detalle->obtenerCantidadHamburguesa()) + ($detalle->obtenerPrecioBebida() * $detalle->obtenerCantidadBebida()); 
+        
+            return $precio;
+            }
+        
+        
+public static function obtener_precio($cod_det_cotizacion){
+                
+            }
+
 
 }

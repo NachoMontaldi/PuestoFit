@@ -13,8 +13,20 @@
     if(isset($_POST['cargar'])){
         
         $id = $_POST['cargar'];
+        
        
-      }
+    }elseif(isset($_POST['agregar'])){
+
+        $id = $_POST['cod_cotizacion'];
+
+    }
+
+    if (isset($_POST['agregar'])){
+
+        $cotizacion_precio = repositorio_cotizacion :: precio_unitario(Conexion :: obtenerConexion(),$_POST['agregar'],$_POST['precio_unitario']);
+
+        $total = repositorio_cotizacion:: calcular_precios($id);  
+    }
 
     //$precio= EscritorDetalle::calcularPrecios();   
 
@@ -22,6 +34,7 @@
         
         $cotizacion_cargada = repositorio_cotizacion:: estado_cotizacion_cargada(Conexion :: obtenerConexion(),$_POST['id_mod']);
         $cotizacion_cargada_fecha = repositorio_cotizacion :: fecha_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod']);
+        
         //$cotizacion_cargada_total = repositorio_cotizacion :: total_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod'],$_POST['total']);
         Redireccion::redirigir(ruta_cotizaciones_principal);
        
@@ -107,7 +120,7 @@
                                     <h3>Total</h3>
                                 </td>
                                 <td align="right">
-                                    <h3>$ <?php //echo number_format($precio,2) ?> </h3>
+                                    <h3>$ <?php  if (isset($_POST['agregar'])){ echo $total; }//echo number_format($precio,2) ?> </h3>
                                 </td>
 
                                 </tr>
@@ -122,11 +135,11 @@
                 <tr>
                     <td colspan="4 " style="text-align:right" class="valor">
                         <button type="submit" name="enviar_carga" id="gd" class="boton">CARGAR</button>
-                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                         <?php if(isset($_POST['cargar'])){
-                      ?>
-                        <input  type="hidden" name="id_mod"  id="id_mod" value="<?php echo $_POST['cargar'] ;?>">
-                    <?php } ?>
+                        ?>
+                            <input  type="hidden" name="id_mod"  id="id_mod" value="<?php echo $_POST['cargar'] ;?>">
+
+                        <?php } ?>
                     </td>
                 </tr>
                 </form>

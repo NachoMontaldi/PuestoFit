@@ -127,7 +127,7 @@ Conexion :: cerrarConexion();
                             <option selected value="0"> ¿Contiene TACC?</option>
                             <option value="si">Si</option>
                             <option value="no">No</option>
-                        </select>
+                    </select>
                         <br>
                         <br>
                     <select name="contieneA" id="contieneA">
@@ -144,6 +144,7 @@ Conexion :: cerrarConexion();
                         </select>
                     </td>
                     <td class="titulos" valign="top">Descripción:</td>
+
                     <td class="valor">
                         <textarea name="descripcion" id="Descripcion"></textarea>
                     </td>

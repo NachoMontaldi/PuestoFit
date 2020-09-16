@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <?php
     include_once '../config.inc.php';
     include_once '../conexion.class.php';
@@ -23,7 +23,7 @@
     $id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
     if(isset($_POST['vista'])){
       
-      $detalle_pedido = new detalle_pedido('',$id, $_POST['nombre'],$_POST['cantidad'],$_POST['observaciones']);
+      $detalle_pedido = new detalle_pedido('',$id, $_POST['nombre'],$_POST['marca'],$_POST['cantidad'],$_POST['observaciones']);
       
       $detalle_insertado = repositorio_pedido_reposicion :: insertar_detalle_pedido(Conexion :: obtenerConexion(),$detalle_pedido);
 
@@ -99,16 +99,17 @@
                   <td class="valor">
                       <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
-                  <td colspan="2" rowspan="6">
+                  <td colspan="2" rowspan="7">
                       <!--Grilla de productos-->
                       <div class="table-responsive-lg">
                           <table id="grilla" class="table-hover table table-bordered">
                               <thead class="thead-dark">
                                   <tr>
-                                      <th id="vp" colspan="4">Vista Previa</th>
+                                      <th id="vp" colspan="5">Vista Previa</th>
                                   </tr>
                                   <tr>
                                       <th>Nombre</th>
+                                      <th>Marca</th>
                                       <th>Cantidad</th>
                                       <th>Observaciones</th>
                                       <th></th>
@@ -143,9 +144,20 @@
   
                                 echo $_POST['agregar'];
 
-                                }?>
-'>
-                            <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="buscar" id="gd" class="boton">BUSCAR</button></a>
+                            }?>'>
+                            <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="buscar" id="gd" class="boton">
+                            <i class="fa fa-search"></i></button></a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="titulos">Marca:</td>
+                      <td class="valor">
+                        <input type="text" readonly name="marca" id="marca" value='<?php
+                            if(isset($_POST['agregar'])){
+  
+                                echo $_POST['marca'];
+
+                            }?>'>
                       </td>
                   </tr>
                   <tr>
@@ -153,7 +165,6 @@
                       <td class="valor">
                           <input type="number" name="cantidad" id="cantidad" min="1">
                       </td>
-                  </tr>
                   </tr>
                   <tr>
                       <td class="titulos" valign="top">Observaciones:</td>

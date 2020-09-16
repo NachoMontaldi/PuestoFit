@@ -21,7 +21,7 @@ class escritor_filas{
         if(count($filas)){
 
             foreach($filas as $fila){
-            
+
                 self::escribir_fila($fila);
             
             }
@@ -175,27 +175,30 @@ class escritor_filas{
 //------------------------------------------------------Pedidos Reposicion---------------------------------------------
 
         public static function escribir_detalles_pedido($id){
-        
+
             $filas = repositorio_pedido_reposicion::obtener_detalles(Conexion::obtenerConexion(),$id);
-            
+
             if(count($filas)){
-    
+                
                 foreach($filas as $fila){
+
                     self::escribir_detalle_pedido($fila);
                 }
     
-                }            
+                }    
 
             }
 
             public static function escribir_detalle_pedido($fila){
                 if(!isset($fila)){
-        
+
                     return;
                 }
+
                 ?>
             <tr>
                     <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
+                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?>  </td>
                     <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
                     <td class="text-center" widht= 20%> <?php echo $fila ->obtener_observaciones() ?>  </td>
                     <td>
@@ -258,6 +261,7 @@ class escritor_filas{
                             <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
 
                                 <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="agregar" value="<?php echo $fila->obtener_nombre(); ?>" >Agregar</button>
+                                <input type="hidden" name="marca"  id="marca" value="<?php echo $fila -> obtener_marca() ;?>">
 
                             </form>
                         </td>
@@ -292,13 +296,44 @@ class escritor_filas{
                                 <td>
                                 <form method="post" action="<?php echo ruta_cotizaciones_emitir; ?>">
 
-                                    <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
+                                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
 
                                 </form>
                                 </td>
                         </tr>
                     <?php
                         }
+
+        public static function escribir_detalles_pedido_cot($id){
+
+                            $filas = repositorio_pedido_reposicion::obtener_detalles(Conexion::obtenerConexion(),$id);
+                
+                            if(count($filas)){
+                                
+                                foreach($filas as $fila){
+                
+                                    self::escribir_detalle_pedido_cot($fila);
+                                }
+                    
+                                }    
+                
+                            }
+                
+        public static function escribir_detalle_pedido_cot($fila){
+                                if(!isset($fila)){
+                
+                                    return;
+                                }
+                
+                                ?>
+                            <tr>
+                                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
+                                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?>  </td>
+                                    <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
+                                    
+                            </tr>
+                        <?php
+                                }
         
 //-----------------------------------------------------------Cotizaciones--------------------------------------------------
 
@@ -420,13 +455,45 @@ class escritor_filas{
                                                 <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
                                                 <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?> </td>
                                                 <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
-                                                <td class="valor">
-                                                    <input type="text" name="precio_unitario" id="precio_unitario"> 
-                                                </td>     
-                                        </tr>
-                                    <?php
+
+                                                <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                                                    <td>
+                                                        <input type="hidden" name="cod_cotizacion" value="<?php echo $fila -> obtener_cod_cotizacion() ?>">
+                                                        <input type="number" name="precio_unitario" id="precio_unitario" value="<?php 
+                                                        
+                                                            if(isset($_POST['agregar'])){
+                                                                
+                                                                echo $fila -> obtener_precio_unitario();
+                                                                
+                                                            }
+                                                        ?>" <?php if(isset($_POST['agregar']) && ($fila -> obtener_precio_unitario() !== null) ){ print 'readonly'; } ?> >
+
+                                                    
+                                                            <button type="submit" <?php if(isset($_POST['agregar']) && ($fila -> obtener_precio_unitario() !== null) ){ print 'disabled'; } ?> style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="agregar" name="agregar" value="<?php echo $fila->obtener_cod_det_cotizacion(); ?>" widht= 5% >Agregar</button>
+                                                    </form> 
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                        if(isset($_POST['agregar'])){
+                                                            
+                                                            $subtotal= $fila -> obtener_cantidad() * $fila -> obtener_precio_unitario();
+                                                            echo $subtotal." $";
+
+                                                        }else{
+                                                            print "0 $";
+                                                        }
+
+
+                                                    ?>         
+                                                </td>
+                                            </tr>
+                                        <?php
                                             }
         
         
 }    
 ?>
+
+
+
+

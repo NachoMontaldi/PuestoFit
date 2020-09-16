@@ -94,6 +94,8 @@ class Inventario {
     public function obtener_nombre_deposito($cod_deposito) {
         return $this -> cod_deposito;
     }
+
+
     //Setters
     public function cambiar_nombre($nombre){  
         $this -> nombre=$nombre;

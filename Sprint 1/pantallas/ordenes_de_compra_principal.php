@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<?php include_once '../config.inc.php'; ?>
+<?php 
+  include_once '../config.inc.php';
+  include_once '../conexion.class.php'; 
+  include_once '../clases/escritor_filas_ordenes_de_compra.class.php';
+  include_once '../clases/repositorio_ordenes_de_compra.class.php';
+
+  Conexion::abrirConexion();
+
+?>
+
 <html>
 
     <head>
@@ -65,102 +74,33 @@
         <table id="grilla" class="table-hover table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    <th>Cod. OC</th>
                     <th>Fecha Emisión</th>
                     <th>Fecha Entrega (Estimada)</th>
                     <th>Proveedor</th>
                     <th>Total</th>
                     <th>Estado</th>
-                    <th></th>
+                    <th>VER DETALLE</th>
                 </tr>
             </thead>
             <tbody>
-              <tr>
-                <!--Lógica de la tabla -->
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--Cambienlo por los botones azules que hicieron en inventario principal-->
-                  <a href="<?php echo ruta_detalle_orden_de_compra?>">
+              <!-- <tr>
+                  <td>ID</td>
+                  <td>Fecha Emisión</td>
+                  <td>Fecha Entrega (Estimada)</td>
+                  <td>Proveedor</td>
+                  <td>Total</td>
+                  <td>Estado</td>
+                  <td>
+                    <a href="<?php //echo ruta_detalle_orden_de_compra?>
+              
                     <button type="submit" name="registrar_pedido" id="rped" class="boton">ver detalle</button>
-                    </a>
-                </td>
-              </tr>
-              <tr>    
-                <td>ID</td>            
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td>Fecha Emisión</td>
-                <td>Fecha Entrega (Estimada)</td>
-                <td>Proveedor</td>
-                <td>Total</td>
-                <td>Estado</td>
-                <td><!--aqui hay que meter los botoncitos de ver detalle yo pongo uno para probar no mas--></td>
-              </tr>
+                            </a>
+                  </td>
+              </tr> -->
+              <?php
+                escritor_filas_ordenes_de_compra::escribir_ordenes_de_compra(Conexion::obtenerConexion());
+              ?>
             </tbody>
         </table>
     </div>

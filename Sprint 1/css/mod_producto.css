@@ -3,7 +3,7 @@ table {
   width: 90%;
   background-color: rgb(255, 255, 255);
   border-radius: 7px;
-  margin-top: 1%;
+  margin-top: 1%; 
 
 }
 /* TITULO PRINCIPAL */
@@ -34,11 +34,12 @@ border: 2px solid rgba(14, 104, 104, 0.479);
 margin-left: 5%;
 }
 
-.valor{
+.valor {
   width: 50%;
   border-radius: 5px;
   padding: 5px;
 }
+
 .titulos {
   padding: 10px;
   text-align: right;

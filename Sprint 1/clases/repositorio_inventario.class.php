@@ -80,7 +80,7 @@
                 
                 $resultado = $sentencia -> fetchAll();
                 
-                if(count($resultado)){
+                if(count($resultado)){ 
                     foreach($resultado as $fila){
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],

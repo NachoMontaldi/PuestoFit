@@ -60,7 +60,7 @@
                         MODIFICAR PRODUCTO
                     </td>
                 </tr>
-                <tr>
+                <tr> 
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
                         <input type="text" readonly name="nombre" id="nombre" value="<?php echo $producto -> obtener_nombre();?>">
@@ -126,7 +126,8 @@
                     <input type="text"  name="contieneL" id="contieneL" value="<?php echo $producto -> obtener_contiene_L();?>">
                     
                     </td>
-                    <td class="titulos" valign="top">Descripción:</td>
+                    <td class="titulos" valign="top">
+                        ripción:</td>
                     <td class="valor">
                     <textarea name="descripcion" id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
                     </td>

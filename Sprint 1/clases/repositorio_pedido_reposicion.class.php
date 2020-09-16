@@ -11,11 +11,12 @@
         
         if (isset($conexion)){
             try{
-                $sql = "insert into detalle_pedidos_reposicion (cod_pedido,nombre,cantidad,observaciones) values
-                 (:cod_pedido,:nombre,:cantidad,:observaciones)";
+                $sql = "insert into detalle_pedidos_reposicion (cod_pedido,nombre,marca,cantidad,observaciones) values
+                 (:cod_pedido,:nombre,:marca,:cantidad,:observaciones)";
                 
                 $cod_pedidotemp = $detalle -> obtener_cod_pedido();
                 $nombretemp = $detalle -> obtener_nombre();
+                $marcatemp = $detalle -> obtener_marca();
                 $cantidadtemp = $detalle -> obtener_cantidad();
                 $observacionestemp = $detalle -> obtener_observaciones();
                 
@@ -25,6 +26,7 @@
                 
                 $sentencia -> bindParam(':cod_pedido', $cod_pedidotemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':nombre', $nombretemp, PDO::PARAM_STR);
+                $sentencia -> bindParam(':marca', $marcatemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':cantidad', $cantidadtemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
                 
@@ -142,7 +144,7 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new detalle_pedido($fila['cod_det_pedido'],$fila['cod_pedido'],$fila['nombre'],
+                        $filas[] = new detalle_pedido($fila['cod_det_pedido'],$fila['cod_pedido'],$fila['nombre'],$fila['marca'],
                                       $fila['cantidad'], $fila['observaciones']);
                     }
                 }

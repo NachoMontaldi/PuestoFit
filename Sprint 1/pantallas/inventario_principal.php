@@ -84,9 +84,9 @@
             <th>Categoría</th>
             <th>Precio compra(unitario/100grs.)</th>
             <th>Precio venta(unitario/100grs.) </th> 
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>VER DETALLE</th>
+            <th>EDITAR</th>
+            <th>ELIMINAR</th>
           </tr>
         </thead>
         <tbody>

@@ -56,23 +56,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="titulos">Pedido Reposición:</td>
+                    <td class="valor seg_col">
+                        <input type="text" style="width:85%;" readonly name="cod_cotizacion" id="cod_cotizacion">
+                        <a href="<?php echo ruta_seleccionar_cotizacion?>">
+                            <button type="button" name="buscar" id="buscar" class="boton">
+                            <i class="fa fa-search"></i></button>
+                        </a>
+                    </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <select name="categoria" id="categoria">
-                            <option selected value="0"> Elije un proveedor</option>
-                            <option value="1">Proveedor 1</option>
-                            <option value="2">Proveedor 2</option>
-                            <option value="3">Proveedor 3</option>
-                            <option value="4">Proveedor 4</option>
-                        </select>
-                    </td>
-                    <td colspan="2" style="text-align:right" class="valor">
-                        <div class="contenedor3">
-                            <a href="#"><button type="button" name="alta_prod_oc" id="alpoc" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> AÑADIR PRODUCTO</button></a>
-                        </div>
+                        <input type="text" readonly name="proveedor" id="proveedor">
                     </td>
                 </tr>
-                <tr>
+                <tr></tr>
                 <td colspan="4">
                       <!--Grilla de productos-->
                       <div class="table-responsive-lg">
@@ -105,11 +102,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos" colspan="2">Total:</td>
-                    <td class="valor">
+                    <td class="titulos" >Total:</td>
+                    <td class="valor seg_col">
                         <input type="number" readonly name="precioTotal" id="precioTotal">
                     </td>
-                    <td style="text-align:right" class="valor">
+                    <td style="text-align:right" class="valor" colspan="2">
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
                         <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                     </td>
