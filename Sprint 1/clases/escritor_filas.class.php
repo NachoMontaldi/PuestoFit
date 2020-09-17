@@ -422,12 +422,12 @@ class escritor_filas{
                                         if($fila -> obtener_estado() == 2){?>
                                         <form method="post" action="<?php echo ruta_cotizaciones_detalle ?>">
 
-                                            <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Ver detalle</button>
+                                            <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Detalle</button>
                                             <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor(); ;?>">
 
                                         </form>
                                         <?php } elseif ($fila -> obtener_estado() == 1){?>
-                                            <button type="submit" disabled style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Ver detalle</button>
+                                            <button type="submit" disabled style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Detalle</button>
                                         <?php } ?>
                                     </td>
                                     <td>
@@ -442,7 +442,7 @@ class escritor_filas{
                                 
                             }
 
-                            public static function escribir_cargas_cotizacion($id){
+    public static function escribir_cargas_cotizacion($id){
         
                                 $filas = repositorio_cotizacion::obtener_detalles(Conexion::obtenerConexion(),$id);
                                 if(count($filas)){

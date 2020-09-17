@@ -1,6 +1,5 @@
 -General:
 	*hacer carteles emergentes para borrado con exito y modificacion exitosa.
-	*decidir que hacer con los delete o update (on cascade o cual)
 	*cambiar los textarea de editar
 
 -Inventario Principal:
@@ -8,8 +7,14 @@
 	*mostrar emergente en caso de que la busqueda no devuelva nada
 	*usar la tabla stock_deposito
 
+-Modificar Producto
+	*sacar input proveedores!
+
+-Detalle producto:
+	*sacar input proveedores!
+
 -Cotizaciones Principal:
-	*Mostrar proveedor ver detalle de forma estetica
+	*Mostrar proveedor de ver detalle de forma estetica
 
 
 

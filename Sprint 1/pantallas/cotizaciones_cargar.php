@@ -125,7 +125,7 @@
                                     <h3>Total</h3>
                                 </td>
                                 <td align="center">
-                                    <h3>$ <?php  if (isset($_POST['agregar'])){ echo $total; }//echo number_format($precio,2) ?> </h3>
+                                    <h3> <?php  if (isset($_POST['agregar'])){ echo $total . " $"; }//echo number_format($precio,2) ?> </h3>
                                 </td>
 
                                 </tr>

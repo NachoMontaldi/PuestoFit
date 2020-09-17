@@ -1,8 +1,53 @@
 <!DOCTYPE html>
-<?php include_once '../config.inc.php'; ?>
+<?php 
+    
+    include_once '../config.inc.php'; 
+    include_once '../conexion.class.php';
+    include_once '../clases/detalle_cotizacion.class.php';
+    include_once '../clases/escritor_filas_ordenes_de_compra.class.php';
+    include_once '../clases/repositorio_ordenes_de_compra.class.php';
+    include_once '../clases/repositorio_cotizacion.class.php';
+    include_once '../clases/redireccion.class.php';
+
+    Conexion::abrirConexion(); 
+
+    if(isset($_POST['seleccionar'])){
+    
+        $total = repositorio_cotizacion:: calcular_precios($_POST['seleccionar']);
+    
+    }
+    
+    if(isset($_POST["registrar_oc"])){
+      $orden_de_compra = new ordenes_de_compra ('','','','','',0,'');
+      $orden_de_compra_insertada = repositorio_ordenes_de_compra:: insertar_ordenes_de_compra(Conexion :: obtenerConexion(),$orden_de_compra);
+    }
+ 
+    //permite obtener el id de la orden de compra que se crea vacia
+    $id = repositorio_ordenes_de_compra::obtener_ultimo_id(Conexion::obtenerConexion()); 
+
+
+    /*if(isset($_POST['enviar'])){
+      //echo $_POST['proveedor'];
+      //actualiza el estado a 1
+      $orden_de_compra_validada = repositorio_ordenes_de_compra::estado_orden_de_compra(Conexion :: obtenerConexion(),$id);
+      //actualiza el proveedor al que se seleccionó
+      $pedido_proveedor = repositorio_ordenes_de_compra::proveedor_orden_de_compra(Conexion :: obtenerConexion(),$id,$_POST['proveedor']);
+      //actualiza el codigo pedido en cotizaciones
+      $codigo = repositorio_ordenes_de_compra::cotizacion_orden_de_compra(Conexion :: obtenerConexion(),$id,$_POST['cod_cotizacion']);
+      // insertar los detalles
+      repositorio_ordenes_de_compra ::cargar_detalles($_POST['cod_cotizacion'], $id);
+      // borrar los estados igual a 0
+      repositorio_ordenes_de_compra ::eliminar_falsos (Conexion :: obtenerConexion());
+      //redirige despues de insertar
+      //Redireccion::redirigir(ruta_ordenes_de_compra_principal);
+     
+    }*/
+
+    ?>
+
 <html>
 
-    <head></head>
+    <head>
     <title>Registrar Orden de Compra</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css"
@@ -73,13 +118,13 @@
                     </td>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <input type="text" readonly name="proveedor" id="proveedor" value=<?php
+                        <input type="text" readonly name="proveedor" id="proveedor" value="<?php
                         
                         if(isset($_POST['proveedor'])){
   
                             echo $_POST['proveedor'];
 
-                        }?>>
+                        }?>">
                     </td>
                 </tr>
                 
@@ -92,23 +137,18 @@
                               <th id="vp" colspan="9">Vista Previa</th>
                             </tr>
                             <tr>
-                              <th>Cod Producto</th>
                               <th>Nombre</th>
                               <th>Marca</th>
-                              <th>Existencia</th>
-                              <th>Categoría</th>
+                              <th>Cantidad Pedida</th>
                               <th>Precio Compra</th>
-                              <th>Cantidad Pedido</th>
                               <th>Subtotal</th>
-                              <th>ELIMINAR</th>
                             </tr>
                             <?php
-                            /*
-                            
-                              escritor_detalle::escribir_detalles();
-
-                            */
-                            ?>
+                            if(isset($_POST['seleccionar'])){
+  
+                              escritor_filas_ordenes_de_compra::escribir_detalles_cotizacion_oc($_POST['seleccionar']);
+                        
+                            }?>
                           </tbody>
                         </table>
                       </div>
@@ -117,7 +157,7 @@
                 <tr>
                     <td class="titulos" >Total:</td>
                     <td class="valor seg_col">
-                        <input type="number" readonly name="precioTotal" id="precioTotal">
+                        <input type="number" readonly name="precioTotal" id="precioTotal" value="<?php echo $total; ?>">
                     </td>
                     <td style="text-align:right" class="valor" colspan="2">
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>

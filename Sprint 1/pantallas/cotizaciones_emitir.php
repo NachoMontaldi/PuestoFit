@@ -11,7 +11,7 @@
     include_once '../clases/redireccion.class.php';
     include_once '../clases/repositorio_pedido_reposicion.class.php';
 
-    Conexion::abrirConexion();
+    Conexion::abrirConexion(); 
     
 
     if(isset($_POST["emitir_cot"])){

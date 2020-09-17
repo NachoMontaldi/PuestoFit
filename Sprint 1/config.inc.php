@@ -30,3 +30,4 @@ define('ruta_cotizaciones_emitir',servidor.'/pantallas/cotizaciones_emitir.php')
 define('ruta_factura_registrar',servidor.'/pantallas/factura_registrar.php');
 define('ruta_remito_registrar',servidor.'/pantallas/remito_registrar.php');
 define('ruta_seleccionar_cotizacion',servidor.'/pantallas/seleccionar_cotizacion.php');
+define('ruta_seleccionar_oc',servidor.'/pantallas/seleccionar_oc.php');

@@ -108,9 +108,9 @@
     <!-- BOTONES AÑADIR/REGISTRAR -->
 
     <div class="contenedor3">
-      
-    <a href="<?php echo ruta_registrar_orden_de_compra?>"><button type="submit" name="registrar_oc" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR ORDEN COMPRA</button></a>
-  
+        <form method="post" action="<?php echo ruta_registrar_orden_de_compra ?>">   
+            <button type="submit" name="registrar_oc" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR ORDEN COMPRA</button>
+        </form>
     </div>
     <div class="contenedor4">
         <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 

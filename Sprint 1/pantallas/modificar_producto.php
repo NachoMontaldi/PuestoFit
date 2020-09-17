@@ -9,13 +9,13 @@
     Conexion :: abrirConexion();
     if(isset($_POST['editar'])){
 
-        print 'entre por editar';
+        
         
         $producto=repositorio_inventario::obtener_producto(Conexion::obtenerConexion(),$_POST['editar']);
         $_SESSION['id']='';
         $_SESSION['id']=$_POST['editar'];
         
-        echo $_SESSION['id'];
+       
        
     }
 
@@ -127,7 +127,7 @@
                     
                     </td>
                     <td class="titulos" valign="top">
-                        ripción:</td>
+                        Descripción:</td>
                     <td class="valor">
                     <textarea name="descripcion" id="Descripcion"><?php echo $producto -> obtener_descripcion();?></textarea>
                     </td>

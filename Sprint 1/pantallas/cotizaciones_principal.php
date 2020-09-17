@@ -79,7 +79,7 @@
 
     <div class="contenedor3">
     <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">   
-      <a href="<?php echo ruta_cotizaciones_emitir?>"><button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button></a>
+      <button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button>
     </form>
       
        

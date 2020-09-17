@@ -11,7 +11,8 @@ class cotizaciones {
    
     //Constructor 
 
-    public function __construct($cod_cotizacion,$fecha_emision,$fecha_presupuesto,$proveedor,$total,$estado){
+    public function __construct($cod_cotizacion,$fecha_emision,$fecha_presupuesto,
+                                $proveedor,$total,$estado){
         
         $this -> cod_cotizacion =$cod_cotizacion;
         $this -> fecha_emision =$fecha_emision;

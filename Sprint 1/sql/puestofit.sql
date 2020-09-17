@@ -113,6 +113,29 @@ create table detalle_ordenes_de_compra(
     FOREIGN key (cod_orden_de_compra) REFERENCES ordenes_de_compra(cod_orden_de_compra) on DELETE CASCADE
 );
 
+create table facturas_compra(
+    cod_factura_compra int unique auto_increment,
+    fecha datetime,
+    fecha_entrega_estimada datetime,
+    proveedor varchar(255),
+    total int,
+    estado varchar(100),
+    primary key(cod_factura_compra),
+    cod_cotizacion int,
+    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion) ON DELETE CASCADE 
+);
+
+create table detalle_facturas_compra(
+    cod_det_factura_compra int unique auto_increment,
+    cod_factura_compra int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    precio_unitario int,
+    primary key (cod_det_factura_compra),
+    FOREIGN key (cod_factura_compra) REFERENCES facturas_compra(cod_factura_compra) on DELETE CASCADE
+);
+
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);

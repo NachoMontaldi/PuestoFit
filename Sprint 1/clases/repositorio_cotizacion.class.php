@@ -1,7 +1,7 @@
-<?php
+<?php 
     
     include_once '../conexion.class.php';
-    include_once 'detalle_pedido.class.php';
+    include_once 'detalle_pedido.class.php'; 
     include_once 'cotizaciones.class.php';
     include_once 'repositorio_pedido_reposicion.class.php';
 
@@ -393,7 +393,7 @@ public static function cargar_detalles($cod_pedido, $cod_cotizacion){
 
             }
 
-            }
+}
     
 public static function calcular_precios($cod_cotizacion){
         
