@@ -32,3 +32,9 @@ define('ruta_remito_registrar',servidor.'/pantallas/remito_registrar.php');
 define('ruta_seleccionar_cotizacion',servidor.'/pantallas/seleccionar_cotizacion.php');
 define('ruta_seleccionar_oc',servidor.'/pantallas/seleccionar_oc.php');
 define('ruta_seleccionar_factura',servidor.'/pantallas/seleccionar_factura.php');
+define('ruta_pedidos_reposicion_principal',servidor.'/pantallas/pedidos_reposicion_principal.php');
+define('ruta_detalle_pedidos_reposicion',servidor.'/pantallas/detalle_pedidos_reposicion.php');
+define('ruta_remitos_principal',servidor.'/pantallas/remitos_principal.php');
+define('ruta_detalle_remito',servidor.'/pantallas/detalle_remito.php');
+
+

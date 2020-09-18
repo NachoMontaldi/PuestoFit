@@ -34,7 +34,6 @@ create table proveedores (
     primary key (cod_prov)
 );
 
-
 create table depositos (
     cod_deposito int not null unique auto_increment,
     nombre varchar(255) null,

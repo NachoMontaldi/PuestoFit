@@ -5,6 +5,7 @@
     include_once '../clases/escritor_filas.class.php';
     include_once '../clases/repositorio_proveedores.class.php';
     include_once '../clases/repositorio_cotizacion.class.php';
+    include_once '../pantallas/barra_nav.php';
 
     Conexion::abrirConexion();
 
@@ -31,22 +32,7 @@
   </head>
 
   <body>
-    <header>
-      <div id="logo">
-        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
-      </div>
-    </header>
-    <!--BARRA DE NAVEGACION-->
-    <div id="nav">
-      <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Clientes</a></li>
-          <li><a href="#">Ventas</a></li>
-          <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-          <li><a href="<?php echo ruta_compras_principal?>" class="current">Compras</a></li>
-          <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
-      </ul>
-    </div>
+
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">

@@ -4,31 +4,19 @@
     
     include_once '../conexion.class.php';
     include_once '../config.inc.php';
-    include_once '../clases/escritor_filas.class.php';
-    include_once '../clases/repositorio_inventario.class.php';
-    include_once '../clases/repositorio_pedido_reposicion.class.php';
+    include_once '../clases/escritor_remito.class.php';
     include_once '../pantallas/barra_nav.php';
+    
 
 
-    Conexion::abrirConexion(); //cuando este el index pasar esta linea ahi!!!
-  
 
-    if(isset($_POST['guardar_cambios'])){
-        
-      
-      
-      $cambio = repositorio_inventario :: actualizar_inventario(Conexion :: obtenerConexion(),$_POST['id'],$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion']);
-      print 'se guardo el cambio realizado con exito!';
-     
-      
-      //Conexion :: cerrarConexion();
-    }
+    Conexion::abrirConexion();  
                         
 ?>
 
 <html>
   <head>
-    <title>Inventario Principal</title>
+    <title>Remitos</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/inventario_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
@@ -64,46 +52,19 @@
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
           <tr></tr>
-            <th>Cod. Prod</th>
-            <th>Nombre</th>
-            <th>Existencia(unidades/kilos)</th>
-            <th>Categoría</th>
-            <th>Precio compra(unitario/100grs.)</th>
-            <th>Precio venta(unitario/100grs.) </th> 
-            <th>VER DETALLE</th>
-            <th>EDITAR</th>
-            <th>ELIMINAR</th>
+
+            <th>Cod. Remito</th>
+            <th>Cod. Factura</th>
+            <th>Fecha</th>
+            <th>Proveedor</th>
+            <th>Total</th>
+            <th>DETALLE</th>
           </tr>
         </thead>
         <tbody>
             <?php
 
-            //Metodo para borrar un elemento de la tabla
-
-            if(isset($_POST['eliminar'])){
-                   
-             repositorio_inventario::eliminar_inventario(Conexion::obtenerConexion(),$_POST['eliminar']);
-            
-            }   
-            
-            //Metodo para ver el detalle de un elemento de la tabla
-            
-            if(isset($_POST['ver_detalle'])){
-
-                $_SESSION['id_fila']=$_POST['ver_detalle'];
-
-            } 
-              //Metodo para cargar la tabla desde la base
-              if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
-                
-                $criterio= $_POST['criterio'];
-                escritor_filas::escribir_filas_filtradas($criterio);
-                
-            }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
-              
-              escritor_filas::escribir_filas();
-            
-            }
+                escritor_remito :: escribir_remitos_principal(Conexion::obtenerConexion());
 
             ?>
         </tbody>
@@ -113,11 +74,8 @@
     <!-- BOTONES AÑADIR/REGISTRAR -->
 
     <div class="contenedor3">
-      
-    <a href="<?php echo ruta_alta_producto?>"><button type="submit" name="alta_producto" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  AÑADIR PRODUCTO</button></a>
+    <a href="<?php echo ruta_remito_registrar?>"><button type="submit" name="reg_remito" id="rr" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR REMITO</button></a>
     </div>
-
-    
   </body>
 
 </html>

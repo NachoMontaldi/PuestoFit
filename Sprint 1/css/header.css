@@ -1,68 +1,66 @@
-*{
-  margin: 0;
-  padding: 0;
+* {
+  margin: 0px;
+  padding: 0px;
+}
+#header {
+  background-color: rgb(26, 164, 53);
+  height: 54px;
+  font-family: "Actor";
+  font-size: 20px;
 }
 
-#header{
- background-color: #F9F8FC;
- height: 200px;
+ul,
+ol {
+  list-style: none;
 }
 
-#logo{
- height: 25%;
- width: 100%;
- text-align: left;
+/* con el nav hago que se centre la barra de busqueda */
+#nav {
+  margin: auto;
+  width: 50%;
+}
+/* aca empieza a modificar para que sea desplegable */
+#nav > li {
+  float: left;
+}
+
+#nav li a {
+  background-color: rgb(26, 164, 53);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 15px;
+  display: block;
+}
+
+#nav li a:hover {
+  background-color: rgb(188, 232, 109);
+  color: rgb(68, 67, 67);
+}
+
+#nav li ul {
+  /* al agregar display none hacemos que los desplegables no se vean */
+  display: none;
+  position: absolute;
+  min-width: 140px;
+}
+
+#nav li:hover > ul {
+  /* display block --> ahora al pasar el puntero se despliegan */
+  display: block;
+}
+
+#nav li ul li {
+  position: relative;
+  border: solid 0.01px rgb(255, 254, 254);
+}
+
+#logo {
+  height: 10%;
+  width: 100%;
+  text-align: left;
 }
 
 #logo img {
-   height: 65px;
-   width: 130px;    
-}
-
-
-#nav{
-height: 64px;
-background-color:rgb(26, 164, 53);
-text-align: center;
-font-family: 'Actor';
-
-}
-
-#nav ul{
- list-style: none;
- display: inline-block;
-}
-
-#nav ul li{
-  float: left;
-  margin-top: 2.7%;
-}
-
-#nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-  padding: 20px;
-}
-
-/* Mostrarlo como hover para saber que estamos dentro de esta pestaña, se diferencia del hover por el texto blanco*/
-.current {
-text-decoration: none;
-font-size: 20px;
-padding: 20px;background-color:rgb(188, 232, 109);/*cambiar el color si esta medio feo*/
-}
-
-#nav ul li a:hover{
-background-color:rgb(188, 232, 109);
-color: rgb(68, 67, 67);
-}
-
-@media screen and (max-width: 800px) {
-#nav ul li a {
-  font-size: 15px;
-  }
-  #nav ul li{
-    margin-top: 4%;
-}
-
-}
+  height: 65px;
+  width: 130px;
+} 

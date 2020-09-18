@@ -10,10 +10,11 @@ textarea {
     max-width: 200px;
     max-height: 130px;
     min-height: 130px;
-    min-width: 200px;
+    min-width: 200px; 
 }
 .titulo {
-    color: rgba(48, 46, 46, 0.726);
+    color:white;
+    background-color:rgb(53, 58, 64);
     text-align: center;
     font-family: 'Actor';
     font-size: 25px;
@@ -27,8 +28,8 @@ textarea {
 }
 .form input {
   width: 100%;
-  border-radius: 5px;
-  border: 2px solid rgba(14, 104, 104, 0.479);
+  border-radius: 2px;
+  border: 2px solid rgb(53, 58, 64);
 }
 
 .valor {

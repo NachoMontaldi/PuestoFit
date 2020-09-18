@@ -269,7 +269,8 @@ class escritor_filas{
                 </tr>
             <?php
                     }
-
+/* AHORA HAY DOS ESCRIBIR PEDIDO_REPOSICION */
+/* EL QUE ES PARA SELECCIONAR EN COTIZACIONES */
                 public static function escribir_pedidos(){
         
                         $filas = repositorio_pedido_reposicion::obtener_pedidos(Conexion::obtenerConexion());
@@ -295,14 +296,55 @@ class escritor_filas{
                                 <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
                                 <td>
                                     <form method="post" action="<?php echo ruta_cotizaciones_emitir; ?>">
-
                                         <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
-
-                                    </form>
+                                    </form> 
                                 </td>
                         </tr>
                     <?php
                         }
+
+/* EL QUE ES PARA MOSTRAR EN PEDIDOS_REPOSICION_PRINCIPAL */
+
+                public static function escribir_pedidos_principal(){
+                        
+                    $filas = repositorio_pedido_reposicion::obtener_pedidos(Conexion::obtenerConexion());
+                    
+                    if(count($filas)){
+
+                        foreach($filas as $fila){
+                            self::escribir_pedido_principal($fila);
+                        }
+
+                        }            
+
+                    }
+
+                public static function escribir_pedido_principal($fila){
+                        if(!isset($fila)){
+
+                            return;
+                        }
+                        ?>
+                    <tr>
+                            <td class="text-center"> <?php echo $fila ->obtener_cod_pedido() ?>  </td>
+                            <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+                            <td>
+                                <form method="post" action="<?php echo ruta_detalle_pedidos_reposicion; ?>">
+                                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Detalle</button>
+                                </form> 
+                            </td>
+                            <td>
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                               <button type="submit" style="background-color:rgba(177, 60, 30, 0.9);padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_pedido(); ?>" widht= 3%>Eliminar</button>
+                            </form>
+                            </td>
+                    </tr>
+                <?php
+                    }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
 
         public static function escribir_detalles_pedido_cot($id){
 

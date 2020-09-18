@@ -63,7 +63,7 @@ public static function escribir_detalle_factura($fila){
         }
 
 //////////////////////////////////////////////////////////////REMITOS/////////////////////////////////////////////////////////
-
+/* METODO ESCRIBIR REMITOS PARA REGISTRAR NUEVO AL SELECCIONAR FACTURA */
 public static function escribir_remitos(){
         
         $filas = repositorio_factura::obtener_facturas_compra(Conexion::obtenerConexion());
@@ -102,6 +102,46 @@ public static function escribir_remito($fila){
         </tr>
     <?php
         }
+
+/* METODO ESCRIBIR REMITO PRINCIPAL */
+
+public static function escribir_remitos_principal(){
+        
+    $filas = repositorio_remito::obtener_remitos(Conexion::obtenerConexion());
+    
+    if(count($filas)){
+
+        foreach($filas as $fila){
+            self::escribir_remito_principal($fila);
+        }
+
+        }            
+
+    }
+
+public static function escribir_remito_principal($fila){
+        if(!isset($fila)){
+
+            return;
+        }
+        ?>
+    <tr>
+            
+            <td class="text-center"> <?php echo $fila ->obtener_cod_remito() ?></td>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_factura() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td>
+            <td class="text-center"> <?php echo $fila ->obtener_total() . " $" ?></td>
+            <td>
+                <form method="post" action="<?php echo ruta_detalle_remito; ?>">
+
+                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_remito(); ?>">Detalle</button>
+
+                </form>
+            </td>
+    </tr>
+<?php
+    }
 
 
 

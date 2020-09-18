@@ -8,7 +8,7 @@ class remitos {
     private $proveedor;
     private $total;
     private $estado;
-    private $cod_factura;
+    private $cod_factura; 
     
     //Constructor 
 
@@ -24,7 +24,7 @@ class remitos {
     }
     //Getters
     public function obtener_cod_remito() {
-        return $this -> cod_factura_remito;
+        return $this -> cod_factura;
     }
     
     public function obtener_fecha() {

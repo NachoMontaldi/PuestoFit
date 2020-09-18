@@ -8,7 +8,7 @@ include_once '../clases/inventario.class.php';
 include_once '../clases/repositorio_inventario.class.php';
 include_once '../clases/redireccion.class.php';
 include_once '../clases/repositorio_proveedores.class.php';
-
+include_once '../pantallas/barra_nav.php';
 //Conexion::abrirConexion();
 
 if(isset($_POST['ver_detalle'])){
@@ -36,22 +36,7 @@ if(isset($_POST['ver_detalle'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <header>
-      <div id="logo">
-      <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
-      </div>
-    </header>
-    <!--BARRA DE NAVEGACION-->
-    <div id="nav">
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Clientes</a></li>
-        <li><a href="#">Ventas</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-        <li><a href="<?php echo ruta_compras_principal?>">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>" class="current">Stock</a></li>
-      </ul>
-    </div>
+
 
      <!---------------------------------------------------------------------------------------------------->
     <div id="formulario" class="form">

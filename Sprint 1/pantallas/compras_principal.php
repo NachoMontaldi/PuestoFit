@@ -2,6 +2,7 @@
 <?php
     include_once '../config.inc.php';
     include_once '../clases/escritor_factura.class.php';
+    include_once '../pantallas/barra_nav.php';
 
     Conexion::abrirConexion();
  
@@ -9,7 +10,7 @@
 <html>
 
   <head>
-    <title>Compras</title>
+    <title>Facturas de compra</title>
 
   <!--  CSS -->
     <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
@@ -36,22 +37,6 @@
   <!---->
   </head>
   
-    <header>
-      <div id="logo">
-        <img src="/puestofit/images/puestoFit.png" alt="Puesto Fit">
-      </div>
-    </header>
-    <!--BARRA DE NAVEGACION-->
-    <div id="nav">
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Clientes</a></li>
-        <li><a href="#">Ventas</a></li>
-        <li><a href="<?php echo ruta_proveedor_principal?>">Proveedores</a></li>
-        <li><a href="<?php echo ruta_compras_principal?>" class="current">Compras</a></li>
-        <li><a href="<?php echo ruta_inventario_principal?>">Stock</a></li>
-      </ul>
-    </div>
   <body>
     <!-- BODY -->
     <!---BARRA DE BUSQUEDA-->
@@ -65,11 +50,6 @@
         </p>
       </div>
     </form>
-    <!---BOTONES VER DETALLE/MODIFICAR-->
-    <div class="contenedor2"> 
-      <a href="<?php echo ruta_ordenes_de_compra_principal?>"><button type="submit" name="ordenes_compra" id="oc" class="boton">ORDENES DE COMPRA</button></a>                
-      <a href="<?php echo ruta_cotizaciones_principal?>"><button type="submit" name="cotizaciones" id="ct" class="boton">COTIZACIONES</button></a>           
-    </div>  
 
     <!---->
     <!-- GRILLA -->
@@ -100,7 +80,6 @@
       <form method ="post" action= "<?php echo ruta_factura_registrar ?>">
         <a href="<?php echo ruta_factura_registrar?>"><button type="submit" name="reg_factura" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR FACTURA</button></a>                      
       </form>
-        <a href="<?php echo ruta_remito_registrar?>"><button type="submit" name="reg_remito" id="rr" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR REMITO</button></a>
     </div>
 
 

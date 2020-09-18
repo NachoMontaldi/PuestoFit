@@ -1,19 +1,18 @@
-  <!DOCTYPE html>
-  <?php include_once '../config.inc.php';
-  include_once '../conexion.class.php';
-  include_once '../clases/repositorio_ordenes_de_compra.class.php';
-  include_once '../clases/escritor_filas_ordenes_de_compra.class.php';
-  include_once '../clases/redireccion.class.php';
-  include_once '../pantallas/barra_nav.php';
+<!DOCTYPE html>
+  <?php 
+    
+    include_once '../config.inc.php';
+    include_once '../conexion.class.php';
+    include_once '../pantallas/barra_nav.php';
 
 
   Conexion::abrirConexion();
-  if (isset($_POST['ver_detalle'])) {
+ /*  if (isset($_POST['ver_detalle'])) {
 
     $oc_id = $_POST['ver_detalle'];
   }
 
-  $total = repositorio_ordenes_de_compra::calcular_precios($oc_id);
+  $total = repositorio_ordenes_de_compra::calcular_precios($oc_id); */
   ?>
   <html>
 
@@ -40,18 +39,18 @@
     <div id="formulario" class="form">
       <table class="tabla" border="1px">
         <tr>
-          <td colspan="2" class="titulo">DETALLE DE ORDEN DE COMPRA</td>
+          <td colspan="2" class="titulo">DETALLE REMITO</td>
         </tr>
         <tr>
-          <td class="titulos">Cod. Orden de Compra:</td>
+          <td class="titulos">Cod. Remito:</td>
           <td class="valor">
-            <input type="text" readonly name="id_oc" id="id_oc" value="<?php echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="id_remito" id="id_remito" value="<?php echo $_POST['ver_detalle']; ?>">
           </td>
         </tr>
         <tr>
           <td class="titulos">Proveedor:</td>
           <td class="valor">
-            <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo $_POST['proveedor_od']; ?>" />
+            <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo $_POST['proveedor']; ?>" />
           </td>
         </tr>
         <tr>
@@ -72,9 +71,9 @@
                 <tbody>
                   <tr>
                     <?php
-                    if (isset($_POST['ver_detalle'])) {
+                    /* if (isset($_POST['ver_detalle'])) {
                       escritor_filas_ordenes_de_compra::escribir_detalles_orden_de_compra($_POST['ver_detalle']);
-                    } ?>
+                    } */ ?>
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
@@ -93,7 +92,7 @@
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_cotizaciones_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_remitos_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 
