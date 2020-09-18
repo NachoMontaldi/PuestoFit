@@ -322,12 +322,12 @@
             }catch(PDOException $ex){
         print 'ERROR OT' . $ex -> getMessage();
     }
-}else{ echo 'No hay conexion :(';}
+    }else{ echo 'No hay conexion :(';}
 
-return $filas;
+    return $filas;
     }
 
-    public static function precio_unitario($conexion,$cod_det,$precio){
+public static function precio_unitario($conexion,$cod_det,$precio){
 
         $cotizacion_actualizada = false;
         

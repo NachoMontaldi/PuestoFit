@@ -6,7 +6,6 @@
   include_once '../clases/repositorio_ordenes_de_compra.class.php';
 
   Conexion::abrirConexion();
-
 ?>
 
 <html>
@@ -76,11 +75,10 @@
                 <tr>
                     <th>Cod. OC</th>
                     <th>Fecha Emisión</th>
-                    <th>Fecha Entrega (Estimada)</th>
                     <th>Proveedor</th>
                     <th>Total</th>
-                    <th>Estado</th>
                     <th>VER DETALLE</th>
+                    
                 </tr>
             </thead>
             <tbody>

@@ -25,8 +25,8 @@ table {
 /* INPUTS DE LA TABLA */
 .form input {
     width: 100%;
-    border-radius: 5px;
-    border: 2px solid rgba(14, 104, 104, 0.479);
+    border-radius: 2px;
+    border: 2px solid rgb(53, 58, 64);
 }
 /* CONTENEDOR DE INPUTS */
 .valor {

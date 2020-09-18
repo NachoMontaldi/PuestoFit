@@ -73,15 +73,21 @@
                         DATOS DE COTIZACIÓN
                     </td>
                 </tr>
-                <br>
-                <br>
-
-                <td>Proveedor: <input type="text" readonly name="proveedor" id="proveedor" value=" <?php echo $_POST['proveedor']; ?> "></td> 
-                    
-                    
-                     
                 <tr>
-                    <td>
+                    <td class="titulos">Cod. Cotizacion:</td>
+                    <td class="valor">
+                    <input type="text" readonly name="cotizacion" id="cotizacion" value=" <?php echo $_POST['ver_detalle']; ?> "></td> 
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="titulos">Proveedor:</td>
+                    <td class="valor">
+                    <input type="text" readonly name="proveedor" id="proveedor" value=" <?php echo $_POST['proveedor']; ?> "></td> 
+                    </td>  
+                </tr>
+                     
+                <tr> 
+                    <td colspan="2">
                         <!--Grilla de productos para cotizacion-->
                         <div class="table-responsive-lg">
                             <table id="grilla" class="table-hover table table-bordered">

@@ -72,13 +72,9 @@ Conexion :: cerrarConexion();
                 </tr>
                 <tr>
                     <td class="titulos">Nombre producto:</td>
-                    <td class="valor">
+                    <td class="valor" colspan="3">
                         <input type="text" name="nombre" id="nombre">
-                    </td>
-                    <td class="titulos">Proveedor:</td>
-                    <td class="valor">
-                    <input type="text" name="proveedor" id="proveedor">
-                    </td>   
+                    </td>  
                 </tr>
                 <tr>
                     <td class="titulos">Categoria:</td>

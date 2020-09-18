@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
     include_once '../config.inc.php';
+    include_once '../clases/escritor_factura.class.php';
 
+    Conexion::abrirConexion();
  
 ?>
 <html>
@@ -72,7 +74,7 @@
     <!---->
     <!-- GRILLA -->
     <div class="table-responsive-lg">
-      <table id="grilla" class="table-hover table table-bordered">
+      <table id="grilla" class="table-hover table table-bordered" >
         <thead class="thead-dark">
           <tr>
             <th>Nº Factura</th>
@@ -80,17 +82,25 @@
             <th>Proveedor</th>
             <th>Fecha de emisión</th>
             <th>Total</th> 
-          </tr>
+            <th>DETALLE</th>
+          </tr> 
         </thead>
         <tbody>
-      <!-- AGRRGAR ACA FUNCIONES PHP Xd -->
+        <?php
+        
+        escritor_factura::escribir_facturas(Conexion::obtenerConexion());
+        
+        ?>
+      <!-- AGRRGAR ACA FUNCIONES PHP -->
         </tbody>
       </table>
     </div>
     <!---->
     <div class="contenedor3">
-      <a href="<?php echo ruta_factura_registrar?>"><button type="submit" name="reg_factura" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR FACTURA</button></a>           
-      <a href="<?php echo ruta_remito_registrar?>"><button type="submit" name="reg_remito" id="rr" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR REMITO</button></a>           
+      <form method ="post" action= "<?php echo ruta_factura_registrar ?>">
+        <a href="<?php echo ruta_factura_registrar?>"><button type="submit" name="reg_factura" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR FACTURA</button></a>                      
+      </form>
+        <a href="<?php echo ruta_remito_registrar?>"><button type="submit" name="reg_remito" id="rr" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR REMITO</button></a>
     </div>
 
 

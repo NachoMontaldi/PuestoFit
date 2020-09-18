@@ -31,3 +31,4 @@ define('ruta_factura_registrar',servidor.'/pantallas/factura_registrar.php');
 define('ruta_remito_registrar',servidor.'/pantallas/remito_registrar.php');
 define('ruta_seleccionar_cotizacion',servidor.'/pantallas/seleccionar_cotizacion.php');
 define('ruta_seleccionar_oc',servidor.'/pantallas/seleccionar_oc.php');
+define('ruta_seleccionar_factura',servidor.'/pantallas/seleccionar_factura.php');

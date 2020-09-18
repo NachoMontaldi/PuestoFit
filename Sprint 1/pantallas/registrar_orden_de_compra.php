@@ -26,22 +26,24 @@
     $id = repositorio_ordenes_de_compra::obtener_ultimo_id(Conexion::obtenerConexion()); 
 
 
-    /*if(isset($_POST['enviar'])){
+    if(isset($_POST['enviar'])){
       //echo $_POST['proveedor'];
       //actualiza el estado a 1
       $orden_de_compra_validada = repositorio_ordenes_de_compra::estado_orden_de_compra(Conexion :: obtenerConexion(),$id);
       //actualiza el proveedor al que se seleccionó
       $pedido_proveedor = repositorio_ordenes_de_compra::proveedor_orden_de_compra(Conexion :: obtenerConexion(),$id,$_POST['proveedor']);
-      //actualiza el codigo pedido en cotizaciones
+      //actualiza el codigo pedido en ordenes de compras
       $codigo = repositorio_ordenes_de_compra::cotizacion_orden_de_compra(Conexion :: obtenerConexion(),$id,$_POST['cod_cotizacion']);
+      //actualiza el total en ordenes de compras
+      repositorio_ordenes_de_compra :: total_orden_de_compra(Conexion::obtenerConexion(),$id,$_POST['precioTotal']);
       // insertar los detalles
       repositorio_ordenes_de_compra ::cargar_detalles($_POST['cod_cotizacion'], $id);
       // borrar los estados igual a 0
       repositorio_ordenes_de_compra ::eliminar_falsos (Conexion :: obtenerConexion());
       //redirige despues de insertar
-      //Redireccion::redirigir(ruta_ordenes_de_compra_principal);
+      Redireccion::redirigir(ruta_ordenes_de_compra_principal);
      
-    }*/
+    }
 
     ?>
 
@@ -161,7 +163,6 @@
                     </td>
                     <td style="text-align:right" class="valor" colspan="2">
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                        <button type="refresh" name="limpiar" id="ld" class="boton">LIMPIAR DATOS</button>
                     </td>
                 </tr>
             </table>

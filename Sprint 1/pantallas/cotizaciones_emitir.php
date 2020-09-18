@@ -27,15 +27,7 @@
 
     $id = repositorio_cotizacion::obtener_ultimo_id(Conexion::obtenerConexion());
 
-    if(isset($_POST['vista'])){
-
-
-
-      $detalle_cotizacion = new detalle_cotizacion('',$id, $_POST['nombre'],$_POST['marca'],$_POST['cantidad']);
-      
-      $detalle_insertado = repositorio_cotizacion :: insertar_detalle_cotizacion(Conexion :: obtenerConexion(),$detalle_cotizacion);
-
-    }
+    
     
     
 

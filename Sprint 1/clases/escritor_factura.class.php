@@ -11,6 +11,50 @@ include_once '../clases/ordenes_de_compra.class.php';
 
 class escritor_factura{
 
+//escritores facturas//////////////////////////////////////////////////////////////////////////////////
+public static function escribir_facturas(){
+        
+    $filas = repositorio_factura::obtener_facturas_compra(Conexion::obtenerConexion());
+    
+    if(count($filas)){
+
+        foreach($filas as $fila){
+            self::escribir_factura($fila);
+        }
+
+        }            
+
+    }
+
+public static function escribir_factura($fila){
+        if(!isset($fila)){
+
+            return;
+        }
+        ?>
+    <tr>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_factura_compra() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_total() . " $" ?>  </td>
+            <td>
+                <form method="post" action="<?php echo ruta_factura_registrar; ?>">
+
+                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Detalle</button>
+                    <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                    <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
+
+                </form>
+            </td>
+    </tr>
+<?php
+    }
+
+
+
+
+//escritores ordenes de compra////////////////////////////////////////////////////////////////////////
 public static function escribir_ocs(){
         
         $filas = repositorio_factura::obtener_oc(Conexion::obtenerConexion());
@@ -41,12 +85,14 @@ public static function escribir_oc($fila){
 
                         <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_orden_de_compra(); ?>" >Seleccionar</button>
                         <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                        <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
 
                     </form>
                 </td>
         </tr>
     <?php
         }
+
 
 public static function escribir_detalles_oc($id){
 
@@ -96,5 +142,6 @@ public static function escribir_detalle_oc($fila){
             </tr>
         <?php
                 }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -6,7 +6,7 @@
     include_once '../clases/repositorio_inventario.class.php';
     include_once '../clases/redireccion.class.php';
     
-    Conexion :: abrirConexion();
+    Conexion :: abrirConexion(); 
     if(isset($_POST['editar'])){
 
         
@@ -62,14 +62,10 @@
                 </tr>
                 <tr> 
                     <td class="titulos">Nombre producto:</td>
-                    <td class="valor">
+                    <td class="valor" colspan="3">
                         <input type="text" readonly name="nombre" id="nombre" value="<?php echo $producto -> obtener_nombre();?>">
                     </td>
-                    <td class="titulos">Proveedor:</td>
-                    <td class="valor">
-                        
-                    <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo repositorio_proveedores::obtener_nombre_proveedor(Conexion::obtenerConexion(),$producto -> obtener_cod_prov())?>">
-                    </td>   
+   
                 </tr>
                 <tr>
                     <td class="titulos">Categoria:</td>

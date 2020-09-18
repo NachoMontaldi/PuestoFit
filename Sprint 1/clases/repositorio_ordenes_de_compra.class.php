@@ -1,6 +1,7 @@
 <?php 
     include_once '../conexion.class.php';
     include_once 'ordenes_de_compra.class.php';
+    include_once 'detalle_ordenes_de_compra.class.php';
 
     class repositorio_ordenes_de_compra {
 
@@ -9,7 +10,7 @@
             $filas = [];
             if (isset($conexion)){
                 try{
-                    $sql= 'select * from ordenes_de_compra;';
+                    $sql= 'select * from ordenes_de_compra where estado=1;';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -71,15 +72,15 @@
                     $resultado = $sentencia -> fetchColumn() ;
                     
                     $id = intval($resultado);
-                        
+                   
     
                     
                 }catch(PDOException $ex){
                     print 'ERROR UID' . $ex -> getMessage();
                 }
             }else{ echo 'no';}
-            
-            return $id;
+
+            return $id; 
         }
 
         
@@ -92,7 +93,7 @@
             
             if (isset($conexion)){
                 try{
-                    $sql = 'update ordenes_de_compra set estado = 1 WHERE cod_orden_de_compra =' . $cod_orden_de_compra;
+                    $sql = 'update ordenes_de_compra set estado = 1 WHERE cod_orden_de_compra ='. $cod_orden_de_compra;
                     
                     
                     
@@ -140,6 +141,33 @@
                 echo 'No hubo conexion en detalle orden_de_compra!!';
             }
         }
+
+        public static function total_orden_de_compra($conexion,$cod_orden_de_compra,$total){
+        
+            $orden_de_compra_actualizada = false;
+            
+            if (isset($conexion)){
+                try{
+                    $sql = 'update ordenes_de_compra set total = :total WHERE cod_orden_de_compra =' . $cod_orden_de_compra;
+                    
+                    $totaltemp = $total; //-> obtener_proveedor();
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> bindParam(':total', $totaltemp, PDO::PARAM_STR);
+                    
+                    $orden_de_compra_actualizada = $sentencia -> execute();
+                    
+                } catch(PDOException $ex){
+                    print 'ERROR INSCo' . $ex -> getMessage();
+                }
+                
+                return $orden_de_compra_actualizada;
+            }
+            else{
+                echo 'No hubo conexion en detalle orden_de_compra!!';
+            }
+        }
     
         public static function cotizacion_orden_de_compra($conexion,$cod_orden_de_compra,$cod_cotizacion){
         
@@ -147,7 +175,7 @@
             
             if (isset($conexion)){
                 try{
-                    $sql = 'update ordenes_de_compra set cod_cotizacion = :codcotizacion WHERE cod_orden_de_compra =' . $cod_orden_de_compra;
+                    $sql = 'update ordenes_de_compra set cod_cotizacion = :codcotizacion WHERE cod_orden_de_compra ='. $cod_orden_de_compra;
                     
                     $codcotizaciontemp = $cod_cotizacion; 
                     
@@ -181,7 +209,7 @@
                     $marca=$fila -> obtener_marca();
                     $cantidad = $fila -> obtener_cantidad();
                     $precio_unitario = $fila -> obtener_precio_unitario();
-                    self::insertar_detalle_ordenes_de_compra(Conexion :: obtenerConexion(),$cod_cotizacion,$nombre,$marca,$cantidad); 
+                    self::insertar_detalle_ordenes_de_compra(Conexion :: obtenerConexion(),$cod_orden_de_compra,$nombre,$marca,$cantidad, $precio_unitario); 
     
                 }
     
@@ -195,8 +223,8 @@
           
             if (isset($conexion)){
                 try{
-                    $sql = "insert into detalle_ordenes_de_compra (cod_orden_de_compra,nombre,marca,cantidad,precio_unitario) values
-                    (:cod_orden_de_compra,:nombre,:marca,:cantidad,precio_unitario)";
+                    $sql = "insert into detalle_ordenes_de_compra(cod_orden_de_compra,nombre,marca,cantidad,precio_unitario) values
+                    (:cod_orden_de_compra,:nombre,:marca,:cantidad,:precio_unitario)";
                     
                     $cod_orden_de_compratemp = $cod_orden_de_compra;
                     $nombretemp = $nombre;
@@ -297,5 +325,4 @@
             
         }
     }
-?>
-                                                                                                                                         
+?>                                                                                                                                    

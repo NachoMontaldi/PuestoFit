@@ -9,13 +9,45 @@ vendernos). -->
     include_once '../conexion.class.php';
     include_once '../clases/repositorio_factura.class.php';
     include_once '../clases/repositorio_ordenes_de_compra.class.php';
+    include_once '../clases/facturas_compra.class.php';
+    include_once '../clases/redireccion.class.php';
 
     Conexion::abrirConexion();
+
+
+  if(isset($_POST['reg_factura'])){
+
+    repositorio_factura :: insertar_factura(Conexion :: obtenerConexion());
+    
+  
+  }
   if(isset($_POST['seleccionar'])){
     
       $total = repositorio_ordenes_de_compra:: calcular_precios($_POST['seleccionar']);
   
   }
+
+  $id = repositorio_factura::obtener_ultimo_id(Conexion::obtenerConexion());
+  
+
+  if(isset($_POST['enviar'])){
+
+    // insertar los detalles
+    repositorio_factura :: cargar_detalles($_POST['cod_oc2'], $id);
+
+    //actualiza el estado a 1
+    $factura_validado = repositorio_factura:: estado_factura(Conexion :: obtenerConexion(),$id);
+    
+    // borrar los estados igual a 1
+    repositorio_factura :: eliminar_falsos (Conexion :: obtenerConexion());
+
+    // actualizar cod_oc, proveedor, total, fecha_estimada de entrega de factura
+    repositorio_factura :: factura_cargada (Conexion :: obtenerConexion(), $id, $_POST['proveedor2'], $_POST['total2'], $_POST['datepicker'], $_POST['cod_oc2']);
+
+    //redirige despues de insertar
+    Redireccion::redirigir(ruta_compras_principal);
+   
+  }    
 ?>
 <html>
 
@@ -46,7 +78,7 @@ vendernos). -->
       </div>
     </header>
     <!--BARRA DE NAVEGACION-->
-    <div id="nav"></div>
+    <div id="nav">
       <ul>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Clientes</a></li>
@@ -59,7 +91,6 @@ vendernos). -->
 
       <!---------------------------------------------------------------------------------------------------->
       <div id="formulario" class="form">
-        <form name="formP1" action="" >
             <table class="tabla" border="1px"> 
                 <tr>
                   <td colspan="3" class="titulo">
@@ -82,8 +113,9 @@ vendernos). -->
                       <i class="fa fa-search"></i></button>
                     </a>
                     </form>
+
                   </td>
-                  <td colspan="2" rowspan="5">
+                  <td rowspan="3">
                       <!--Grilla de productos-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
@@ -101,15 +133,7 @@ vendernos). -->
                             </tr>
                           <tbody>
                             <?php
-                            /*
-                            LA GRILLA SE CARGA CON LOS DATOS DE LA ORDEN DE COMPRA
-                            DE ACUERDO AL ID INGRESADO. */
-
-                            //if(isset($_POST['eliminar'])){
-                   
-                             // repositorio_factura::eliminar_detalle_factura_compra(Conexion::obtenerConexion(),$_POST['eliminar']);
-                             
-                             //}  
+                    
 
                             if(isset($_POST['seleccionar'])){
 
@@ -120,11 +144,11 @@ vendernos). -->
                             if(isset($_POST['seleccionar'])){?>
                             <tr>
 
-                              <td colspan="4" align="right">
+                              <td colspan="3" align="right">
                                 <h3>Total</h3>
                               </td>
                               <td align="center">
-                                <h3> <?php  if (isset($_POST['seleccionar'])){ echo $total . " $"; }//echo number_format($precio,2) ?> </h3>
+                                <h3> <?php  if (isset($_POST['seleccionar'])){ echo $total . " $"; } ?> </h3>
                               </td>
 
                             </tr>
@@ -148,29 +172,39 @@ vendernos). -->
                         ?>">
                     </td>   
                 </tr>
+               
+                <td class="titulos">Fecha Estimada de Entrega:</td>
+                    <td class="valor">
+                    <form method="post" action="<?php //echo $_SERVER['PHP_SELF'] ?>">
+
+                        <input autocomplete="off" type="date" min="<?php echo date("Y-m-d");?>" id="datepicker" name="datepicker" > 
+                        
+                    
                 <tr>    
                 </tr>
-                </tr>
+
                 <tr>
 
-                </tr>
-                <tr>
-                  <td class="valor" colspan="2">
-                    <!--  <div class="botones">
-                      <input type="button" value="Agregar a Vista Previa" id="avp">
-                    </div>  -->
-                  </td>
-                </tr> 
-                <tr>
-                    <td colspan="4" style="text-align:right" class="valor">
+                      <td colspan="4" style="text-align:right" class="valor">
+                      <?php
+                        if(isset($_POST['seleccionar'])){?>
+                          <input type="hidden" name="cod_oc2"  id="-" value="<?php echo $_POST['seleccionar'] ; ?>">
+                          <input type="hidden"  name="proveedor2"  id="-" value="<?php echo $_POST['proveedor'] ; ?>">
+                          <input type="hidden"  name="total2"  id="-" value="<?php echo $_POST['total'] ; ?>">
+
+                        <?php } ?>
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
-                    </td>
+                      </td>
+                    </form>
                 </tr>
  
             </table>
-        </form>
+
     </div>
+    
 
     <div class="contenedor4">
         <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
     </div> 
+
+ 

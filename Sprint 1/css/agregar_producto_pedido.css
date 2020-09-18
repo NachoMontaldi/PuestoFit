@@ -29,7 +29,7 @@ textarea {
 .form input {
   width: 100%;
   border-radius: 5px;
-  border: 2px solid rgba(14, 104, 104, 0.479);
+  border: 2px solid rgba(35, 43, 43, 0.479);
 }
 
 .valor {
@@ -38,8 +38,8 @@ textarea {
 }
 .valor #categoria, #proveedor, #descripcion, #contieneA, #contieneT, #contieneL {
     width: 100%;
-    border:2px solid rgba(14, 86, 104, 0.479) ;
-    border-radius: 5px;
+    border-radius: 2px;
+    border: 2px solid rgb(53, 58, 64);
     font-style: oblique;
 }
 

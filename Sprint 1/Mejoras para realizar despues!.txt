@@ -7,14 +7,7 @@
 	*mostrar emergente en caso de que la busqueda no devuelva nada
 	*usar la tabla stock_deposito
 
--Modificar Producto
-	*sacar input proveedores!
 
--Detalle producto:
-	*sacar input proveedores!
-
--Cotizaciones Principal:
-	*Mostrar proveedor de ver detalle de forma estetica
 
 
 

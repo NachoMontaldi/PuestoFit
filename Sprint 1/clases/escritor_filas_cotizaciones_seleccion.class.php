@@ -72,7 +72,7 @@
                                     <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                                 </form>
                             </td>
-                        </tr>
+                        </tr> 
             <?php  
             }     
         }     

@@ -121,8 +121,8 @@ create table facturas_compra(
     total int,
     estado varchar(100),
     primary key(cod_factura_compra),
-    cod_cotizacion int,
-    FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion) ON DELETE CASCADE 
+    cod_oc int,
+    FOREIGN key (cod_oc) REFERENCES ordenes_de_compra(cod_orden_de_compra) ON DELETE CASCADE 
 );
 
 create table detalle_facturas_compra(
@@ -134,6 +134,28 @@ create table detalle_facturas_compra(
     precio_unitario int,
     primary key (cod_det_factura_compra),
     FOREIGN key (cod_factura_compra) REFERENCES facturas_compra(cod_factura_compra) on DELETE CASCADE
+);
+
+create table remitos(
+    cod_remito int unique auto_increment,
+    fecha datetime,
+    proveedor varchar(255),
+    total int,
+    estado varchar(100),
+    primary key(cod_remito),
+    cod_factura int,
+    FOREIGN key (cod_factura) REFERENCES facturas_compra(cod_factura_compra) ON DELETE CASCADE 
+);
+
+create table detalle_remitos(
+    cod_det_remito int unique auto_increment,
+    cod_remito int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    precio_unitario int,
+    primary key (cod_det_remito),
+    FOREIGN key (cod_remito) REFERENCES remitos(cod_remito) on DELETE CASCADE
 );
 
 /* Claves*/

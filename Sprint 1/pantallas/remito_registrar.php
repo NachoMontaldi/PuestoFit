@@ -6,6 +6,10 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
  <!DOCTYPE html>
 <?php
      include_once '../config.inc.php';
+     include_once '../clases/escritor_remito.class.php';
+     include_once '../Conexion.class.php';
+
+     Conexion::abrirConexion();
  ?>
 <html>
 
@@ -60,10 +64,10 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
                     <tr>
                         <td class="titulos">Fecha:</td>
                         <td class="valor">
-                            <input type="date" name="Fecha" id="Fecha" readonly>
+                            <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                         </td>
 
-                        <td colspan="2" rowspan="5">
+                        <td rowspan="4">
                             <!--Grilla de productos-->
                             <div class="table-responsive-lg">
                                 <table id="grilla" class="table-hover table table-bordered">
@@ -74,18 +78,19 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Marca</th>
-                                            <th>Precio U.</th>
-                                            <th>Cant.</th>
+                                            <th>Precio Unitario</th>
+                                            <th>Cantidad</th>
                                             <th>Subtotal</th>
-                                            <th>BTN ELIMINAR</th>
+                                            <th></th>
                                         </tr>
+                                    </thead>
                                     <tbody>
                                         <?php
-                                        /*
-                                                        
-                                        escritor_detalle::escribir_detalles();
-            
-                                        */
+                                            if(isset($_POST['seleccionar'])){
+
+                                                escritor_remito :: escribir_detalles_factura($_POST['seleccionar']);
+                  
+                                            }
                                         ?>
                                     </tbody>
                                 </table>
@@ -95,30 +100,41 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
 
                         <td class="titulos">ID Factura de compra:</td>
                         <td class="valor">
-                            <input type="text" name="idfac" id="idfac">
+                        <form method="post">
+                        <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="cod_oc" id="codigo_oc" value="<?php
+                    
+                        if(isset($_POST['seleccionar'])){
+  
+                            echo $_POST['seleccionar'];
+
+                         }?>">
+                             <a href="<?php echo ruta_seleccionar_factura ?>">
+                            <button type="button" name="buscar" id="gd" class="boton" >
+                             <i class="fa fa-search"></i></button>
+                            </a>
+                    </form>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="titulos">ID Orden de compra:</td>
-                        <td class="valor">
-                            <input type="text" name="oc" id="oc" readonly>
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <td class="titulos">Proveedor:</td>
                         <td class="valor">
-                            <input type="text" name="proveedor" id="prov" readonly>
+                            <input type="text" name="proveedor" id="prov" readonly value="<?php 
+                        
+                        if(isset($_POST['seleccionar'])){
+  
+                            echo $_POST['proveedor'];
+
+                        }
+                        
+                        ?>">
                         </td>
                     </tr>
                     <tr>
-                        <td class="valor" colspan="2">
-                            <div class="botones">
-                                <input type="button" value="Agregar a Vista Previa" id="avp">
-                            </div>
-                        </td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:right" class="valor">
+                        <td colspan="3" style="text-align:right" class="valor">
                             <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
                         </td>
                     </tr>
