@@ -1,13 +1,16 @@
 -General:
 	*hacer carteles emergentes para borrado con exito y modificacion exitosa.
-	*cambiar los textarea de editar
 
 -Inventario Principal:
 	*si se busca con el signo "$" no va a devolver nada->convertir en el metodo escritor_filas_filtradas
 	*mostrar emergente en caso de que la busqueda no devuelva nada
 	*usar la tabla stock_deposito
 
+-Pedido de reposicion
+	*no anda el boton detalle
 
+-Detalle Factura
+	*crearlo jejox
 
-
-
+-EN TODOS LOS REGISTRAR
+	*si uno entra a seleccionar un producto, cotizacion,oc,etc y hace click en volver sin seleccionar nada tira error

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <?php
 include_once '../config.inc.php';
-include_once '../clases/escritor_factura.class.php';
+//include_once '../clases/escritor_factura_pago.class.php';
 include_once '../conexion.class.php';
 include_once '../clases/repositorio_factura.class.php';
-include_once '../clases/escritor_remito.class.php';
+//include_once '../clases/escritor_pagos.class.php';
 include_once '../pantallas/barra_nav.php';
 
+
 Conexion::abrirConexion();
-
-
-
 ?>
 <html>
 
@@ -58,7 +56,6 @@ Conexion::abrirConexion();
                                 </tr>
                                 <?php
                                 //escritor para las facturas
-                                escritor_remito::escribir_remitos();
-
+                                //escritor_pago::escribir_remitos();
                                 ?>
 </html>

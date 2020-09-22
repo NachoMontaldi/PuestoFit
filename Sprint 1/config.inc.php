@@ -36,5 +36,10 @@ define('ruta_pedidos_reposicion_principal',servidor.'/pantallas/pedidos_reposici
 define('ruta_detalle_pedidos_reposicion',servidor.'/pantallas/detalle_pedidos_reposicion.php');
 define('ruta_remitos_principal',servidor.'/pantallas/remitos_principal.php');
 define('ruta_detalle_remito',servidor.'/pantallas/detalle_remito.php');
+define('ruta_registrar_pago',servidor.'/pantallas/registrar_pago.php');
+define('ruta_pagos_principal',servidor.'/pantallas/pagos_principal.php');
+define('ruta_seleccionar_factura_pago',servidor.'/pantallas/seleccionar_factura_pago.php');
+
+
 
 

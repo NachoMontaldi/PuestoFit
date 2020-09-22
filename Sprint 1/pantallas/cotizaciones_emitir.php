@@ -19,7 +19,7 @@
 
       
   
-      $cotizacion = new cotizaciones('','','','','',0);
+      $cotizacion = new cotizaciones('','','','','',0,1);
       
       $cotizacion_insertada = repositorio_cotizacion :: insertar_cotizacion(Conexion :: obtenerConexion(),$cotizacion);
       
@@ -86,6 +86,7 @@
   <body>
 
 
+
       <!---------------------------------------------------------------------------------------------------->
       <div id="formulario" class="form">
             <table class="tabla" border="1px"> 
@@ -140,18 +141,27 @@
                     </a>
                   </td>
                 </tr>
-                <tr>
 
+                <tr>
+                  <td class="titulos"> Sucursal:</td>
+                  <td class="valor">
+                  <form method="post">
+                    <input type="text" readonly name="sucursal" id="sucursal" value="<?php
+                    
+                    if(isset($_POST['seleccionar'])){
+                
+                          echo $_POST['sucursal2'];
+
+                    }?>">
+                  </td>
+                </tr>
+
+                <tr>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
                         <!-- desplegable -->
                         <select name="proveedor" id="proveedor">
                             <option selected value="<?php 
-                                /*if(isset($_POST['vista'])){
-                                    echo $_POST['proveedor'];
-                                }else{
-                                  print "0";
-                                }*/
                             ?>0"> Elije un proveedor</option>
                             <?php
 

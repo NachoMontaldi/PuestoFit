@@ -18,7 +18,7 @@ if (isset($_POST['seleccionar'])) {
 }
 
 if (isset($_POST["registrar_oc"])) {
-    $orden_de_compra = new ordenes_de_compra('', '', '', '', '', 0, '');
+    $orden_de_compra = new ordenes_de_compra('', '', '', '', '', 0, '','');
     $orden_de_compra_insertada = repositorio_ordenes_de_compra::insertar_ordenes_de_compra(Conexion::obtenerConexion(), $orden_de_compra);
 }
 

@@ -51,8 +51,10 @@ create table stock_deposito (
 create table pedidos_reposicion(
     cod_pedido int unique auto_increment,
     fecha datetime,
+    sucursal int,
     estado int,
-    primary key(cod_pedido) 
+    primary key(cod_pedido),
+    FOREIGN KEY (sucursal) REFERENCES depositos(cod_deposito) ON DELETE CASCADE
 );
 
 create table detalle_pedidos_reposicion(
@@ -73,6 +75,7 @@ create table cotizaciones(
     fecha_presupuesto datetime,
     proveedor varchar(255),
     total int,
+    sucursal int,
     estado int,
     primary key(cod_cotizacion),
     FOREIGN key (cod_pedido) REFERENCES pedidos_reposicion(cod_pedido) ON DELETE CASCADE 
@@ -96,6 +99,7 @@ create table ordenes_de_compra(
     proveedor varchar(255),
     total int,
     estado varchar(100),
+    sucursal int,
     primary key(cod_orden_de_compra),
     cod_cotizacion int,
     FOREIGN key (cod_cotizacion) REFERENCES cotizaciones(cod_cotizacion) ON DELETE CASCADE 
@@ -157,6 +161,19 @@ create table detalle_remitos(
     FOREIGN key (cod_remito) REFERENCES remitos(cod_remito) on DELETE CASCADE
 );
 
+create table movimientos_stock(
+    cod_mov int unique auto_increment,
+    fecha datetime,
+    cod_producto int,
+    tipo varchar(255),
+    cantidad int,
+    primary key(cod_mov),
+    FOREIGN key (cod_producto) REFERENCES inventario(cod_prod) ON DELETE CASCADE 
+);
+create table estados(
+    cod int unique auto_increment,
+    nombre varchar (255)
+);
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);
@@ -165,19 +182,56 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_proveedor FOREIGN KEY(cod_pr
 ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);
 
 /*VISTAS*/
-CREATE VIEW vista_productos_por_deposito AS
-SELECT inventario.cod_prod, inventario.nombre as 'nom_producto' /*Etc para todo lo que necesites de inventarios*/
-deposito.nombre as 'nom_deposito', /*Etc para todo lo que necesites de depositos*/
-stock_deposito.cantidad /*de aqui solo la cantidad, el resto se usa para unir las otras dos*/
-from inventario
-INNER JOIN stock_deposito
-on  inventario.cod_prod = stock_deposito.cod_prod
-INNER JOIN deposito
-on stock_deposito.cod_deposito = deposito.cod_deposito
 
 
+    /*Vista grilla pedidos de reposicion principal*/
+    CREATE OR REPLACE VIEW 
+    grilla_pedidos_reposicion AS 
+    SELECT cod_pedido, fecha, estados.nombre as estado, depositos.nombre as sucursal FROM pedidos_reposicion
+    INNER JOIN depositos 
+    ON pedidos_reposicion.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON pedidos_reposicion.estado = estados.cod;
 
-select * from vista_productos_por_deposito
+    /*Vista grilla seleccion pedido reposicion(emitir_cotizacion)*/
+    CREATE OR REPLACE VIEW 
+    grilla_pedidos_reposicion_cot AS 
+    SELECT cod_pedido, fecha, estados.nombre as estado, depositos.nombre as sucursal FROM pedidos_reposicion
+    INNER JOIN depositos 
+    ON pedidos_reposicion.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON pedidos_reposicion.estado = estados.cod;
+
+        /*Vista grilla cotizaciones principal */
+    CREATE OR REPLACE VIEW
+    grilla_cotizaciones AS
+    SELECT cod_cotizacion, fecha_emision, fecha_presupuesto, proveedor, total, estados.nombre as estado, depositos.nombre as sucursal
+    from cotizaciones
+    INNER JOIN depositos
+    ON cotizaciones.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON cotizaciones.estado = estados.cod;
+    /*Vista grilla cotizaciones seleccionar */
+    CREATE OR REPLACE VIEW
+    grilla_cotizaciones_seleccionar AS
+    SELECT cod_cotizacion, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
+    from cotizaciones
+    INNER JOIN depositos
+    ON cotizaciones.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON cotizaciones.estado = estados.cod;
+    
+    /*Vista grilla oc */
+    CREATE OR REPLACE VIEW
+    grilla_ordenes_de_compra AS
+    SELECT cod_orden_de_compra, fecha_emision, proveedor, estados.nombre as estado, depositos.nombre as sucursal
+    from ordenes_de_compra 
+    INNER JOIN depositos
+    ON ordenes_de_compra.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON ordenes_de_compra.estado = estados.cod;
+
+
 /*Carga de elementos*/
     /*Carga de proveedores*/
     insert into proveedores (cuil,nombre,direccion,telefono,email)

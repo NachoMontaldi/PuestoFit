@@ -10,7 +10,7 @@
             $filas = [];
             if (isset($conexion)){
                 try{
-                    $sql= 'select * from ordenes_de_compra where estado=1;';
+                    $sql= 'select * from ordenes_de_compra where estado != 0 and (sucursal = 1);';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -22,7 +22,7 @@
                         foreach($resultado as $fila){
                             $filas[] = new ordenes_de_compra($fila['cod_orden_de_compra'],$fila['fecha_emision'],
                                         $fila['fecha_entrega_estimada'], $fila['proveedor'], $fila['total'], 
-                                        $fila['estado'], $fila['cod_cotizacion']);
+                                        $fila['estado'],$fila['sucursal'], $fila['cod_cotizacion']);
                         }
                     } 
                 }catch(PDOException $ex){
@@ -323,6 +323,64 @@
                 }
             return $total;
             
+        }
+        public static function obtener_sucursal($conexion,$cod_deposito){
+            if (isset($conexion)){
+                $sucursal = 0;
+                try{
+                    $sql= 'select nombre from depositos where cod_deposito='.$cod_deposito;
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> execute();
+                    
+                    $resultado = $sentencia -> fetchColumn() ;
+                    
+                    $sucursal = strval($resultado);
+                        
+    
+                    
+                }catch(PDOException $ex){
+                    print 'ERROR UID' . $ex -> getMessage();
+                }
+            }else{ echo 'no';}
+            
+            return $sucursal;
+        }
+        public static function obtener_ordenes_de_compra_filtrados($conexion,$criterio){
+        
+            $filas = [];
+
+            $criterio_min=strtolower($criterio);
+            
+            if (isset($conexion)){
+    
+                try{
+                    $sql= 'select * from grilla_ordenes_de_compra where (cod_orden_de_compra LIKE "%'.$criterio_min.'%" OR 
+                           fecha_emision LIKE "%'.$criterio_min.'%" OR proveedor LIKE "%'.$criterio_min.'%" OR sucursal LIKE "%'.$criterio_min.'%"
+                           OR estado LIKE "%'.$criterio_min.'%") AND (sucursal = "Santa ana")';
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> execute();
+                    
+                    $resultado = $sentencia -> fetchAll();
+                    
+                    if(count($resultado)){
+                        foreach($resultado as $fila){
+                            $filas[] = new ordenes_de_compra($fila['cod_orden_de_compra'],$fila['fecha_emision'],
+                            null, $fila['proveedor'], null, 
+                            $fila['estado'],$fila['sucursal'], null);
+                        }
+                    }
+    
+                    
+                }catch(PDOException $ex){
+                    print 'ERROR OT' . $ex -> getMessage();
+                }
+            }else{ echo 'No hay conexion :(';}
+            
+            return $filas;
         }
     }
 ?>                                                                                                                                    

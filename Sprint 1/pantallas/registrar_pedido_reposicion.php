@@ -15,7 +15,7 @@ Conexion::abrirConexion();
 
 if (isset($_POST['registrar_pedido'])) {
 
-    $pedido = new pedido_reposicion('', '', 0);
+    $pedido = new pedido_reposicion('', '', 1, 0);
 
     $detalle_insertado = repositorio_pedido_reposicion::insertar_pedido(Conexion::obtenerConexion(), $pedido);
 }
@@ -94,7 +94,6 @@ if (isset($_POST['enviar'])) {
                                     <th>Marca</th>
                                     <th>Cantidad</th>
                                     <th>Observaciones</th>
-                                    <th></th>
                                 </tr>
                             <tbody>
                                 <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
@@ -106,6 +105,9 @@ if (isset($_POST['enviar'])) {
 
                                         repositorio_pedido_reposicion::eliminar_detalle(Conexion::obtenerConexion(), $_POST['eliminar']);
                                     }
+
+
+
 
                                     escritor_filas::escribir_detalles_pedido($id);
 

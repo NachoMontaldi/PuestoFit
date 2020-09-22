@@ -8,6 +8,7 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
 include_once '../config.inc.php';
 include_once '../clases/escritor_remito.class.php';
 include_once '../Conexion.class.php';
+include_once '../pantallas/barra_nav.php';
 
 Conexion::abrirConexion();
 

@@ -34,6 +34,7 @@
           <li><a href="<?php echo ruta_remitos_principal?>">Remitos</a></li>
           <li><a href="<?php echo ruta_ordenes_de_compra_principal?>">Ordenes de compra</a></li>
           <li><a href="<?php echo ruta_cotizaciones_principal?>">Cotizaciones</a></li>
+          <li><a href="<?php echo ruta_pagos_principal?>">Pagos</a></li>
         </ul>
       </li>
       <li>

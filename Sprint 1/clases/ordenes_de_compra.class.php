@@ -9,18 +9,20 @@ class ordenes_de_compra {
     private $proveedor;
     private $total;
     private $estado;
+    private $sucursal;
     private $cod_cotizacion;
     
     //Constructor 
 
     public function __construct($cod_orden_de_compra,$fecha_emision,$fecha_entrega_estimada,
-                                $proveedor,$total,$estado,$cod_cotizacion){
+                                $proveedor,$total,$estado,$sucursal,$cod_cotizacion){
         $this -> cod_orden_de_compra =$cod_orden_de_compra;
         $this -> fecha_emision =$fecha_emision;
         $this -> fecha_entrega_estimada =$fecha_entrega_estimada;
         $this ->  proveedor =$proveedor;
         $this ->  total =$total;
         $this ->  estado =$estado;
+        $this ->  sucursal =$sucursal;
         $this ->  cod_cotizacion =$cod_cotizacion;                           
 
     }
@@ -48,6 +50,11 @@ class ordenes_de_compra {
     public function obtener_estado() {
         return $this -> estado;
     }
+
+    public function obtener_sucursal() {
+        return $this -> sucursal;
+    }
+
     public function obtener_cod_cotizacion() {
         return $this -> cod_cotizacion;
     }
@@ -71,6 +78,10 @@ class ordenes_de_compra {
     
     public function cambiar_estado() {
         $this -> estado=$estado;
+    }
+
+    public function cambiar_sucursal() {
+        $this -> estado=$sucursal;
     }
 }
 ?> 

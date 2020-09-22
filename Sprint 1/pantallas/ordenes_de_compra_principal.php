@@ -41,18 +41,15 @@
     <!---BARRA DE BUSQUEDA-->
     <!--Se mete dentro de un form para poder usar el metodo post-->
     <div>
-      <form role="form" method="post" action="<?php echo
-          $_SERVER['PHP_SELF']?>">
-          <div class="form-group">
-              <p id="busqueda">
-                  <input type="text" class="form-control" id="searchBox"
-                      name="criterio" placeholder="BUSCAR">
-                  <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-                  <button type="submit" class="form-control" name="busqueda"
-                      id="searchBotton"><i class="fa fa-search"></i></button>
-              </p>
-          </div>
-      </form>
+    <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+      <div class="form-group"> 
+        <p id="busqueda">
+          <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR">
+          <!--El button se hace de type = "submit" para que pueda trasladar datos-->
+          <button type="submit" class="form-control" name="busqueda" id="searchBotton"><i class="fa fa-search"></i></button>
+        </p>
+      </div>
+    </form>
     </div>
     <!--TABLA NACHO-->
     <div class="table-responsive-lg"  style="padding-top: 15px;">
@@ -62,28 +59,28 @@
                     <th>Cod. OC</th>
                     <th>Fecha Emisión</th>
                     <th>Proveedor</th>
-                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Sucursal</th>
                     <th>VER DETALLE</th>
                     
                 </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                  <td>ID</td>
-                  <td>Fecha Emisión</td>
-                  <td>Fecha Entrega (Estimada)</td>
-                  <td>Proveedor</td>
-                  <td>Total</td>
-                  <td>Estado</td>
-                  <td>
-                    <a href="<?php //echo ruta_detalle_orden_de_compra?>
-              
-                    <button type="submit" name="registrar_pedido" id="rped" class="boton">ver detalle</button>
-                            </a>
-                  </td>
-              </tr> -->
+
               <?php
-                escritor_filas_ordenes_de_compra::escribir_ordenes_de_compra(Conexion::obtenerConexion());
+                 if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                  
+ 
+                    $criterio= $_POST['criterio'];
+                    
+                    escritor_filas_ordenes_de_compra::escribir_filas_filtradas_oc($criterio);
+                    
+                  }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+
+                    escritor_filas_ordenes_de_compra::escribir_ordenes_de_compra(Conexion::obtenerConexion());
+
+                  }
+                
               ?>
             </tbody>
         </table>

@@ -87,7 +87,7 @@
                         foreach($resultado as $fila){
                             $filas[] = new ordenes_de_compra($fila['cod_orden_de_compra'],$fila['fecha_emision'],
                                     $fila['fecha_entrega_estimada'], $fila['proveedor'], $fila['total'],
-                                    $fila['estado'],$fila['cod_cotizacion']);
+                                    $fila['estado'],$fila['sucursal'],$fila['cod_cotizacion']);
                         }
                     }
                     

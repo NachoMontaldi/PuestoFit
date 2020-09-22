@@ -73,8 +73,8 @@
         
         if (isset($conexion)){
             try{
-                $sql = "insert into pedidos_reposicion (fecha,estado) values
-                 (NOW(),0)";
+                $sql = "insert into pedidos_reposicion (fecha,sucursal,estado) values
+                 (NOW(),1,0)";
                 
                 $cod_pedidotemp = $pedido -> obtener_cod_pedido();
                 
@@ -157,6 +157,27 @@
         
         return $filas;
     }
+
+    public static function eliminar_pedido($conexion,$value){
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'delete from pedidos_reposicion where cod_pedido=' . $value;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                    
+                print 'se ha borrado con exito!';}
+ 
+            catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{
+            print "D:";
+        }
+     }
+    
     public static function eliminar_detalle($conexion,$value){
         if (isset($conexion)){
         
@@ -200,7 +221,7 @@
         if (isset($conexion)){
         
             try{
-                $sql= 'select * from pedidos_reposicion where estado= 1';
+                $sql= 'select * from pedidos_reposicion where (estado != 0) and (sucursal =1)';
                 
                 $sentencia = $conexion ->prepare($sql);
                 
@@ -210,7 +231,8 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new pedido_reposicion($fila['cod_pedido'],$fila['fecha'],$fila['estado']);
+                        $filas[] = new pedido_reposicion($fila['cod_pedido'],$fila['fecha'],
+                                                        $fila['sucursal'],$fila['estado']);
                     }
                 }
                 
@@ -221,6 +243,100 @@
         
         return $filas;
     }
+
+    public static function obtener_sucursal($conexion,$cod_deposito){
+        if (isset($conexion)){
+            $sucursal = 0;
+            try{
+                $sql= 'select nombre from depositos where cod_deposito='.$cod_deposito;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchColumn() ;
+                
+                $sucursal = strval($resultado);
+                    
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR UID' . $ex -> getMessage();
+            }
+        }else{ echo 'no';}
+        
+        return $sucursal;
+    }
+
+    public static function obtener_pedidos_filtrados($conexion,$criterio){
+        
+        $filas = [];
+        $criterio_min=strtolower($criterio);
+        
+        if (isset($conexion)){
+
+            try{
+                $sql= 'select * from grilla_pedidos_reposicion where (cod_pedido LIKE "%'.$criterio_min. '%" OR 
+                       fecha LIKE "%'. $criterio_min. '%" OR sucursal LIKE "%'  .$criterio_min. '%"
+                       OR estado LIKE "%' .$criterio_min.'%")';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new pedido_reposicion($fila['cod_pedido'], $fila['fecha'], $fila['sucursal'],$fila['estado']
+                                      );
+                    }
+                }
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
+
+    
+    public static function obtener_pedidos_filtrados_sel_pedido($conexion,$criterio){
+        
+        $filas = [];
+        $criterio_min=strtolower($criterio);
+        
+        if (isset($conexion)){
+
+            try{
+                $sql= 'select * from grilla_pedidos_reposicion_cot where (cod_pedido LIKE "%'.$criterio_min. '%" OR 
+                       fecha LIKE "%'. $criterio_min. '%" OR sucursal LIKE "%'  .$criterio_min. '%")
+                       and (sucursal="santa ana")';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new pedido_reposicion($fila['cod_pedido'], $fila['fecha'], $fila['sucursal'],null);
+                    }
+                }
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
+
+
 }
 
 

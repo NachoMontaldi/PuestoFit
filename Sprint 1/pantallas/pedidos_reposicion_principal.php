@@ -10,7 +10,12 @@
 
 
     Conexion::abrirConexion();  
-                        
+    
+    if(isset($_POST['eliminar'])){
+
+      repositorio_pedido_reposicion::eliminar_pedido(Conexion::obtenerConexion(),$_POST['eliminar']);
+
+    }
 ?>
 
 <html>
@@ -54,7 +59,9 @@
 <!--           SI ACA APARECEN LOS PEDIDOS REPOSICION QUE AUN NO FUERON COTIZADOS 
           ENTONCES SE PUEDEN ELIMINAR -->
             <th>Cod. Ped.</th>
-            <th>Fecha</th>
+            <th >Fecha</th>
+            <th>Estado</th>
+            <th>Sucursal</th>
             <th>DETALLE</th>
             <th>ELIMINAR</th>
           </tr>
@@ -62,7 +69,20 @@
         <tbody>
             <?php
 
-                escritor_filas :: escribir_pedidos_principal(Conexion::obtenerConexion());
+
+                  if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                  
+ 
+                    $criterio= $_POST['criterio'];
+                    escritor_filas::escribir_filas_filtradas_reposicion($criterio);
+                    
+                  }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+
+                    escritor_filas :: escribir_pedidos_principal(Conexion::obtenerConexion());
+
+                  }
+
+                
 
             ?>
         </tbody>

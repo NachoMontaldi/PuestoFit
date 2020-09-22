@@ -124,7 +124,7 @@ if (isset($_POST['enviar'])) {
                 if (isset($_POST['seleccionar'])) { ?>
                   <tr>
 
-                    <td colspan="3" align="right">
+                    <td colspan="4" align="right">
                       <h3>Total</h3>
                     </td>
                     <td align="center">

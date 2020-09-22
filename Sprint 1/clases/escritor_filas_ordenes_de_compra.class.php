@@ -30,8 +30,21 @@
         <tr>
             <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?></td>
             <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?></td>
-            <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td> 
-            <td class="text-center"> <?php echo $fila ->obtener_total() ?></td>
+            <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td>
+            <td> 
+                                <?php if($fila ->obtener_estado() == 1){
+                                
+                                    print "Pendiente";
+
+                                }elseif($fila ->obtener_estado() == 2){
+                                print "Listo";
+                            } ?> </td> 
+            <td> <?php
+                                $sucursal= repositorio_ordenes_de_compra::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+                                echo $sucursal;
+                                ?>
+                            </td>
+            
 
             <td>
                 <form method="post" action="<?php echo ruta_detalle_orden_de_compra;?>">
@@ -141,8 +154,43 @@
         <?php
         }
 
-        public static function obtener_proveedor($id_oc){
+        ///BUSCADOR
+
+        public static function escribir_filas_filtradas_oc($criterio){
+                                    
+            $filas = repositorio_ordenes_de_compra::obtener_ordenes_de_compra_filtrados(Conexion::obtenerConexion(),$criterio);
             
+            if(count($filas)){
+
+                foreach($filas as $fila){
+                
+                    self::escribir_oc_busqueda($fila);
+                
+                }
+
+                }            
         }
+        public static function escribir_oc_busqueda($fila){
+            if(!isset($fila)){
+
+                return;
+            }
+            ?>
+        <tr>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>                
+                <td class="text-center"> <?php echo $fila ->obtener_estado() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
+                <td>
+                    <form method="post" action="<?php echo ruta_detalle_orden_de_compra; ?>">
+                        <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_orden_de_compra(); ?>" >Detalle</button>
+                    </form> 
+                </td>
+              
+        </tr>
+    <?php
+        }
+       
     }   
 ?>

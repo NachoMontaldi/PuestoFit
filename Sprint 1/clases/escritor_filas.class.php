@@ -197,10 +197,10 @@ class escritor_filas{
 
                 ?>
             <tr>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?>  </td>
-                    <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_observaciones() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_observaciones() ?>  </td>
                     <td>
                         <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                             <button type="submit" style="background-color:light-gray; padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_pedido(); ?>" widht= 5%>Eliminar</button>
@@ -294,14 +294,25 @@ class escritor_filas{
                         <tr>
                                 <td class="text-center"> <?php echo $fila ->obtener_cod_pedido() ?>  </td>
                                 <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+                                <td> <?php
+
+                                    $sucursal= repositorio_pedido_reposicion::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+                                    echo $sucursal;
+
+                                ?>
+                                </td> 
+
                                 <td>
                                     <form method="post" action="<?php echo ruta_cotizaciones_emitir; ?>">
                                         <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
+                                        <input type="hidden" name="sucursal2"  id="sucursal" value="<?php echo $sucursal ;?>">
                                     </form> 
                                 </td>
                         </tr>
                     <?php
                         }
+                    
+                
 
 /* EL QUE ES PARA MOSTRAR EN PEDIDOS_REPOSICION_PRINCIPAL */
 
@@ -328,6 +339,20 @@ class escritor_filas{
                     <tr>
                             <td class="text-center"> <?php echo $fila ->obtener_cod_pedido() ?>  </td>
                             <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+                            <td> 
+                                <?php if($fila ->obtener_estado() == 1){
+                                
+                                    print "Pendiente";
+
+                                }elseif($fila ->obtener_estado() == 2){
+                                    
+                                    print "Listo";
+                            } ?> </td>
+                            <td> <?php
+                                $sucursal= repositorio_pedido_reposicion::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+                                echo $sucursal;
+                                ?>
+                            </td>
                             <td>
                                 <form method="post" action="<?php echo ruta_detalle_pedidos_reposicion; ?>">
                                     <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Detalle</button>
@@ -341,8 +366,120 @@ class escritor_filas{
                     </tr>
                 <?php
                     }
+/////////////BUSCADOR
+                            public static function escribir_filas_filtradas_reposicion($criterio){
+                                    
+                                $filas = repositorio_pedido_reposicion::obtener_pedidos_filtrados(Conexion::obtenerConexion(),$criterio);
+                                
+                                if(count($filas)){
+
+                                    foreach($filas as $fila){
+                                    
+                                        self::escribir_pedido_busqueda($fila);
+                                    
+                                    }
+
+                                    }            else{
+                                    //$_SESSION['pedido']=0;
+                                }
+                            }
+                            public static function escribir_pedido_busqueda($fila){
+                                if(!isset($fila)){
+        
+                                    return;
+                                }
+                                ?>
+                            <tr>
+                                    <td class="text-center"> <?php echo $fila ->obtener_cod_pedido() ?>  </td>
+                                    <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
+                                    <td class="text-center"> <?php echo $fila ->obtener_estado() ?>  </td>
+                                    <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
+                                    <td>
+                                        <form method="post" action="<?php echo ruta_detalle_pedidos_reposicion; ?>">
+                                            <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Detalle</button>
+                                        </form> 
+                                    </td>
+                                    <td>
+                                    <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                                       <button type="submit" style="background-color:rgba(177, 60, 30, 0.9);padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_pedido(); ?>" widht= 3%>Eliminar</button>
+                                    </form>
+                                    </td>
+                            </tr>
+                        <?php
+                            }
+
+//////////////////////////////////////////////////DETALLE PEDIDO////////////////////////////////////////////////
+public static function escribir_detalles_pedidos_det($id){
+
+    $filas = repositorio_pedido_reposicion::obtener_detalles(Conexion::obtenerConexion(),$id);
+
+    if(count($filas)){
+        
+        foreach($filas as $fila){
+
+            self::escribir_detalle_pedido_det($fila);
+        }
+
+        }    
+
+    }
+
+public static function escribir_detalle_pedido_det($fila){
+        if(!isset($fila)){
+
+            return;
+        }
+
+        ?>
+    <tr>
+            <td class="text-center"> <?php echo $fila ->obtener_cod_det_pedido()?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
+            
+    </tr>
+<?php
+        }
+
+        public static function escribir_filas_filtradas_sel_pedido($criterio){
+                                    
+            $filas = repositorio_pedido_reposicion::obtener_pedidos_filtrados_sel_pedido(Conexion::obtenerConexion(),$criterio);
+            
+            if(count($filas)){
+
+                foreach($filas as $fila){
+                
+                    self::escribir_pedido_busqueda_sel_pedido($fila);
+                
+                }
+
+                }            else{
+                //$_SESSION['pedido']=0;
+            }
+        }
+        public static function escribir_pedido_busqueda_sel_pedido($fila){
+            if(!isset($fila)){
+
+                return;
+            }
+            ?>
+        <tr>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_pedido() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_fecha() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_sucursal()?></td>
+                <td>
+                    <form method="post" action="<?php echo ruta_cotizaciones_emitir; ?>">
+                        <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_pedido(); ?>" >Seleccionar</button>
+                        <input type="hidden" name="sucursal2"  id="sucursal" value="<?php echo $fila -> obtener_sucursal() ;?>">
+                    </form> 
+                </td>
+        </tr>
+    <?php
+        }
 
 
+
+        
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -434,19 +571,40 @@ class escritor_filas{
                                 }
                                 ?>
                             <tr>
-                                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_cod_cotizacion() ?>  </td>
-                                    <td class="text-center" widht= 10%> <?php echo $fila ->obtener_fecha_emision() ?>  </td>
+                                    <td class="text-center"> <?php echo $fila ->obtener_cod_cotizacion() ?>  </td>
+                                    <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?>  </td>
                                     <td> <?php
                                     if($fila -> obtener_estado()== 1 ){
                                            
                                            print "-";
                                        
-                                           } elseif($fila -> obtener_estado()==2){
+                                           } elseif($fila -> obtener_estado()==2 || $fila -> obtener_estado()==3){
    
                                               echo $fila -> obtener_fecha_presupuesto();
                                           }?>
                                     </td>
-                                    <td class="text-center" widht= 10%> <?php echo $fila ->obtener_proveedor() ?>  </td>
+                                    <td class="text-center" id="proveedor"> <?php echo $fila ->obtener_proveedor() ?>  </td>
+                            
+
+                                    <td class="text-center" id="estado"> <?php 
+
+                                        if($fila -> obtener_estado()==1){
+                                            print 'Pendiente';
+                                        }elseif($fila -> obtener_estado()==2){
+                                            print 'Listo';
+                                        }elseif($fila -> obtener_estado()==3){
+                                            print 'Cargada';
+                                        }
+                                    ?>  
+                                    </td>
+                                    <td id="sucursal">
+                                    
+                                     <?php
+                                        $sucursal= repositorio_pedido_reposicion::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+                                        echo $sucursal;
+                                    ?>
+                                    </td>
+
                                     <td><?php 
                                         if($fila -> obtener_estado()== 1 ){?>
                                            
@@ -454,14 +612,13 @@ class escritor_filas{
                                             <button type="submit" style="background-color:light-gray; padding:5% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="cargar" name="cargar" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Cargar</button>
                                         </form>
                                     
-                                       <?php } elseif($fila -> obtener_estado()==2){
+                                       <?php } elseif($fila -> obtener_estado()==2 || $fila -> obtener_estado()==3){
 
                                            echo $fila -> obtener_total()." $";
                                        }
                                     ?> </td>
-                                    
                                     <td><?php
-                                        if($fila -> obtener_estado() == 2){?>
+                                        if($fila -> obtener_estado() == 2 || $fila -> obtener_estado() == 3){?>
                                         <form method="post" action="<?php echo ruta_cotizaciones_detalle ?>">
 
                                             <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Detalle</button>
@@ -483,8 +640,10 @@ class escritor_filas{
                         <?php
                                 
                             }
+    
 
-    public static function escribir_cargas_cotizacion($id){
+
+         public static function escribir_cargas_cotizacion($id){
         
                                 $filas = repositorio_cotizacion::obtener_detalles(Conexion::obtenerConexion(),$id);
                                 if(count($filas)){
@@ -504,9 +663,9 @@ class escritor_filas{
 
                                         ?>
                                     <tr>
-                                            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
-                                            <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?> </td>
-                                            <td class="text-center" widht= 10%> <?php echo $fila ->obtener_cantidad() ?>  </td>
+                                            <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                                            <td class="text-center"> <?php echo $fila ->obtener_marca() ?> </td>
+                                            <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
 
                                             <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                                                 <td>
@@ -520,11 +679,11 @@ class escritor_filas{
                                                         }
                                                     ?>" <?php if(isset($_POST['agregar']) && ($fila -> obtener_precio_unitario() !== null) ){ print 'readonly'; } ?> >
 
-                                            <?php if(isset($_POST['agregar']) && ($fila -> obtener_precio_unitario() !== null) ){
+                                                        <?php if(isset($_POST['agregar']) && ($fila -> obtener_precio_unitario() !== null) ){
 
-                                            }else{ ?>
-                                                        <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="agregar" name="agregar" value="<?php echo $fila->obtener_cod_det_cotizacion(); ?>" widht= 5% >Agregar</button>
-                                            <?php } ?>
+                                                        }else{ ?>
+                                                    <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="agregar" name="agregar" value="<?php echo $fila->obtener_cod_det_cotizacion(); ?>" widht= 5% >Agregar</button>
+                                                        <?php } ?>
                                                 </form> 
                                             </td>
                                             <td>
@@ -579,6 +738,78 @@ class escritor_filas{
                                             </tr>
                                         <?php
                                             }
+
+
+        public static function escribir_filas_filtradas_cot($criterio){
+
+            $filas = repositorio_cotizacion::obtener_cotizaciones_filtradas(Conexion::obtenerConexion(),$criterio);
+            
+            if(count($filas)){
+
+                foreach($filas as $fila){
+                
+                    self::escribir_cotizacion_filtrada($fila);
+                
+                }
+
+                }            else{
+                //$_SESSION['pedido']=0;
+            }
+        }
+        public static function escribir_cotizacion_filtrada($fila){
+            if(!isset($fila)){
+
+                return;
+            }
+            ?>
+        <tr>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_cotizacion() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?></td>
+                <td class="text-center"> 
+                    <?php 
+                    
+                    if($fila -> obtener_estado() == "Pendiente"){
+                        print '-';
+                    }else{ 
+                        echo $fila ->obtener_fecha_presupuesto() ;
+                    }
+                    ?>
+                </td>
+                <td class="text-center"> <?php echo $fila ->obtener_proveedor()?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_estado()?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_sucursal()?></td>
+                <td><?php 
+                        if($fila -> obtener_estado()== "Pendiente" ){?>
+                            
+                        <form method="post" action="<?php echo ruta_cotizaciones_cargar ?>">
+                            <button type="submit" style="background-color:light-gray; padding:5% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="cargar" name="cargar" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Cargar</button>
+                        </form>
+                    
+                        <?php } elseif($fila -> obtener_estado()=="Listo" || $fila -> obtener_estado()=="Cargada"){
+
+                            echo $fila -> obtener_total()." $";
+                        }
+                    ?> </td>
+                <td><?php
+                    if($fila -> obtener_estado() == "Listo" || $fila -> obtener_estado() == "Cargada"){?>
+                    <form method="post" action="<?php echo ruta_cotizaciones_detalle ?>">
+
+                        <button type="submit" style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Detalle</button>
+                        <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor(); ;?>">
+
+                    </form>
+                    <?php } elseif ($fila -> obtener_estado() == "Pendiente"){?>
+                        <button type="submit" disabled style="background-color:light-gray; padding:3% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_cotizacion(); ?>" widht= 5%>Detalle</button>
+                    <?php } ?>
+                </td>
+                <td>
+                    <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                        <button type="submit" style="background-color:rgba(177, 60, 30, 0.9); padding:5% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila-> obtener_cod_cotizacion(); ?>" widht= 5%>Eliminar</button>
+                    </form>
+                </td>
+        </tr>
+    <?php
+        }
                                             
         
 }    

@@ -2,8 +2,8 @@
   <?php 
   include_once '../config.inc.php';
   include_once '../conexion.class.php';
-  include_once '../clases/repositorio_pedido_reposicion.class.php';
-  include_once '../clases/escritor_filas.class.php';
+  //include_once '../clases/repositorio_pago.class.php';
+  //include_once '../clases/escritor_pago.class.php';
   include_once '../clases/redireccion.class.php';
   include_once '../pantallas/barra_nav.php';
 
@@ -16,9 +16,9 @@
   <html>
 
   <head>
-    <title>Detalle Pedido de Reposicion</title>
+    <title>Detalle Pagos</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css" />
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css"/>
     <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,12 +38,18 @@
     <div id="formulario" class="form">
       <table class="tabla" border="1px">
         <tr>
-          <td colspan="2" class="titulo">DETALLE DE PEDIDO DE REPOSICION</td>
+          <td colspan="2" class="titulo">DETALLE DE PAGO</td>
         </tr>
         <tr>
-          <td class="titulos">Cod. Pedido de Reposición:</td>
+          <td class="titulos">Cod. Pago:</td>
           <td class="valor">
-            <input type="text" readonly name="id_ped" id="id_ped" value="<?php echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="id_pago" id="id_pago" value="<?php //echo $_POST['ver_detalle']; ?>">
+          </td>
+        </tr>
+        <tr>
+          <td class="titulos">Metodo de pago:</td>
+          <td class="valor">
+            <input type="text" readonly name="id_met_pago" id="id_met_pago" value="<?php //echo $_POST['ver_detalle']; ?>">
           </td>
         </tr>
         <tr>
@@ -57,16 +63,24 @@
                     <th>Nombre producto</th>
                     <th>Marca</th>
                     <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <?php
                     if (isset($_POST['ver_detalle'])) {
-
-                      escritor_filas::escribir_detalles_pedidos_det($_POST['ver_detalle']);
-
+                      //escritor_pago::escribir_detalles_pago($_POST['ver_detalle']);
                     } ?>
+                  </tr>
+                  <tr>
+                    <td colspan="5" align="right">
+                      <h3>Total</h3>
+                    </td>
+                    <td align="center">
+                      <h3>$ <?php //echo $total; ?> </h3>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -77,8 +91,8 @@
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_pedidos_reposicion_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_pagos_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 
-  </html>/
+  </html>

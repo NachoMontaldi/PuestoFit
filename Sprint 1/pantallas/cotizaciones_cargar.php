@@ -37,12 +37,12 @@
 
     if(isset($_POST['enviar_carga'])){
         
-    $cotizacion_cargada = repositorio_cotizacion:: estado_cotizacion_cargada(Conexion :: obtenerConexion(),$_POST['id_mod']);
-    $cotizacion_cargada_fecha = repositorio_cotizacion :: fecha_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod']);
-    $total = repositorio_cotizacion:: calcular_precios($_POST['id_mod']); 
-    $cotizacion_cargada_total = repositorio_cotizacion :: total_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod'],$total);
-    repositorio_cotizacion :: eliminar_falsos (Conexion :: obtenerConexion());
-    Redireccion::redirigir(ruta_cotizaciones_principal);
+        $cotizacion_cargada = repositorio_cotizacion:: estado_cotizacion_cargada(Conexion :: obtenerConexion(),$_POST['id_mod']);
+        $cotizacion_cargada_fecha = repositorio_cotizacion :: fecha_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod']);
+        $total = repositorio_cotizacion:: calcular_precios($_POST['id_mod']); 
+        $cotizacion_cargada_total = repositorio_cotizacion :: total_cotizacion_cargada (Conexion :: obtenerConexion(),$_POST['id_mod'],$total);
+        repositorio_cotizacion :: eliminar_falsos (Conexion :: obtenerConexion());
+        Redireccion::redirigir(ruta_cotizaciones_principal);
        
       }    
 

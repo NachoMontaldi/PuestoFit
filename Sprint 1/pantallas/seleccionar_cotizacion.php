@@ -44,6 +44,22 @@ Conexion::abrirConexion();
 
             <tr>
                 <td colspan="4">
+                                     <!---BARRA DE BUSQUEDA-->
+                    <!--Se mete dentro de un form para poder usar el metodo post-->
+                    <div>
+                    <form role="form" method="post" action="<?php echo
+                        $_SERVER['PHP_SELF']?>">
+                        <div class="form-group">
+                            <p id="busqueda">
+                                <input type="text" class="form-control" id="searchBox"
+                                    name="criterio" placeholder="BUSCAR">
+                                <!--El button se hace de type = "submit" para que pueda trasladar datos-->
+                                <button type="submit" class="form-control" name="busqueda"
+                                    id="searchBotton"><i class="fa fa-search"></i></button>
+                            </p>
+                        </div>
+                    </form>
+                    </div>
                     <!--Grilla de productos-->
                     <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
@@ -52,19 +68,30 @@ Conexion::abrirConexion();
                                     <th>Cod.</th>
                                     <th>Fecha emisión</th>
                                     <th>Fecha presupuesto</th>
+                                    <th>Sucursal</th>
                                     <th>Proveedor</th>
                                     <th>Cotización</th>
                                     <th></th>
-                                    <th></th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <?php
+                                    if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                                                        
+                                        
+                                        $criterio= $_POST['criterio'];
+                                        escritor_filas_cotizaciones_seleccion::escribir_filas_filtradas_sel_cotizacion($criterio);
+                                        
+                                    }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+
+                                        escritor_filas_cotizaciones_seleccion::obtener_cotizaciones_cargadas(Conexion::obtenerConexion());
+
+                                    }
 
 
-                                    escritor_filas_cotizaciones_seleccion::obtener_cotizaciones_cargadas(Conexion::obtenerConexion());
-
+                                   
 
                                     ?>
 

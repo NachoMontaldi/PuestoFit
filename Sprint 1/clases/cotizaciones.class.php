@@ -8,11 +8,12 @@ class cotizaciones {
     private $proveedor;
     private $total;
     private $estado;
+    private $sucursal;
    
     //Constructor 
 
     public function __construct($cod_cotizacion,$fecha_emision,$fecha_presupuesto,
-                                $proveedor,$total,$estado){
+                                $proveedor,$total,$estado,$sucursal){
         
         $this -> cod_cotizacion =$cod_cotizacion;
         $this -> fecha_emision =$fecha_emision;
@@ -20,6 +21,8 @@ class cotizaciones {
         $this -> proveedor =$proveedor;
         $this -> total =$total;
         $this -> estado =$estado;
+        $this -> sucursal =$sucursal;
+
        
     }
 
@@ -51,10 +54,20 @@ class cotizaciones {
     public function obtener_estado() {
         return $this -> estado;
     }
+
+    public function obtener_sucursal() {
+        return $this -> sucursal;
+    }
+
+
     
     //Setters
     public function cambiar_estado($estado){  
         $this -> estado=$estado;
+    }
+
+    public function cambiar_sucursal($sucursal){  
+        $this -> sucursal=$sucursal;
     }
 
     public function cambiar_total() {
