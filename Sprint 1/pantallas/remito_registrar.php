@@ -8,16 +8,47 @@ se llena con los datos del DETALLE DE FACTURA, correspondiente al id de factura 
 include_once '../config.inc.php';
 include_once '../clases/escritor_remito.class.php';
 include_once '../Conexion.class.php';
+include_once '../clases/redireccion.class.php';
 include_once '../pantallas/barra_nav.php';
 
 Conexion::abrirConexion();
 
 
+if (isset($_POST['registrar_remito'])) {
 
+   repositorio_remito::insertar_remito(Conexion::obtenerConexion());
 
+}
+    
+  
+  $id = repositorio_remito::obtener_ultimo_id(Conexion::obtenerConexion());
+  
+  
+   
+ if (isset($_POST['enviar'])) {
+    print 'hola';
+    // insertar los detalles
+    repositorio_remito::cargar_detalles($_POST['cod_factura_compra2'], $id);
+    
+    //actualiza el estado de remito a 2
+    $remito_validado = repositorio_remito::estado_remito(Conexion::obtenerConexion(), $id);
+    
+    // borrar los estados igual a 0
+    repositorio_remito::eliminar_falsos(Conexion::obtenerConexion());
 
+    // actualizar proveedor, total , cod_factura_compra de remitos
+     repositorio_remito::remito_cargado(Conexion::obtenerConexion(), $id, $_POST['proveedor'], $_POST['total2'], 
+                                        $_POST['cod_factura_compra2']);  
+   
+    //Actualizar estado de factura a 2
+    repositorio_factura::actualizar_estado_listo_factura(Conexion::obtenerConexion(),$_POST['cod_factura_compra2']) ;
+  
+    //redirige despues de insertar
+    Redireccion::redirigir(ruta_remitos_principal);
+    
+  }  
+  ?>
 
-?>
 <html>
 
 <head>
@@ -59,7 +90,7 @@ Conexion::abrirConexion();
                         <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d"); ?>">
                     </td>
 
-                    <td rowspan="4" colspan="2">
+                    <td rowspan="3" colspan="2">
                         <!--Grilla de productos-->
                         <div class="table-responsive-lg">
                             <table id="grilla" class="table-hover table table-bordered">
@@ -73,7 +104,6 @@ Conexion::abrirConexion();
                                         <th>Precio Unitario</th>
                                         <th>Cantidad</th>
                                         <th>Subtotal</th>
-                                        <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,52 +113,62 @@ Conexion::abrirConexion();
                                         escritor_remito::escribir_detalles_factura($_POST['seleccionar']);
                                     }
                                     ?>
+                                    <tr>
+
+                                        <td colspan="4" align="right">
+                                            <h3>Total</h3>
+                                        </td>
+                                        <td align="center">
+                                            <h3> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;}//echo number_format($precio,2) ?> </h3>
+                                           
+                                        </td>
+
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </td>
                 <tr>
 
-                    <td class="titulos">ID Factura de compra:</td>
+                    <td class="titulos">N° Factura:</td>
                     <td class="valor">
                         <form method="post">
-                            <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="cod_oc" id="codigo_oc" value="<?php
+                            <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="codigo_factura" id="codigo_factura" 
+                            value="<?php
+                            if (isset($_POST['seleccionar'])) {
 
-                                                                                                                                    if (isset($_POST['seleccionar'])) {
-
-                                                                                                                                        echo $_POST['seleccionar'];
-                                                                                                                                    } ?>">
+                                echo $_POST['num_factura'];
+                            }  ?>">
                             <a href="<?php echo ruta_seleccionar_factura ?>">
-                                <button type="button" name="buscar" id="gd" class="boton">
+                                <button type="button" name="buscar" id="buscar" class="boton_buscar">
                                     <i class="fa fa-search"></i></button>
                             </a>
                         </form>
                     </td>
                 </tr>
-
+                <form method="post" action="<?php //echo $_SERVER['PHP_SELF']; ?>">
                 <tr>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
-                        <input type="text" name="proveedor" id="prov" readonly value="<?php
+                        <input type="text" name="proveedor" id="prov" readonly 
+                        value="<?php
+                        if (isset($_POST['seleccionar'])) {
 
-                                                                                        if (isset($_POST['seleccionar'])) {
-
-                                                                                            echo $_POST['proveedor'];
-                                                                                        }
-
-                                                                                        ?>">
+                            echo $_POST['proveedor'];
+                        } 
+                        ?>">
                     </td>
                 </tr>
-                <tr>
 
-                </tr>
                 <tr>
-                    <td colspan="2" class="titulos">Total:</td>
-                    <td class="valor seg_col">
-                        <input type="number" readonly name="precioTotal" id="precioTotal" value="<?php echo $total; ?>">
-                    </td>
-                    <td style="text-align:right" class="valor">
+                    <td colspan="3" style="text-align:right" class="valor">
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
+                        <?php if(isset($_POST['seleccionar'])){ ?>
+
+                            <input  type="hidden" name="cod_factura_compra2"  id="cod_factura_compra2" value="<?php echo $_POST['seleccionar'] ;?>">
+                            <input  type="hidden" name="total2"  id="total2" value="<?php echo $_POST['seleccionar'] ;?>">
+                        
+                        <?php } ?>
                     </td>
                 </tr>
 

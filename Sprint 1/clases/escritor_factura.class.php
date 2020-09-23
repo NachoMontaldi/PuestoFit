@@ -137,10 +137,10 @@ public static function escribir_oc($fila){
             }
             ?>
         <tr>
-                <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?>  </td>
-                <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?>  </td>
-                <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
-                <td class="text-center"> <?php echo $fila ->obtener_total() . " $" ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_fecha_emision() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_total() . " $" ?></td>
                 <td> <?php
 
                     $sucursal= repositorio_pedido_reposicion::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
@@ -288,7 +288,8 @@ public static function escribir_filas_filtradas_facturas($criterio){
             <td>
                 <form method="post" action="<?php echo ruta_factura_registrar; ?>">
                     <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_orden_de_compra(); ?>" >Seleccionar</button>
-                  
+                    <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                    <input  type="hidden" name="sucursal"  id="sucursal" value="<?php echo $fila -> obtener_sucursal() ;?>">    
                 </form> 
             </td>
     </tr>

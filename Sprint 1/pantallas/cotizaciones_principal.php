@@ -43,8 +43,7 @@
                   <input type="text" class="form-control" id="searchBox"
                       name="criterio" placeholder="BUSCAR">
                   <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-                  <button type="submit" class="form-control" name="busqueda"
-                      id="searchBotton"><i class="fa fa-search"></i></button>
+                  <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
               </p>
           </div>
       </form>

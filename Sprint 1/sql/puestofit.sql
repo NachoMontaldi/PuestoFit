@@ -147,10 +147,11 @@ create table remitos(
     fecha datetime,
     proveedor varchar(255),
     total int,
-    estado varchar(100),
+    estado int,
+    sucursal int,
     primary key(cod_remito),
-    cod_factura int,
-    FOREIGN key (cod_factura) REFERENCES facturas_compra(cod_factura_compra) ON DELETE CASCADE 
+    cod_factura_compra int, 
+    FOREIGN key (cod_factura_compra) REFERENCES facturas_compra(cod_factura_compra) ON DELETE CASCADE 
 );
 
 create table detalle_remitos(
@@ -218,7 +219,7 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
      /*Vista grilla cotizaciones seleccionar */
     CREATE OR REPLACE VIEW
     grilla_cotizaciones_seleccionar AS
-    SELECT cod_cotizacion, cod_pedido, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
+    SELECT cod_cotizacion, cod_pedido, estados.nombre, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
     from cotizaciones
     INNER JOIN depositos
     ON cotizaciones.sucursal = depositos.cod_deposito
@@ -254,6 +255,30 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         ON facturas_compra.sucursal = depositos.cod_deposito
         INNER JOIN estados
         ON facturas_compra.estado = estados.cod;
+    
+    /*Vista grilla remito */
+        CREATE OR REPLACE VIEW
+        grilla_remito AS
+        SELECT cod_remito, num_factura, remitos.fecha as fecha, remitos.proveedor as proveedor, depositos.nombre as sucursal, estados.nombre as estado
+        from remitos
+        INNER JOIN depositos
+        ON remitos.sucursal = depositos.cod_deposito
+        INNER JOIN estados
+        ON remitos.estado = estados.cod
+        INNER JOIN facturas_compra
+        ON remitos.cod_factura_compra = facturas_compra.cod_factura_compra;
+
+    /*Vista grilla facturas_remito */
+        CREATE OR REPLACE VIEW
+        grilla_facturas_remito AS
+        SELECT cod_factura_compra, num_factura, tipo, depositos.nombre as sucursal, proveedor, 
+        fecha, total, estados.nombre as estado
+        from facturas_compra
+        INNER JOIN depositos
+        ON facturas_compra.sucursal = depositos.cod_deposito
+        INNER JOIN estados
+        ON facturas_compra.estado = estados.cod
+       
 
 
 /*Carga de elementos*/

@@ -46,7 +46,7 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR">
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" class="form-control" name="busqueda" id="searchBotton"><i class="fa fa-search"></i></button>
+          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>
@@ -93,9 +93,7 @@
             <button type="submit" name="registrar_oc" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR ORDEN COMPRA</button>
         </form>
     </div>
-    <div class="contenedor4">
-        <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
-    </div> 
+    
 
 
 </html>

@@ -42,40 +42,54 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR">
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" class="form-control" name="busqueda" id="searchBotton"><i class="fa fa-search"></i></button>
+          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>
     
-    <!--TABLA NACHO-->
+   
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
           <tr></tr>
 
             <th>Cod. Remito</th>
-            <th>Cod. Factura</th>
+            <th>N° Factura</th>
             <th>Fecha</th>
             <th>Proveedor</th>
-            <th>Total</th>
+            <th>Sucursal</th>
+            <th>Estado</th>
             <th>DETALLE</th>
           </tr>
         </thead>
         <tbody>
             <?php
-
-                escritor_remito :: escribir_remitos_principal(Conexion::obtenerConexion());
-
+             if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                  
+ 
+              $criterio= $_POST['criterio'];
+              
+              escritor_remito::escribir_filas_filtradas_remitos($criterio);
+              
+            }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+    
+              escritor_remito :: escribir_remitos_principal(Conexion::obtenerConexion());
+    
+            }
+                
             ?>
-        </tbody>
+          </tbody>
       </table>
-    </div>
-    <!--</form>-->
-    <!-- BOTONES AÑADIR/REGISTRAR -->
+  </div>
 
-    <div class="contenedor3">
-    <a href="<?php echo ruta_remito_registrar?>"><button type="submit" name="reg_remito" id="rr" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR REMITO</button></a>
-    </div>
-  </body>
+  <!-- BOTONES AÑADIR/REGISTRAR -->
+
+  <div class="contenedor3">
+      <form method="post" action="<?php echo ruta_remito_registrar ?>">   
+          <button type="submit" name="registrar_remito" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR REMITO</button>
+      </form>
+  </div>
+  
+
 
 </html>

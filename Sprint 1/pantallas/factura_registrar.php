@@ -39,8 +39,12 @@ if (isset($_POST['enviar'])) {
   // borrar los estados igual a 1
   repositorio_factura::eliminar_falsos(Conexion::obtenerConexion());
 
-  // actualizar cod_oc, proveedor, total, fecha_estimada de entrega de factura
-  repositorio_factura::factura_cargada(Conexion::obtenerConexion(), $id, $_POST['proveedor2'], $_POST['total2'], $_POST['datepicker'], $_POST['cod_oc2']);
+  // actualizar cod_oc, proveedor, numero de factura, tipo de factura, sucursal, fecha_estimada de entrega, total de factura
+  repositorio_factura::factura_cargada(Conexion::obtenerConexion(), $id, $_POST['proveedor2'], $_POST['num_factura'], 
+                                         $_POST['tipo_factura'], $_POST['datepicker'], $_POST['total2'], $_POST['cod_oc2']);
+
+  //Actualizar estado de oc a 2
+  repositorio_ordenes_de_compra::actualizar_estado_listo_oc(Conexion::obtenerConexion(),$_POST['cod_oc2']) ;
 
   //redirige despues de insertar
   Redireccion::redirigir(ruta_compras_principal);
@@ -85,10 +89,10 @@ if (isset($_POST['enviar'])) {
           <form method="post">
             <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="cod_oc" id="codigo_oc" value="<?php
 
-                                                                                                                    if (isset($_POST['seleccionar'])) {
+              if (isset($_POST['seleccionar'])) {
 
-                                                                                                                      echo $_POST['seleccionar'];
-                                                                                                                    } ?>">
+                echo $_POST['seleccionar'];
+              } ?>">
             <a href="<?php echo ruta_seleccionar_oc ?>">
               <button type="button" name="buscar" id="buscar" class="boton_buscar">
                 <i class="fa fa-search"></i></button>
@@ -148,11 +152,13 @@ if (isset($_POST['enviar'])) {
               if (isset($_POST['seleccionar'])) {
 
                 echo $_POST['proveedor'];
+
               } ?> ">
         </td>
       </tr>
 
-      <tr>  
+      <tr>
+      <form method="post" action="<?php //echo $_SERVER['PHP_SELF'] ?>">
         <td class="titulos">Número de factura:</td>
           <td class="valor">
             <input type="text" name="num_factura" id="num_factura">
@@ -165,9 +171,9 @@ if (isset($_POST['enviar'])) {
           <!-- desplegable -->
           <select name="tipo_factura" id="tipo_factura">
               <option selected value="0"> Elije el tipo de factura</option>
-              <option value="1">A</option>  
-              <option value="1">B</option>  
-              <option value="1">C</option>  
+              <option value="A">A</option>  
+              <option value="B">B</option>  
+              <option value="C">C</option>  
           </select>
         </td>  
       </tr>
@@ -187,8 +193,6 @@ if (isset($_POST['enviar'])) {
       </tr>
       <td class="titulos">Fecha Estimada de Entrega:</td>
       <td class="valor">
-        <form method="post" action="<?php //echo $_SERVER['PHP_SELF'] 
-                                    ?>">
           <input autocomplete="off" type="date" min="<?php echo date("Y-m-d"); ?>" id="datepicker" name="datepicker">
 
           <tr>

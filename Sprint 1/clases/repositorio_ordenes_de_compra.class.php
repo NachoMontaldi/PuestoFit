@@ -8,7 +8,7 @@
         public static function obtener_ordenes_de_compra($conexion){
             
             $filas = [];
-            if (isset($conexion)){
+            if (isset($conexion)){ 
                 try{
                     $sql= 'select * from ordenes_de_compra where estado != 0 and (sucursal = 1);';
                     
@@ -429,8 +429,9 @@
                 try{
                     $sql= 'select * from grilla_ordenes_de_compra_sel where (cod_orden_de_compra LIKE "%'.$criterio_min. '%" OR 
                             fecha_emision LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
-                            sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR estado LIKE "%'  .$criterio_min. '%")
-                            and (sucursal = "santa ana") ';
+                            sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR 
+                            estado LIKE "%'  .$criterio_min. '%") and (sucursal = "santa ana") and 
+                            (estado = "Pendiente")';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -452,6 +453,33 @@
             }else{ echo 'No hay conexion :(';}
             
             return $filas;
+        }
+
+
+        
+        public static function actualizar_estado_listo_oc($conexion,$cod_orden_de_compra){
+        
+            $orden_de_compra_actualizada = false;
+            
+            if (isset($conexion)){
+                try{
+        
+                    $sql = 'update ordenes_de_compra set estado = 2 WHERE cod_orden_de_compra =' . $cod_orden_de_compra;
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $cotizacion_actualizada = $sentencia -> execute();
+                    
+                } catch(PDOException $ex){
+                    print 'ERROR INSCo' . $ex -> getMessage();
+                }
+                
+                return $orden_de_compra_actualizada;
+            }
+            else{
+                echo 'No hay conexion!!';
+            }
+            
         }
         
     }

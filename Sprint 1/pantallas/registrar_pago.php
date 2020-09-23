@@ -98,7 +98,7 @@ include_once '../Conexion.class.php';
             value="">
 
             <a href="<?php echo ruta_seleccionar_factura_pago?>">
-              <button type="button" name="buscar" id="gd" class="boton">
+              <button type="button" name="buscar" id="buscar" class="boton_buscar">
                 <i class="fa fa-search"></i></button>
             </a>
           </form>

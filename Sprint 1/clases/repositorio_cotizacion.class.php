@@ -501,7 +501,7 @@ public static function obtener_cotizaciones_filtrados_sel($conexion,$criterio){
             $sql= 'select * from grilla_cotizaciones_seleccionar where (cod_cotizacion LIKE "%'.$criterio_min. '%" OR 
                     fecha_emision LIKE "%'. $criterio_min. '%" OR fecha_presupuesto LIKE "%'  .$criterio_min. '%" OR
                     sucursal LIKE "%'  .$criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%"OR 
-                    total LIKE "%'  .$criterio_min. '%")
+                    total LIKE "%'  .$criterio_min. '%") and (estado="Cargada")
                     and (sucursal="santa ana") and (total is not null)';
             
             $sentencia = $conexion ->prepare($sql);
@@ -550,5 +550,34 @@ public static function actualizar_estado_listo($conexion,$cod_cotizacion){
     }
     
 }
+public static function obtener_cotizaciones_enviadas_sel($conexion){
+        
+    $filas = [];
+    
 
+    if (isset($conexion)){
+    
+        try{
+            $sql= 'select * from cotizaciones where estado=3';
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $sentencia -> execute();
+            
+            $resultado = $sentencia -> fetchAll();
+            
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['cod_pedido'],$fila['fecha_emision'],
+                                $fila['fecha_presupuesto'], $fila['proveedor'], $fila['total'], 
+                                $fila['estado'],$fila['sucursal']);
+             }
+        }
+        }catch(PDOException $ex){
+    print 'ERROR OT' . $ex -> getMessage();
+}
+}else{ echo 'No hay conexion :(';}
+
+return $filas;
+}
 }

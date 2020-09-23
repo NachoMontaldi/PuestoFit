@@ -11,10 +11,11 @@ table {
 .titulo {
     color:white;
     background-color:rgb(53, 58, 64);
-    font-family: 'Actor';
     font-size: 25px;
     font-stretch: ultra-condensed;
     padding: 20px;
+    text-align: center;
+    
 }
 .form {
     padding: 15px 15px;
@@ -24,19 +25,19 @@ table {
   width: 100%;
   border-radius: 2px;
   border: 2px solid rgb(53, 58, 64);
+  
 }
 
 .valor {
     padding: 10px;
     box-sizing: border-box;
     width:20%;
+    
 }
 
 .titulos {
     padding: 15px;
     font-size: 18px;
-    font-family: 'Actor';
-    font-weight: bold;
     width: 18%;
 }
 
@@ -51,46 +52,30 @@ table {
 .boton {
     padding: 7px;
     box-sizing: border-box;
-    font-family: 'Actor';
     font-size: 13px;
-    border-radius: 4px;
+    border-radius: 2px;
     color:white;
     border: 2px solid rgba(80, 80, 80, 0.384);
     cursor: pointer;
 }
 #gd{
-    background-color:rgb(26, 164, 53);
+    background-color:rgb(26, 143, 164);
 }
 #ld{
     background-color: rgb(189, 36, 36);  
 }
 
-#buscar{
-    background-color:rgb(26, 164, 53);
-}
 
-.boton_buscar {
-    padding: 5px;
-    box-sizing: border-box;
-    font-family: 'Actor';
-    font-size: 12px;
-    border-radius: 70px;
-    color:white;
-    border: 2px solid rgba(80, 80, 80, 0.384);
-    cursor: pointer;
-}
- 
 /*//////////////////////////BOTON AGREGAR A VISTA PREVIA/////////////////////////*/
 #avp{
     padding: 7px;
     box-sizing: border-box;
-    font-family: 'Actor';
     font-size: 13px;
-    border-radius: 4px;
+    border-radius: 2px;
     color:white;
     border: 2px solid rgba(80, 80, 80, 0.384);
     cursor: pointer;
-    background-color:rgb(26, 164, 53);
+    background-color:rgb(26, 143, 164);
 }
 
 
@@ -101,7 +86,6 @@ table {
 }
 .contenedor4 button {
   box-sizing: border-box;
-  font-family: 'Actor';
   font-size: 13px;
   border-radius: 4px;
   border: 2px solid rgb(43, 44, 44);
@@ -122,7 +106,6 @@ table {
   }
   
   #grilla{
-    font-family: Actor;
     text-align: center;
     
   }

@@ -4,20 +4,22 @@
     include_once '../config.inc.php';
     include_once '../conexion.class.php';
     include_once '../pantallas/barra_nav.php';
+    include_once '../clases/repositorio_remito.class.php';
+    include_once '../clases/escritor_remito.class.php';
 
 
   Conexion::abrirConexion();
- /*  if (isset($_POST['ver_detalle'])) {
+  if (isset($_POST['ver_detalle'])) {
 
-    $oc_id = $_POST['ver_detalle'];
+    $remito_id = $_POST['ver_detalle'];
   }
 
-  $total = repositorio_ordenes_de_compra::calcular_precios($oc_id); */
+  $total = repositorio_remito::calcular_precios($remito_id); 
   ?>
   <html>
 
   <head>
-    <title>Detalle Orden de Compra</title>
+    <title>Detalle Remito</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css" />
     <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet" />
@@ -71,9 +73,9 @@
                 <tbody>
                   <tr>
                     <?php
-                    /* if (isset($_POST['ver_detalle'])) {
-                      escritor_filas_ordenes_de_compra::escribir_detalles_orden_de_compra($_POST['ver_detalle']);
-                    } */ ?>
+                     if (isset($_POST['ver_detalle'])) {
+                      escritor_remito::escribir_detalles_remito($_POST['ver_detalle']);
+                    }  ?>
                   </tr>
                   <tr>
                     <td colspan="5" align="right">

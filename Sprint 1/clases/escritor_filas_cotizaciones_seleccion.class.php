@@ -11,7 +11,7 @@
 
             public static function obtener_cotizaciones_cargadas(){
             
-                $filas = repositorio_cotizacion::obtener_cotizaciones_enviadas(Conexion::obtenerConexion());
+                $filas = repositorio_cotizacion::obtener_cotizaciones_enviadas_sel(Conexion::obtenerConexion());
                 
                 if(count($filas)){
 

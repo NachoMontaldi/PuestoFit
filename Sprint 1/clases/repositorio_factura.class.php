@@ -6,6 +6,7 @@
     include_once 'cotizaciones.class.php';
     include_once 'ordenes_de_compra.class.php';
     include_once 'repositorio_ordenes_de_compra.class.php';
+    include_once 'facturas_compra.class.php';
 
     class repositorio_factura{
 
@@ -14,7 +15,7 @@
             $filas = [];
             if (isset($conexion)){
                 try{
-                    $sql= 'select * from facturas_compra where estado=1;';
+                    $sql= 'select * from facturas_compra where estado!=0 and sucursal=1 ;';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -102,7 +103,7 @@
     
     public static function estado_factura($conexion,$cod_factura){
         
-            $cotizacion_actualizada = false;
+            $factura_actualizada = false;
             
             if (isset($conexion)){
                 try{
@@ -114,16 +115,16 @@
                     
                     
                     
-                    $cotizacion_actualizada = $sentencia -> execute();
+                    $factura_actualizada = $sentencia -> execute();
                     
                 } catch(PDOException $ex){
                     print 'ERROR INSCo' . $ex -> getMessage();
                 }
                 
-                return $cotizacion_actualizada;
+                return $factura_actualizada;
             }
             else{
-                echo 'No hubo conexion en detalle pedido!!';
+                echo 'No hubo conexion!!';
             }
             
         }
@@ -195,8 +196,8 @@ public static function insertar_factura($conexion){
     if (isset($conexion)){
         try{
 
-            $sql = "insert into facturas_compra (fecha,estado) values
-             (NOW(),0)";
+            $sql = "insert into facturas_compra (fecha,estado,sucursal) values
+             (NOW(),0,1)";
             
             ;
             
@@ -263,25 +264,31 @@ public static function eliminar_falsos($conexion){
         }
     }
  }
- public static function factura_cargada($conexion,$cod_factura,$proveedor,$total,$fecha,$cod_oc){
+public static function factura_cargada($conexion,$cod_factura,$proveedor,$num_factura,$tipo,
+                                        $fecha,$total,$cod_oc){
         
     $factura_actualizada = false;
     
     if (isset($conexion)){
         try{
-            $sql = 'update facturas_compra set fecha_entrega_estimada = :fecha, proveedor = :proveedor, total = :total, cod_oc = :cod_oc  WHERE cod_factura_compra =' . $cod_factura;
+            $sql = 'update facturas_compra set fecha_entrega_estimada = :fecha, proveedor = :proveedor, total = :total,
+                    cod_oc = :cod_oc, num_factura = :num_factura, tipo = :tipo  WHERE cod_factura_compra =' . $cod_factura;
             
             $proveedortemp = $proveedor;
             $totaltemp = $total;
             $fechatemp = $fecha;
             $cod_octemp = $cod_oc;
-            
+            $num_facturatemp = $num_factura;
+            $tipotemp = $tipo;
+
             $sentencia = $conexion ->prepare($sql);
             
             $sentencia -> bindParam(':proveedor', $proveedortemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':total', $totaltemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':fecha', $fechatemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':cod_oc', $cod_octemp, PDO::PARAM_STR);
+            $sentencia -> bindParam(':num_factura', $num_facturatemp, PDO::PARAM_STR);
+            $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
             
             $factura_actualizada = $sentencia -> execute();
             
@@ -405,6 +412,69 @@ public static function calcular_precios($nro_factura){
     return $total;
     
 }
+
+    public static function actualizar_estado_listo_factura($conexion,$cod_factura_compra){
+        
+    $factura_compra_actualizada = false;
+    
+    if (isset($conexion)){
+        try{
+
+            $sql = 'update facturas_compra set estado = 2 WHERE cod_factura_compra =' . $cod_factura_compra;
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $factura_compra_actualizada = $sentencia -> execute();
+            
+        } catch(PDOException $ex){
+            print 'ERROR INSCo' . $ex -> getMessage();
+        }
+        
+        return $factura_compra_actualizada;
+    }
+    else{
+        echo 'No hay conexion!!';
+    }
+    
+}
+
+public static function obtener_facturas_filtradas($conexion,$criterio){
+        
+    $filas = [];
+    $criterio_min=strtolower($criterio);
+    
+    if (isset($conexion)){
+
+        try{
+            $sql= 'select * from grilla_facturas_remito where (cod_factura_compra LIKE "%'.$criterio_min. '%" OR 
+                    fecha LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
+                    sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR 
+                    estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" ) 
+                    and (sucursal = "santa ana") and (estado = "Pendiente")';
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $sentencia -> execute();
+            
+            $resultado = $sentencia -> fetchAll();
+
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $filas[] = new facturas_compra($fila['cod_factura_compra'],$fila['num_factura'], $fila['tipo'],
+                                                $fila['fecha'], null, $fila['proveedor'], $fila['total'], 
+                                                $fila['estado'], $fila['sucursal'], null);
+                }
+            }
+
+
+        }catch(PDOException $ex){
+            print 'ERROR OT' . $ex -> getMessage();
+        }
+    }else{ echo 'No hay conexion :(';}
+    
+    return $filas;
+}
+
 
 
 
