@@ -39,8 +39,8 @@
             if (isset($conexion)){
                 try{
     
-                    $sql = "insert into ordenes_de_compra(fecha_emision,estado) values
-                     (NOW(),0)";
+                    $sql = "insert into ordenes_de_compra(fecha_emision,estado,sucursal) values
+                     (NOW(),0,1)";
                     
                     $cod_oc_temp = $orden_de_compra -> obtener_cod_orden_de_compra();
                     $sentencia = $conexion ->prepare($sql);
@@ -382,5 +382,77 @@
             
             return $filas;
         }
+        
+        public static function obtener_cotizaciones_filtrados_sel($conexion,$criterio){
+        
+            $filas = [];
+            $criterio_min=strtolower($criterio);
+            
+            if (isset($conexion)){
+        
+                try{
+                    $sql= 'select * from grilla_cotizaciones_seleccionar where (cod_cotizacion LIKE "%'.$criterio_min. '%" OR 
+                            fecha_emision LIKE "%'. $criterio_min. '%" OR fecha_presupuesto LIKE "%'  .$criterio_min. '%" OR
+                            sucursal LIKE "%'  .$criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%"OR 
+                            total LIKE "%'  .$criterio_min. '%")
+                            and (sucursal="santa ana") and (total is not null)';
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> execute();
+                    
+                    $resultado = $sentencia -> fetchAll();
+                    
+                    if(count($resultado)){
+                        foreach($resultado as $fila){
+                            $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['cod_pedido'], $fila['fecha_emision'], $fila['fecha_presupuesto'],
+                                                        $fila['proveedor'], $fila['total'], null, $fila['sucursal']);
+                        }
+                    }
+        
+                    
+                }catch(PDOException $ex){
+                    print 'ERROR OT' . $ex -> getMessage();
+                }
+            }else{ echo 'No hay conexion :(';}
+            
+            return $filas;
+        }
+
+        public static function obtener_oc_filtrados_sel($conexion,$criterio){
+        
+            $filas = [];
+            $criterio_min=strtolower($criterio);
+            
+            if (isset($conexion)){
+        
+                try{
+                    $sql= 'select * from grilla_ordenes_de_compra_sel where (cod_orden_de_compra LIKE "%'.$criterio_min. '%" OR 
+                            fecha_emision LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
+                            sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR estado LIKE "%'  .$criterio_min. '%")
+                            and (sucursal = "santa ana") ';
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> execute();
+                    
+                    $resultado = $sentencia -> fetchAll();
+                    
+                    if(count($resultado)){
+                        foreach($resultado as $fila){
+                            $filas[] = new ordenes_de_compra($fila['cod_orden_de_compra'],$fila['fecha_emision'], null,
+                                                        $fila['proveedor'], $fila['total'], $fila['estado'], $fila['sucursal'],null);
+                        }
+                    }
+        
+                    
+                }catch(PDOException $ex){
+                    print 'ERROR OT' . $ex -> getMessage();
+                }
+            }else{ echo 'No hay conexion :(';}
+            
+            return $filas;
+        }
+        
     }
 ?>                                                                                                                                    

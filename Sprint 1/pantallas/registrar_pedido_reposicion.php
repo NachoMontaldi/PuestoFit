@@ -94,6 +94,7 @@ if (isset($_POST['enviar'])) {
                                     <th>Marca</th>
                                     <th>Cantidad</th>
                                     <th>Observaciones</th>
+                                    <th></th>
                                 </tr>
                             <tbody>
                                 <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">

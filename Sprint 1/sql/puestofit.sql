@@ -118,11 +118,14 @@ create table detalle_ordenes_de_compra(
 
 create table facturas_compra(
     cod_factura_compra int unique auto_increment,
+    num_factura varchar(255),
+    tipo varchar(255),
+    sucursal int,
     fecha datetime,
     fecha_entrega_estimada datetime,
     proveedor varchar(255),
     total int,
-    estado varchar(100),
+    estado int,
     primary key(cod_factura_compra),
     cod_oc int,
     FOREIGN key (cod_oc) REFERENCES ordenes_de_compra(cod_orden_de_compra) ON DELETE CASCADE 
@@ -202,19 +205,20 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     INNER JOIN estados
     ON pedidos_reposicion.estado = estados.cod;
 
-        /*Vista grilla cotizaciones principal */
+    /*Vista grilla cotizaciones principal */
     CREATE OR REPLACE VIEW
     grilla_cotizaciones AS
-    SELECT cod_cotizacion, fecha_emision, fecha_presupuesto, proveedor, total, estados.nombre as estado, depositos.nombre as sucursal
+    SELECT cod_cotizacion, cod_pedido, fecha_emision, fecha_presupuesto, proveedor, total, estados.nombre as estado, depositos.nombre as sucursal
     from cotizaciones
     INNER JOIN depositos
     ON cotizaciones.sucursal = depositos.cod_deposito
     INNER JOIN estados
     ON cotizaciones.estado = estados.cod;
-    /*Vista grilla cotizaciones seleccionar */
+
+     /*Vista grilla cotizaciones seleccionar */
     CREATE OR REPLACE VIEW
     grilla_cotizaciones_seleccionar AS
-    SELECT cod_cotizacion, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
+    SELECT cod_cotizacion, cod_pedido, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
     from cotizaciones
     INNER JOIN depositos
     ON cotizaciones.sucursal = depositos.cod_deposito
@@ -230,6 +234,26 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     ON ordenes_de_compra.sucursal = depositos.cod_deposito
     INNER JOIN estados
     ON ordenes_de_compra.estado = estados.cod;
+
+    /*Vista grilla seleccion orden de compra (factura_registrar) */
+    CREATE OR REPLACE VIEW
+    grilla_ordenes_de_compra_sel AS
+    SELECT cod_orden_de_compra, fecha_emision, proveedor, total, estados.nombre as estado, depositos.nombre as sucursal
+    from ordenes_de_compra 
+    INNER JOIN depositos
+    ON ordenes_de_compra.sucursal = depositos.cod_deposito
+    INNER JOIN estados
+    ON ordenes_de_compra.estado = estados.cod;
+
+    /*Vista grilla facturas_compra */
+        CREATE OR REPLACE VIEW
+        grilla_facturas_compra AS
+        SELECT num_factura, tipo, fecha, fecha_entrega_estimada,proveedor,cod_oc,estados.nombre as estado, depositos.nombre as sucursal
+        from facturas_compra
+        INNER JOIN depositos
+        ON facturas_compra.sucursal = depositos.cod_deposito
+        INNER JOIN estados
+        ON facturas_compra.estado = estados.cod;
 
 
 /*Carga de elementos*/

@@ -334,6 +334,31 @@
         }else{ echo 'No hay conexion :(';}
         
         return $filas;
+    }  
+
+    public static function actualizar_estado_listo($conexion,$cod_pedido){
+        
+        $pedido_actualizado = false;
+        
+        if (isset($conexion)){
+            try{
+
+                $sql = 'update pedidos_reposicion set estado = 2 WHERE cod_pedido =' . $cod_pedido;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $pedido_actualizado = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $pedido_actualizado;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+        
     }
 
 

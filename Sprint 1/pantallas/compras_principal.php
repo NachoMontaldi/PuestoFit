@@ -10,7 +10,7 @@
 <html>
 
   <head>
-    <title>Facturas de compra</title>
+    <title>Facturas de Compras</title>
 
   <!--  CSS -->
     <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
@@ -58,17 +58,31 @@
         <thead class="thead-dark">
           <tr>
             <th>Nº Factura</th>
+            <th>Tipo</th>
+            <th>Sucursal</th>
+            <th>Estado</th>
             <th>ID Orden de compra</th>
             <th>Proveedor</th>
             <th>Fecha de emisión</th>
-            <th>Total</th> 
+            <th>Fecha estimada</th> 
             <th>DETALLE</th>
           </tr> 
         </thead>
         <tbody>
         <?php
+        if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                  
+ 
+          $criterio= $_POST['criterio'];
+          
+          escritor_factura::escribir_filas_filtradas_facturas($criterio);
+          
+        }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+
+          escritor_factura::escribir_facturas(Conexion::obtenerConexion());
+
+        }
         
-        escritor_factura::escribir_facturas(Conexion::obtenerConexion());
         
         ?>
       <!-- AGRRGAR ACA FUNCIONES PHP -->

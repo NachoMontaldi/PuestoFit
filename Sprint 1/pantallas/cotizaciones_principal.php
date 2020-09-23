@@ -54,7 +54,8 @@
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
           <tr></tr>
-            <th>Cod.</th>
+            <th>Cod. Cot.</th>
+            <th>Cod. Pedido</th>
             <th>Fecha Emisión</th>
             <th>Fecha Presupuesto</th>
             <th>Proveedor</th>

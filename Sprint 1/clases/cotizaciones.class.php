@@ -3,6 +3,7 @@
 class cotizaciones {
 
     private $cod_cotizacion;
+    private $cod_pedido;
     private $fecha_emision;
     private $fecha_presupuesto;
     private $proveedor;
@@ -12,10 +13,11 @@ class cotizaciones {
    
     //Constructor 
 
-    public function __construct($cod_cotizacion,$fecha_emision,$fecha_presupuesto,
+    public function __construct($cod_cotizacion,$cod_pedido,$fecha_emision,$fecha_presupuesto,
                                 $proveedor,$total,$estado,$sucursal){
         
         $this -> cod_cotizacion =$cod_cotizacion;
+        $this -> cod_pedido =$cod_pedido;
         $this -> fecha_emision =$fecha_emision;
         $this -> fecha_presupuesto =$fecha_presupuesto;
         $this -> proveedor =$proveedor;
@@ -33,6 +35,10 @@ class cotizaciones {
     //Getters
     public function obtener_cod_cotizacion() {
         return $this -> cod_cotizacion;
+    }
+
+    public function obtener_cod_pedido() {
+        return $this -> cod_pedido;
     }
 
     public function obtener_fecha_emision() {

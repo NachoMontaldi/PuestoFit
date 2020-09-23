@@ -19,7 +19,7 @@
 
       
   
-      $cotizacion = new cotizaciones('','','','','',0,1);
+      $cotizacion = new cotizaciones('','','','','','',0,1);
       
       $cotizacion_insertada = repositorio_cotizacion :: insertar_cotizacion(Conexion :: obtenerConexion(),$cotizacion);
       
@@ -45,14 +45,15 @@
       //actualiza el codigo pedido en cotizaciones
       $codigo = repositorio_cotizacion :: pedido_cotizacion (Conexion :: obtenerConexion(),$id,$_POST['cod_pedido']);
 
-
       // insertar los detalles
       
       repositorio_cotizacion :: cargar_detalles($_POST['cod_pedido'], $id);
       
-      
       // borrar los estados igual a 0
       repositorio_cotizacion :: eliminar_falsos (Conexion :: obtenerConexion());
+
+      // actualiza el estado del pedido de reposicion a 2
+      repositorio_pedido_reposicion :: actualizar_estado_listo(Conexion::obtenerConexion(),$_POST['cod_pedido']);
 
       //redirige despues de insertar
       Redireccion::redirigir(ruta_cotizaciones_principal);
@@ -100,7 +101,7 @@
                   <td class="valor">
                     <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d");?>">
                   </td>
-                  <td rowspan="3">
+                  <td rowspan="4">
                       <!--Grilla de productos para cotizacion-->
                       <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">

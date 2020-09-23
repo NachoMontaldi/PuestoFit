@@ -27,21 +27,30 @@ $id = repositorio_ordenes_de_compra::obtener_ultimo_id(Conexion::obtenerConexion
 
 
 if (isset($_POST['enviar'])) {
-    //echo $_POST['proveedor'];
+    
     //actualiza el estado a 1
     $orden_de_compra_validada = repositorio_ordenes_de_compra::estado_orden_de_compra(Conexion::obtenerConexion(), $id);
+    
     //actualiza el proveedor al que se seleccionó
     $pedido_proveedor = repositorio_ordenes_de_compra::proveedor_orden_de_compra(Conexion::obtenerConexion(), $id, $_POST['proveedor']);
+    
     //actualiza el codigo pedido en ordenes de compras
     $codigo = repositorio_ordenes_de_compra::cotizacion_orden_de_compra(Conexion::obtenerConexion(), $id, $_POST['cod_cotizacion']);
+    
     //actualiza el total en ordenes de compras
     repositorio_ordenes_de_compra::total_orden_de_compra(Conexion::obtenerConexion(), $id, $_POST['precioTotal']);
+    
     // insertar los detalles
     repositorio_ordenes_de_compra::cargar_detalles($_POST['cod_cotizacion'], $id);
+    
     // borrar los estados igual a 0
     repositorio_ordenes_de_compra::eliminar_falsos(Conexion::obtenerConexion());
+
+    // actualiza estado de cotizacion a 2
+    repositorio_cotizacion::actualizar_estado_listo(Conexion::obtenerConexion(),$_POST['cod_cotizacion']);
+
     //redirige despues de insertar
-    Redireccion::redirigir(ruta_ordenes_de_compra_principal);
+    Redireccion::redirigir(ruta_ordenes_de_compra_principal); 
 }
 
 ?>
@@ -85,10 +94,10 @@ if (isset($_POST['enviar'])) {
                     <td class="valor seg_col">
                         <input type="text" style="width:85%;" readonly name="cod_cotizacion" id="cod_cotizacion" value=<?php
 
-                                                                                                                        if (isset($_POST['seleccionar'])) {
+                        if (isset($_POST['seleccionar'])) {
 
-                                                                                                                            echo $_POST['seleccionar'];
-                                                                                                                        } ?>>
+                            echo $_POST['seleccionar'];
+                        } ?>>
 
                         <a href="<?php echo ruta_seleccionar_cotizacion ?>">
                             <button type="button" name="buscar" id="buscar" class="boton">
@@ -99,10 +108,12 @@ if (isset($_POST['enviar'])) {
                     <td class="valor">
                         <input type="text" readonly name="proveedor" id="proveedor" value="<?php
 
-                                                                                            if (isset($_POST['proveedor'])) {
+                        if (isset($_POST['proveedor'])) {
 
-                                                                                                echo $_POST['proveedor'];
-                                                                                            } ?>">
+                            echo $_POST['proveedor'];
+
+                        } ?>">
+
                     </td>
                 </tr>
 

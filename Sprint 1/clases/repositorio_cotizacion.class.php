@@ -337,7 +337,7 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['fecha_emision'],
+                        $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['cod_pedido'],$fila['fecha_emision'],
                                     $fila['fecha_presupuesto'], $fila['proveedor'], $fila['total'], 
                                     $fila['estado'],$fila['sucursal']);
                  }
@@ -464,7 +464,8 @@ public static function obtener_cotizaciones_filtradas($conexion,$criterio){
             $sql= 'select * from grilla_cotizaciones where (cod_cotizacion LIKE "%'.$criterio_min. '%" OR 
                     fecha_emision LIKE "%'. $criterio_min. '%" OR sucursal LIKE "%'  .$criterio_min. '%" OR
                     fecha_presupuesto LIKE "%'  .$criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%"OR 
-                    total LIKE "%'  .$criterio_min. '%" OR estado LIKE "%'  .$criterio_min. '%")
+                    total LIKE "%'  .$criterio_min. '%" OR estado LIKE "%'  .$criterio_min. '%" OR 
+                    cod_pedido LIKE "%'  .$criterio_min. '%")
                     and (sucursal="santa ana")';
             
             $sentencia = $conexion ->prepare($sql);
@@ -475,7 +476,7 @@ public static function obtener_cotizaciones_filtradas($conexion,$criterio){
             
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $filas[] = new cotizaciones($fila['cod_cotizacion'], $fila['fecha_emision'], $fila['fecha_presupuesto'],
+                    $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['cod_pedido'], $fila['fecha_emision'], $fila['fecha_presupuesto'],
                                                 $fila['proveedor'], $fila['total'], $fila['estado'], $fila['sucursal']);
                 }
             }
@@ -511,7 +512,7 @@ public static function obtener_cotizaciones_filtrados_sel($conexion,$criterio){
             
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $filas[] = new cotizaciones($fila['cod_cotizacion'], $fila['fecha_emision'], $fila['fecha_presupuesto'],
+                    $filas[] = new cotizaciones($fila['cod_cotizacion'],$fila['cod_pedido'], $fila['fecha_emision'], $fila['fecha_presupuesto'],
                                                 $fila['proveedor'], $fila['total'], null, $fila['sucursal']);
                 }
             }
@@ -523,6 +524,31 @@ public static function obtener_cotizaciones_filtrados_sel($conexion,$criterio){
     }else{ echo 'No hay conexion :(';}
     
     return $filas;
+}
+
+public static function actualizar_estado_listo($conexion,$cod_cotizacion){
+        
+    $cotizacion_actualizada = false;
+    
+    if (isset($conexion)){
+        try{
+
+            $sql = 'update cotizaciones set estado = 2 WHERE cod_cotizacion =' . $cod_cotizacion;
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $cotizacion_actualizada = $sentencia -> execute();
+            
+        } catch(PDOException $ex){
+            print 'ERROR INSCo' . $ex -> getMessage();
+        }
+        
+        return $cotizacion_actualizada;
+    }
+    else{
+        echo 'No hay conexion!!';
+    }
+    
 }
 
 }

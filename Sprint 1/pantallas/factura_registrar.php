@@ -90,13 +90,13 @@ if (isset($_POST['enviar'])) {
                                                                                                                       echo $_POST['seleccionar'];
                                                                                                                     } ?>">
             <a href="<?php echo ruta_seleccionar_oc ?>">
-              <button type="button" name="buscar" id="gd" class="boton">
+              <button type="button" name="buscar" id="buscar" class="boton_buscar">
                 <i class="fa fa-search"></i></button>
             </a>
           </form>
 
         </td>
-        <td rowspan="3">
+        <td rowspan="6">
           <!--Grilla de productos-->
           <div class="table-responsive-lg">
             <table id="grilla" class="table-hover table table-bordered">
@@ -140,30 +140,56 @@ if (isset($_POST['enviar'])) {
           </div>
         </td>
       </tr>
-      <tr>
+      
+      <tr>  
         <td class="titulos">Proveedor:</td>
-        <td class="valor">
-          <input type="text" name="proveedor" id="prov" readonly value="<?php
+          <td class="valor"  >
+            <input readonly  type="text" name="proveedor" id="proveedor" value="<?php
+              if (isset($_POST['seleccionar'])) {
 
-                                                                        if (isset($_POST['seleccionar'])) {
-
-                                                                          echo $_POST['proveedor'];
-                                                                        }
-
-                                                                        ?>">
+                echo $_POST['proveedor'];
+              } ?> ">
         </td>
       </tr>
 
+      <tr>  
+        <td class="titulos">Número de factura:</td>
+          <td class="valor">
+            <input type="text" name="num_factura" id="num_factura">
+        </td>
+      </tr>
+
+      <tr>  
+       <td class="titulos">Tipo de factura:</td>
+       <td class="valor">
+          <!-- desplegable -->
+          <select name="tipo_factura" id="tipo_factura">
+              <option selected value="0"> Elije el tipo de factura</option>
+              <option value="1">A</option>  
+              <option value="1">B</option>  
+              <option value="1">C</option>  
+          </select>
+        </td>  
+      </tr>
+
+      <tr>
+        <td class="titulos">Sucursal:</td>
+        <td class="valor">
+          <input type="text" name="sucursal" id="prov" readonly value="<?php
+
+            if (isset($_POST['seleccionar'])) {
+
+              echo $_POST['sucursal'];
+            }
+
+            ?>">
+        </td>
+      </tr>
       <td class="titulos">Fecha Estimada de Entrega:</td>
       <td class="valor">
         <form method="post" action="<?php //echo $_SERVER['PHP_SELF'] 
                                     ?>">
-
           <input autocomplete="off" type="date" min="<?php echo date("Y-m-d"); ?>" id="datepicker" name="datepicker">
-
-
-          <tr>
-          </tr>
 
           <tr>
 

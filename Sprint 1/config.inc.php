@@ -19,6 +19,7 @@ define('ruta_agregar_producto_pedido',servidor.'/pantallas/agregar_producto_pedi
 define('ruta_alta_de_proveedor',servidor.'/pantallas/alta_de_proveedor.php');
 define('ruta_proveedor_principal',servidor.'/pantallas/proveedores_principal.php');
 define('ruta_compras_principal',servidor.'/pantallas/compras_principal.php');
+define('ruta_detalle_factura_compra',servidor.'/pantallas/detalle_factura_compra.php');
 define('ruta_ordenes_de_compra_principal',servidor.'/pantallas/ordenes_de_compra_principal.php');
 define('ruta_registrar_orden_de_compra',servidor.'/pantallas/registrar_orden_de_compra.php');
 define('ruta_detalle_orden_de_compra',servidor.'/pantallas/detalle_orden_de_compra.php');

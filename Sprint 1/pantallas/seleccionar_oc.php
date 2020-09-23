@@ -33,7 +33,7 @@ Conexion::abrirConexion();
 </head>
 
 <body>
-
+             
 
     <!---------------------------------------------------------------------------------------------------->
     <div id="formulario" class="form">
@@ -43,23 +43,49 @@ Conexion::abrirConexion();
                     SELECCIONAR ORDEN DE COMPRA
 
             <tr>
-                <td colspan="4">
-                    <!--Grilla de productos-->
-                    <div class="table-responsive-lg">
-                        <table id="grilla" class="table-hover table table-bordered">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Cod Orden de Compra</th>
-                                    <th>Fecha</th>
-                                    <th>Proveedor</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                                <?php
-                                //escritor para las oc
-                                escritor_factura::escribir_ocs();
 
-                                ?>
+                <td colspan="4">
+
+        <!---BARRA DE BUSQUEDA-->
+        <!--Se mete dentro de un form para poder usar el metodo post-->
+        <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+            <div class="form-group"> 
+              <p id="busqueda">
+                <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR"/>
+                <!--El button se hace de type = "submit" para que pueda trasladar datos-->
+                <button type="submit" class="form-control" name="busqueda" id="searchBotton"><i class="fa fa-search"></i></button>
+              </p>
+            </div>
+          </form>
+        <!--Grilla de productos-->
+        <div class="table-responsive-lg">
+            <table id="grilla" class="table-hover table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Cod Orden de Compra</th>
+                        <th>Fecha</th>
+                        <th>Proveedor</th>
+                        <th>Total</th>
+                        <th>Sucursal</th>
+                        <th>SELECCION</th>
+                    </tr>
+                    <?php
+
+                      if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                               
+                          $criterio= $_POST['criterio'];
+                          escritor_factura::escribir_filas_filtradas_sel_oc($criterio);
+                          
+                      }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+
+                          escritor_factura::escribir_ocs();
+                        
+                      }                      
+
+                      ?>
+
+
+
 
 
 </html>

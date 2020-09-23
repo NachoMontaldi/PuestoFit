@@ -2,6 +2,7 @@
     
     include_once '../conexion.class.php';
     include_once 'detalle_ordenes_de_compra.class.php'; 
+    include_once 'detalle_facturas_compra.class.php'; 
     include_once 'cotizaciones.class.php';
     include_once 'ordenes_de_compra.class.php';
     include_once 'repositorio_ordenes_de_compra.class.php';
@@ -23,9 +24,9 @@
                     
                     if(count($resultado)){
                         foreach($resultado as $fila){
-                            $filas[] = new facturas_compra($fila['cod_factura_compra'],$fila['fecha'],
-                                        $fila['fecha_entrega_estimada'], $fila['proveedor'], $fila['total'], 
-                                        $fila['estado'], $fila['cod_oc']);
+                            $filas[] = new facturas_compra($fila['cod_factura_compra'],$fila['num_factura'],$fila['tipo'],
+                            $fila['fecha'], $fila['fecha_entrega_estimada'], $fila['proveedor'], $fila['total'], 
+                            $fila['estado'], $fila['sucursal'], $fila['cod_oc']);
                         }
                     } 
                 }catch(PDOException $ex){
@@ -295,8 +296,117 @@ public static function eliminar_falsos($conexion){
     }
     
 }
+public static function obtener_factura_filtradas($conexion,$criterio){
+        
+    $filas = [];
+
+    $criterio_min=strtolower($criterio);
+    
+    if (isset($conexion)){
+
+        try{
+            $sql= 'select * from grilla_facturas_compra where (num_factura LIKE "%'.$criterio_min.'%" OR 
+                   tipo LIKE "%'.$criterio_min.'%" OR fecha LIKE "%'.$criterio_min.'%" 
+                   OR fecha_entrega_estimada LIKE "%'.$criterio_min.'%" OR cod_oc LIKE "%'.$criterio_min.'%"
+                   OR proveedor LIKE "%'.$criterio_min.'%" OR  sucursal LIKE "%'.$criterio_min.'%"
+                   OR estado LIKE "%'.$criterio_min.'%") AND (sucursal = "Santa ana")';
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $sentencia -> execute();
+            
+            $resultado = $sentencia -> fetchAll();
+            
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $filas[] = new facturas_compra(null,$fila['num_factura'],$fila['tipo'],
+                    $fila['fecha'],$fila['fecha_entrega_estimada'],$fila['proveedor'],null,
+                    $fila['estado'],$fila['sucursal'],$fila['cod_oc']);
+                }
+            }
+
+            
+        }catch(PDOException $ex){
+            print 'ERROR OT' . $ex -> getMessage();
+        }
+    }else{ echo 'No hay conexion :(';}
+    
+    return $filas;
+}
+public static function obtener_sucursal($conexion,$cod_deposito){
+    if (isset($conexion)){
+        $sucursal = 0;
+        try{
+            $sql= 'select nombre from depositos where cod_deposito='.$cod_deposito;
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $sentencia -> execute();
+            
+            $resultado = $sentencia -> fetchColumn() ;
+            
+            $sucursal = strval($resultado);
+                
+
+            
+        }catch(PDOException $ex){
+            print 'ERROR UID' . $ex -> getMessage();
+        }
+    }else{ echo 'no';}
+    
+    return $sucursal;
+}
+public static function obtener_detalles_factura($conexion,$id){
+        
+    $filas = [];
+    $id_str=strval($id);
+
+    if (isset($conexion)){
+    
+        try{
+            $sql= 'select * from detalle_facturas_compra where cod_factura_compra='.$id_str;
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $sentencia -> execute();
+            
+            $resultado = $sentencia -> fetchAll();
+
+            if(count($resultado)){
+                foreach($resultado as $fila){
+                    $filas[] = new detalle_facturas_compra($fila['cod_det_factura_compra'],$fila['cod_factura_compra'],
+                                $fila['nombre'],$fila['marca'], $fila['cantidad'], $fila['precio_unitario']);
+                }
+            }
+
+            
+        }catch(PDOException $ex){
+            print 'ERROR OT' . $ex -> getMessage();
+        }
+    }else{ echo 'No hay conexion :(';}
+    
+    return $filas;
+}
+
+public static function calcular_precios($nro_factura){
+        
+    $detalles = self :: obtener_detalles_factura(Conexion::obtenerConexion(),$nro_factura);
+    $total=0;
+    if(count($detalles)){
+
+        foreach($detalles as $detalle){
+            
+            //$precio = self::calcular_precio($detalle);
+            $subtotal = $detalle -> obtener_precio_unitario() * $detalle -> obtener_cantidad();
+            $total= $total + $subtotal;
+        }
+
+        }
+    return $total;
+    
+}
 
 
 
 
-    }
+}

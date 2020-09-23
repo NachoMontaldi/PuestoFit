@@ -14,3 +14,6 @@
 
 -EN TODOS LOS REGISTRAR
 	*si uno entra a seleccionar un producto, cotizacion,oc,etc y hace click en volver sin seleccionar nada tira error
+
+-Registrar Factura
+	*arreglas el input del proveedor, se muestra raro

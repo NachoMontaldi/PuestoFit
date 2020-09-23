@@ -11,7 +11,6 @@ table {
 .titulo {
     color:white;
     background-color:rgb(53, 58, 64);
-    text-align: center;
     font-family: 'Actor';
     font-size: 25px;
     font-stretch: ultra-condensed;
@@ -21,7 +20,7 @@ table {
     padding: 15px 15px;
 }
 
-.form input , #metodo_pago {
+.form input , #metodo_pago, #tipo_factura {
   width: 100%;
   border-radius: 2px;
   border: 2px solid rgb(53, 58, 64);
@@ -35,7 +34,6 @@ table {
 
 .titulos {
     padding: 15px;
-    text-align: right;
     font-size: 18px;
     font-family: 'Actor';
     font-weight: bold;
@@ -65,6 +63,21 @@ table {
 }
 #ld{
     background-color: rgb(189, 36, 36);  
+}
+
+#buscar{
+    background-color:rgb(26, 164, 53);
+}
+
+.boton_buscar {
+    padding: 5px;
+    box-sizing: border-box;
+    font-family: 'Actor';
+    font-size: 12px;
+    border-radius: 70px;
+    color:white;
+    border: 2px solid rgba(80, 80, 80, 0.384);
+    cursor: pointer;
 }
  
 /*//////////////////////////BOTON AGREGAR A VISTA PREVIA/////////////////////////*/
@@ -109,6 +122,7 @@ table {
   }
   
   #grilla{
-    text-align: center;
     font-family: Actor;
+    text-align: center;
+    
   }

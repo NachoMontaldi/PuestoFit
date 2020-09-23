@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-  <?php 
-  include_once '../config.inc.php';
+  <?php include_once '../config.inc.php';
   include_once '../conexion.class.php';
-  include_once '../clases/repositorio_pedido_reposicion.class.php';
-  include_once '../clases/escritor_filas.class.php';
+  include_once '../clases/repositorio_factura.class.php';
+  include_once '../clases/escritor_factura.class.php';
   include_once '../clases/redireccion.class.php';
   include_once '../pantallas/barra_nav.php';
 
 
   Conexion::abrirConexion();
   if (isset($_POST['ver_detalle'])) {
-    $oc_id = $_POST['ver_detalle'];
+
+    $factura_id = $_POST['ver_detalle'];
   }
 
+  $total = repositorio_factura::calcular_precios($_POST['cod_factura']);
   ?>
   <html>
 
   <head>
-    <title>Detalle Pedido de Reposicion</title>
+    <title>Detalle factura Compras</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css" />
     <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet" />
@@ -39,16 +40,26 @@
     <div id="formulario" class="form">
       <table class="tabla" border="1px">
         <tr>
-          <td colspan="2" class="titulo">DETALLE DE PEDIDO DE REPOSICION</td>
+          <td colspan="4" class="titulo">DETALLE FACTURA COMPRAS</td>
         </tr>
         <tr>
-          <td class="titulos">Cod. Pedido de Reposición:</td>
+          <td class="titulos">N° Factura:</td>
           <td class="valor">
-            <input type="text" readonly name="id_ped" id="id_ped" value="<?php echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="nro_factura" id="nro_factura" value="<?php echo $_POST['ver_detalle']; ?>">
+          </td>
+          <td class="titulos">Tipo:</td>
+          <td class="valor">
+            <input type="text" readonly name="tipo" id="tipo" value="<?php echo $_POST['tipo']; ?>">
           </td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td colspan="1" class="titulos">Proveedor:</td>
+          <td colspan="3" class="valor">
+            <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo $_POST['proveedor']; ?>">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
             <!--Grilla de productos para cotizacion-->
             <div class="table-responsive-lg">
               <table class="table-hover table table-bordered grilla">
@@ -58,16 +69,24 @@
                     <th>Nombre producto</th>
                     <th>Marca</th>
                     <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <?php
                     if (isset($_POST['ver_detalle'])) {
-
-                      escritor_filas::escribir_detalles_pedidos_det($_POST['ver_detalle']);
-
+                      escritor_factura::escribir_detalles_factura($_POST['cod_factura']);
                     } ?>
+                  </tr>
+                  <tr>
+                    <td colspan="5" align="right">
+                      <h3>Total</h3>
+                    </td>
+                    <td align="center">
+                      <h3>$ <?php echo $total; ?> </h3>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -78,8 +97,8 @@
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_pedidos_reposicion_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_compras_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 
-  </html>/
+  </html>
