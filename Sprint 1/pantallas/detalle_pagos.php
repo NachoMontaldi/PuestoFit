@@ -2,16 +2,14 @@
   <?php 
   include_once '../config.inc.php';
   include_once '../conexion.class.php';
-  //include_once '../clases/repositorio_pago.class.php';
-  //include_once '../clases/escritor_pago.class.php';
+  include_once '../clases/repositorio_pago.class.php';
+  include_once '../clases/escritor_pago.class.php';
   include_once '../clases/redireccion.class.php';
   include_once '../pantallas/barra_nav.php';
 
 
   Conexion::abrirConexion();
-  if (isset($_POST['ver_detalle'])) {
-    $oc_id = $_POST['ver_detalle'];
-  }
+
   ?>
   <html>
 
@@ -43,13 +41,19 @@
         <tr>
           <td class="titulos">Cod. Pago:</td>
           <td class="valor">
-            <input type="text" readonly name="id_pago" id="id_pago" value="<?php //echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="id_pago" id="id_pago" value="<?php echo $_POST['ver_detalle']; ?>">
+          </td>
+        </tr>
+        <tr>
+          <td class="titulos">N° Factura:</td>
+          <td class="valor">
+            <input type="text" readonly name="num_factura" id="num_factura" value="<?php echo $_POST['num_factura']; ?>">
           </td>
         </tr>
         <tr>
           <td class="titulos">Metodo de pago:</td>
           <td class="valor">
-            <input type="text" readonly name="id_met_pago" id="id_met_pago" value="<?php //echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="id_met_pago" id="id_met_pago" value="<?php echo $_POST['metodo_pago']; ?>">
           </td>
         </tr>
         <tr>
@@ -71,7 +75,9 @@
                   <tr>
                     <?php
                     if (isset($_POST['ver_detalle'])) {
-                      //escritor_pago::escribir_detalles_pago($_POST['ver_detalle']);
+
+                      escritor_pago::escribir_detalles_pago($_POST['ver_detalle']);
+
                     } ?>
                   </tr>
                   <tr>
@@ -79,7 +85,7 @@
                       <h3>Total</h3>
                     </td>
                     <td align="center">
-                      <h3>$ <?php //echo $total; ?> </h3>
+                      <h3>$ <?php echo $_POST['total']; ?> </h3>
                     </td>
                   </tr>
                 </tbody>

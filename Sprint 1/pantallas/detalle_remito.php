@@ -74,7 +74,9 @@
                   <tr>
                     <?php
                      if (isset($_POST['ver_detalle'])) {
+
                       escritor_remito::escribir_detalles_remito($_POST['ver_detalle']);
+                      
                     }  ?>
                   </tr>
                   <tr>

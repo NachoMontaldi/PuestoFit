@@ -19,8 +19,6 @@ create table inventario (
     contiene_L varchar(2),
     descripcion varchar (255),
 	fecha_registro datetime null,
-    cod_prov int,
-    cod_deposito int,
 	primary key(cod_prod)
 );
 
@@ -45,7 +43,9 @@ create table stock_deposito (
     cod_deposito int,
     cod_prod int,
     cantidad int,
-    primary key(cod_prod,cod_deposito)
+    primary key(cod_prod,cod_deposito),
+    FOREIGN KEY (cod_deposito) REFERENCES depositos(cod_deposito) ON DELETE CASCADE,
+    FOREIGN KEY (cod_prod) REFERENCES inventario(cod_prod) ON DELETE CASCADE
 );
 
 create table pedidos_reposicion(
@@ -171,13 +171,51 @@ create table movimientos_stock(
     cod_producto int,
     tipo varchar(255),
     cantidad int,
+    cod_det_remito int,
+    sucursal int,
     primary key(cod_mov),
     FOREIGN key (cod_producto) REFERENCES inventario(cod_prod) ON DELETE CASCADE 
+    FOREIGN key (cod_det_remito) REFERENCES detalle_remitos(cod_det_remito) ON DELETE CASCADE 
 );
+
 create table estados(
     cod int unique auto_increment,
     nombre varchar (255)
 );
+
+create table pagos(
+    cod_pago int UNIQUE auto_increment,
+    num_factura int,
+    metodo_pago varchar(255),
+    sucursal int,
+    fecha datetime,
+    proveedor varchar(255),
+    total int,
+    estado int,
+    cod_factura_compra int,
+    primary key(cod_pago),
+    FOREIGN key (cod_factura_compra) REFERENCES facturas_compra(cod_factura_compra) ON DELETE CASCADE 
+);
+
+create table detalle_pagos(
+    cod_det_pago int unique auto_increment,
+    cod_pago int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    precio_unitario int,
+    primary key (cod_det_pago),
+    FOREIGN key (cod_pago) REFERENCES pagos(cod_pago) on DELETE CASCADE
+);
+
+create table egresos(
+    cod_egreso int unique auto_increment,
+    motivo varchar(255),
+    fecha datetime,
+    monto varchar (255),
+    primary key (cod_egreso)
+);
+
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);
@@ -255,6 +293,16 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         ON facturas_compra.sucursal = depositos.cod_deposito
         INNER JOIN estados
         ON facturas_compra.estado = estados.cod;
+
+    /*Vista grilla pagos_principal*/
+        CREATE OR REPLACE VIEW
+        grilla_pagos AS
+        SELECT cod_pago, num_factura, metodo_pago, depositos.nombre as sucursal, fecha, proveedor, total, estados.nombre as estado
+        from pagos
+        INNER JOIN depositos
+        ON pagos.sucursal = depositos.cod_deposito
+        INNER JOIN estados
+        ON pagos.estado = estados.cod
     
     /*Vista grilla remito */
         CREATE OR REPLACE VIEW
@@ -278,6 +326,15 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         ON facturas_compra.sucursal = depositos.cod_deposito
         INNER JOIN estados
         ON facturas_compra.estado = estados.cod
+
+    /*Vista grilla inventario*/
+        CREATE OR REPLACE VIEW 
+        grilla_inventario AS 
+        SELECT i.cod_prod, i.nombre as nombre, sd.cantidad, i.marca, i.categoria, i.precio_compra, i.precio_venta
+        FROM inventario i
+        INNER JOIN stock_deposito sd
+        ON sd.cod_prod = i.cod_prod
+        where sd.cod_deposito=1
        
 
 

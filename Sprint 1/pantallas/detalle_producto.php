@@ -56,13 +56,10 @@ if(isset($_POST['ver_detalle'])){
                 </tr>
                 <tr>
                     <td class="titulos">Categoria:</td>
-                    <td class="valor">
+                    <td class="valor" colspan="3">
                     <input type="text" readonly name="categoria" id="categoria" value="<?php echo $producto -> obtener_categoria();?>">
                     </td>
-                    <td class="titulos">Cantidad:</td>
-                    <td class="valor">
-                        <input type="number" readonly name="cantidad" id="cantidad" value="<?php echo $producto -> obtener_existencia();?>">
-                    </td>
+                    
                     
                 </tr>
                 <tr>

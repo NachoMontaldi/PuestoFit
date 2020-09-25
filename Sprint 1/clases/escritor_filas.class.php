@@ -60,6 +60,7 @@ class escritor_filas{
             <td class="text-center"> <?php echo $fila ->obtener_cod_prod() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_existencia() ?>  </td>
+            <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_precio_venta(). " $" ?>  </td>

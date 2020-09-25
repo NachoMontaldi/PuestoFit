@@ -40,6 +40,7 @@ define('ruta_detalle_remito',servidor.'/pantallas/detalle_remito.php');
 define('ruta_registrar_pago',servidor.'/pantallas/registrar_pago.php');
 define('ruta_pagos_principal',servidor.'/pantallas/pagos_principal.php');
 define('ruta_seleccionar_factura_pago',servidor.'/pantallas/seleccionar_factura_pago.php');
+define('ruta_detalle_pagos',servidor.'/pantallas/detalle_pagos.php');
 
 
 

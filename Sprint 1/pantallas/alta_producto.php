@@ -12,13 +12,18 @@ if (isset($_POST['enviar'])) {
 
     Conexion::abrirConexion();
 
-    $id_proveedor = repositorio_proveedores::obtener_id_proveedor(Conexion::obtenerConexion(), $_POST['proveedor']);
+    //$id_proveedor = repositorio_proveedores::obtener_id_proveedor(Conexion::obtenerConexion(), $_POST['proveedor']);
 
-    $inventario = new Inventario('', $_POST['nombre'], $_POST['cantidad'], $_POST['cantidadMin'], $_POST['marca'], $_POST['categoria'], $_POST['precioC'], $_POST['precioV'], $_POST['contieneT'], $_POST['contieneA'], $_POST['contieneL'], $_POST['descripcion'], '', $id_proveedor, 1);
+    $inventario = new Inventario('', $_POST['nombre'],null, $_POST['cantidadMin'], $_POST['categoria'],$_POST['marca'], $_POST['precioC'], $_POST['precioV'], $_POST['contieneT'], $_POST['contieneA'], $_POST['contieneL'], $_POST['descripcion'], '');
 
+    //Salvo la cantidad
     $inventario_insertado = repositorio_inventario::insertar_inventario(Conexion::obtenerConexion(), $inventario);
+    $cod_prod = repositorio_inventario::obtener_ultimo_insertado(Conexion::obtenerConexion());
 
-    if ($inventario_insertado) {
+    //Insertar nuevo producto a tabla stock por deposito a todas las sucursales
+    $stock_insertado = repositorio_inventario::insertar_prod_stock_deposito(Conexion::obtenerConexion(),$cod_prod);
+
+    if ($inventario_insertado && $stock_insertado) {
 
         Redireccion::redirigir(ruta_inventario_principal);
     }
@@ -62,7 +67,7 @@ Conexion::cerrarConexion();
                 </tr>
                 <tr>
                     <td class="titulos">Categoria:</td>
-                    <td class="valor">
+                    <td class="valor" colspan="3">
                         <select name="categoria" id="categoria">
                             <option selected value="0"> Elije una categoria</option>
                             <option value="cereales">Cereales</option>
@@ -71,11 +76,6 @@ Conexion::cerrarConexion();
                             <option value="barritas">Barritas</option>
                         </select>
                     </td>
-                    <td class="titulos">Cantidad:</td>
-                    <td class="valor">
-                        <input type="number" name="cantidad" id="cantidad">
-                    </td>
-
                 </tr>
                 <tr>
                     <td class="titulos">Marca:</td>

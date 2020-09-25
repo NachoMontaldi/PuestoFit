@@ -100,10 +100,10 @@ if (isset($_POST['enviar'])) {
                         } ?>>
 
                         <a href="<?php echo ruta_seleccionar_cotizacion ?>">
-                            <button type="button" name="buscar" id="buscar" class="boton_buscar">
+                            <button type="button" name="busqueda" id="busqueda" class="boton_buscar">
                                 <i class="fa fa-search"></i></button>
                         </a>
-                    </td>
+                    </td> 
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">
                         <input type="text" readonly name="proveedor" id="proveedor" value="<?php

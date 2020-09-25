@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td class="titulos">Categoria:</td>
-                    <td class="valor">
+                    <td class="valor" colspan="3">
                         <select name="categoria" id="categoria">
                             <option selected value="0"> Elije una categoria</option>
                             <option value="cereales">Cereales</option>
@@ -63,10 +63,6 @@
                             <option value="suplementos">Suplementos</option>
                             <option value="barritas">Barritas</option>
                         </select>
-                    </td>
-                    <td class="titulos">Cantidad:</td>
-                    <td class="valor">
-                        <input type="number" name="cantidad" id="cantidad" value="<?php echo $producto -> obtener_existencia();?>">
                     </td>
                     
                 </tr>

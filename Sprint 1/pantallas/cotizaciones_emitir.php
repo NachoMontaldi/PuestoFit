@@ -137,7 +137,7 @@
 
                     }?>">
                     <a href="<?php echo ruta_seleccionar_pedido_rep ?>">
-                      <button type="button" name="buscar" id="buscar" class="boton_buscar" >
+                      <button type="button" name="busqueda" id="buscar" class="boton_buscar" >
                       <i class="fa fa-search"></i></button>
                     </a>
                   </td>

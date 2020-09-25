@@ -25,7 +25,7 @@
     }
                         
 ?>
-
+ 
 <html>
   <head>
     <title>Inventario Principal</title>
@@ -54,7 +54,7 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR">
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+          <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>
@@ -68,6 +68,7 @@
             <th>Nombre</th>
             <th>Existencia(unidades/kilos)</th>
             <th>Categoría</th>
+            <th>Marca</th>
             <th>Precio compra(unitario/100grs.)</th>
             <th>Precio venta(unitario/100grs.) </th> 
             <th>VER DETALLE</th>
@@ -113,8 +114,7 @@
     <!-- BOTONES AÑADIR/REGISTRAR -->
 
     <div class="contenedor3">
-      
-    <a href="<?php echo ruta_alta_producto?>"><button type="submit" name="alta_producto" id="ap" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  AÑADIR PRODUCTO</button></a>
+    <a href="<?php echo ruta_alta_producto?>"><button type="submit" name="alta_producto" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  AÑADIR PRODUCTO</button></a>
     </div>
 
     

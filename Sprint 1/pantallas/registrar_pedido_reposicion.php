@@ -128,7 +128,7 @@ if (isset($_POST['enviar'])) {
 
                                                                                                                                 echo $_POST['agregar'];
                                                                                                                             } ?>'>
-                        <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="buscar" id="buscar" class="boton_buscar">
+                        <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="busqueda" id="buscar" class="boton_buscar">
                                 <i class="fa fa-search"></i></button></a>
                     </td>
                 </tr>

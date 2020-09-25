@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <?php
 include_once '../config.inc.php';
-//include_once '../clases/escritor_factura_pago.class.php';
+include_once '../clases/escritor_factura.class.php';
 include_once '../conexion.class.php';
 include_once '../clases/repositorio_factura.class.php';
-//include_once '../clases/escritor_pagos.class.php';
+include_once '../clases/escritor_pago.class.php';
 include_once '../pantallas/barra_nav.php';
 
-
 Conexion::abrirConexion();
+
+
+
 ?>
 <html>
 
@@ -43,19 +45,44 @@ Conexion::abrirConexion();
 
             <tr>
                 <td colspan="4">
-                    <!--Grilla de productos-->
-                    <div class="table-responsive-lg">
-                        <table id="grilla" class="table-hover table table-bordered">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Cod Factura</th>
-                                    <th>Fecha</th>
-                                    <th>Proveedor</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                                <?php
-                                //escritor para las facturas
-                                //escritor_pago::escribir_remitos();
-                                ?>
+
+                <!---BARRA DE BUSQUEDA-->
+                        <!--Se mete dentro de un form para poder usar el metodo post-->
+                        <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+                            <div class="form-group"> 
+                            <p id="busqueda">
+                                <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR"/>
+                                <!--El button se hace de type = "submit" para que pueda trasladar datos-->
+                                <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+                            </p>
+                            </div>
+                        </form>
+                        
+                <!--Grilla de productos-->
+                <div class="table-responsive-lg">
+                    <table id="grilla" class="table-hover table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>N° Factura</th>
+                                <th>Tipo</th>
+                                <th>Sucursal</th>
+                                <th>Proveedor</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                            <?php
+                                if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                               
+                                    $criterio= $_POST['criterio'];
+                                    escritor_pago::escribir_facturas_sel($criterio);
+                                    
+                                }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+          
+                                    escritor_pago::escribir_facturas();
+                                  
+                                }  
+                                
+
+                            ?>
 </html>

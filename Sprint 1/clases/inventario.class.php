@@ -20,11 +20,10 @@ class Inventario {
     //Constructor 
 
     public function __construct($cod_prod,$nombre,$existencia,$cantidad_min,$marca,$categoria,$precio_compra,
-                                $precio_venta,$contiene_T,$contiene_A,$contiene_L,$descripcion,$fecha_registro,
-                                $cod_prov,$cod_deposito){
+                                $precio_venta,$contiene_T,$contiene_A,$contiene_L,$descripcion,$fecha_registro){
         $this -> cod_prod =$cod_prod;
-        $this -> nombre =$nombre;
         $this -> existencia =$existencia;
+        $this -> nombre =$nombre;
         $this ->  cantidad_min =$cantidad_min;
         $this ->  marca =$marca;
         $this ->  categoria =$categoria;
@@ -34,9 +33,7 @@ class Inventario {
         $this ->  contiene_A =$contiene_A;
         $this ->  contiene_L =$contiene_L;
         $this ->  descripcion =$descripcion;
-        $this -> fecha_registro =$fecha_registro;
-        $this -> cod_prov =$cod_prov;
-        $this -> cod_deposito=$cod_deposito;                            
+        $this -> fecha_registro =$fecha_registro;                         
 
     }
     //Getters
@@ -47,7 +44,7 @@ class Inventario {
     public function obtener_nombre() {
         return $this -> nombre;
     }
-    
+
     public function obtener_existencia() {
         return $this -> existencia;
     }
@@ -84,22 +81,13 @@ class Inventario {
     public function obtener_fecha_registro() {
         return $this -> fecha_registro;
     }
-    public function obtener_cod_prov() {
-        return $this -> cod_prov;
-    }
-    public function obtener_cod_deposito() {
-        return $this -> cod_deposito;
-    }
-
-    public function obtener_nombre_deposito($cod_deposito) {
-        return $this -> cod_deposito;
-    }
 
 
     //Setters
     public function cambiar_nombre($nombre){  
         $this -> nombre=$nombre;
     }
+
     public function cambiar_existencia($existencia){  
         $this -> existencia=$existencia;
     }
@@ -132,7 +120,4 @@ class Inventario {
     }
     
 }
-
-
-
 ?>

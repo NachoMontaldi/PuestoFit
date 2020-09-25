@@ -12,13 +12,10 @@
         
         if (isset($conexion)){
             try{
-                $sql = "insert into inventario(nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta, contiene_T,contiene_A,contiene_L,descripcion, fecha_registro,cod_prov,cod_deposito) values
-                 (:nombre,:existencia,:cantidad_min,:marca,:categoria,:precio_compra,:precio_venta,:contiene_T,:contiene_A,:contiene_L,:descripcion,NOW(), :cod_prov, :cod_deposito)";
-                
-
+                $sql = "insert into inventario(nombre,cantidad_min,marca,categoria,precio_compra,precio_venta, contiene_T,contiene_A,contiene_L,descripcion, fecha_registro) values
+                 (:nombre,:cantidad_min,:marca,:categoria,:precio_compra,:precio_venta,:contiene_T,:contiene_A,:contiene_L,:descripcion,NOW())";
 
                 $nombretemp = $inventario -> obtener_nombre();
-                $existenciatemp = $inventario -> obtener_existencia();
                 $cantidadmintemp = $inventario -> obtener_cantidad_min();
                 $marcatemp = $inventario -> obtener_marca();
                 $categoriatemp = $inventario -> obtener_categoria();
@@ -28,15 +25,10 @@
                 $contieneAtemp = $inventario -> obtener_contiene_A();
                 $contieneLtemp = $inventario -> obtener_contiene_L();
                 $descripciontemp = $inventario -> obtener_descripcion();
-                $codprovtemp = $inventario -> obtener_cod_prov();
-                $coddepositotemp = $inventario -> obtener_cod_deposito();
-                
                 
                 $sentencia = $conexion ->prepare($sql);
 
-                
                 $sentencia -> bindParam(':nombre', $nombretemp, PDO::PARAM_STR);
-                $sentencia -> bindParam(':existencia', $existenciatemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':cantidad_min', $cantidadmintemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':marca', $marcatemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':categoria', $categoriatemp, PDO::PARAM_STR);
@@ -46,9 +38,6 @@
                 $sentencia -> bindParam(':contiene_A', $contieneAtemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':contiene_L', $contieneLtemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':descripcion', $descripciontemp, PDO::PARAM_STR);
-                $sentencia -> bindParam(':cod_prov', $codprovtemp, PDO::PARAM_STR);
-                $sentencia -> bindParam(':cod_deposito', $coddepositotemp, PDO::PARAM_STR);
-                
                 
             $inventario_insertado = $sentencia -> execute();
                 
@@ -63,6 +52,33 @@
         }
         
     }
+
+    public static function insertar_prod_stock_deposito($conexion,$cod_prod){
+        $stock_insertado = false;
+        if (isset($conexion)){
+            try{
+                    $sql = "insert into stock_deposito (cod_deposito,cod_prod,cantidad) values (1,:cod_prod,0);
+                            insert into stock_deposito (cod_deposito,cod_prod,cantidad) values (2,:cod_prod,0);
+                            insert into stock_deposito (cod_deposito,cod_prod,cantidad) values (3,:cod_prod,0)";
+                    
+                    $codprodtemp = $cod_prod;
+
+                    $sentencia = $conexion ->prepare($sql);
+
+                    $sentencia -> bindParam(':cod_prod', $codprodtemp, PDO::PARAM_STR);
+                        
+                    $stock_insertado = $sentencia -> execute();
+                
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            return $stock_insertado;
+        }
+        else{
+            echo 'No hubo conexion en inventario!!!';
+        }
+    }
     
 //Devuelve todas las filas del inventario
  public static function obtener_inventario($conexion){
@@ -72,7 +88,7 @@
         if (isset($conexion)){
         
             try{
-                $sql= 'select * from inventario where cod_deposito=1';
+                $sql= 'select * from grilla_inventario';
                 
                 $sentencia = $conexion ->prepare($sql);
                 
@@ -82,11 +98,11 @@
                 
                 if(count($resultado)){ 
                     foreach($resultado as $fila){
-                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
-                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
-                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov'],
-                                      $fila['cod_deposito']);
+                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['cantidad'],
+                                      null, $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                      $fila['precio_venta'],null,null,
+                                      null,null,null,null,
+                                      null);
                     }
                 }
 
@@ -118,8 +134,7 @@
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov'],
-                                      $fila['cod_deposito']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov']);
                     }
                 }
 
@@ -140,11 +155,10 @@
         if (isset($conexion)){
         
             try{
-                $sql= 'select * from inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
-                       nombre LIKE "%'. $criterio_min. '%" OR existencia LIKE "%'  .$criterio_min. '%"
+                $sql= 'select * from grilla_inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
+                       nombre LIKE "%'. $criterio_min. '%" OR cantidad LIKE "%'  .$criterio_min. '%"
                        OR marca LIKE "%' .$criterio_min.'%" OR categoria LIKE "%'  .$criterio_min.'%" 
-                       OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%") 
-                       AND (cod_deposito=1)';
+                       OR precio_compra LIKE "%' .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%")';
                 
                 $sentencia = $conexion ->prepare($sql);
                 
@@ -154,11 +168,11 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
-                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
-                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
-                                      $fila['cod_prov'],$fila['cod_deposito']);
+                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['cantidad'],
+                                                    null, $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                                    $fila['precio_venta'],null,null,
+                                                    null,null,null,null,
+                                                    null);;
                     }
                 }
 
@@ -196,8 +210,7 @@
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
-                                      $fila['cod_prov'],$fila['cod_deposito']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
                     }
                 }
 
@@ -293,8 +306,7 @@
                         $filas = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],
-                                      $fila['cod_prov'],$fila['cod_deposito']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
                     }
                 }
             }
@@ -304,6 +316,28 @@
         }else{ echo 'No hay conexion :(';}
         
         return $filas;
+    }
+
+    public static function obtener_ultimo_insertado($conexion){        
+        if (isset($conexion)){
+            $cod_prod = 0;
+            try{
+                $sql= 'select  MAX(cod_prod) from inventario';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchColumn() ;
+                
+                $cod_prod = intval($resultado);
+                
+            }catch(PDOException $ex){
+                print 'ERROR UID' . $ex -> getMessage();
+            }
+        }else{ echo 'no';}
+        
+        return $cod_prod;
     }
 }
     ?>

@@ -2,8 +2,13 @@
 <?php
     include_once '../config.inc.php';
     include_once '../pantallas/barra_nav.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/escritor_pago.class.php';
+    include_once '../clases/repositorio_pago.class.php';
+    include_once '../clases/pagos.class.php';
+    include_once '../clases/detalle_pagos.class.php';
 
-    //Conexion::abrirConexion();
+    Conexion::abrirConexion();
  
 ?>
 <html>
@@ -45,7 +50,7 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR"/>
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+          <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>
@@ -57,19 +62,31 @@
         <thead class="thead-dark">
           <tr>
             <th>Cod. Pago</th>
+            <th>N° Factura</th>
+            <th>Metodo de pago</th>
             <th>Sucursal</th>
             <th>Fecha de pago</th>
             <th>Proveedor</th>
-            <th>Cod. Factura</th> 
-            <th>Metodo de pago</th>
-            <th>Total</th>
+            <th>Importe</th>
             <th>DETALLE</th>
           </tr> 
         </thead>
         <tbody>
         <?php
         
-        //escritor_pagos::escribir_pagos(Conexion::obtenerConexion());
+          
+          if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+                                  
+ 
+            $criterio= $_POST['criterio'];
+            
+            escritor_pago::escribir_pagos_filtrados($criterio);
+            
+          }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
+  
+            escritor_pago :: escribir_pagos(Conexion::obtenerConexion());
+  
+          }
         
         ?>
 
@@ -79,7 +96,7 @@
     <!---->
     <div class="contenedor3">
       <form method ="post" action= "<?php echo ruta_registrar_pago?>">
-        <a href="<?php echo ruta_registrar_pago?>"><button type="submit" name="reg_factura" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR PAGO</button></a>                      
+        <a href="<?php echo ruta_registrar_pago?>"><button type="submit" name="reg_pago" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR PAGO</button></a>                      
       </form>
     </div>
 

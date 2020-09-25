@@ -15,7 +15,7 @@
 <html>
   <head>
     <title>Cotizaciones Principal</title>
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_principal.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,7 +43,7 @@
                   <input type="text" class="form-control" id="searchBox"
                       name="criterio" placeholder="BUSCAR">
                   <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-                  <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+                  <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
               </p>
           </div>
       </form>
@@ -96,19 +96,10 @@
     <!-- BOTONES EMITIR/CARGAR -->
 
     <div class="contenedor3">
-    <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">   
-      <button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button>
-    </form>
-      
-       
+      <form method="post" action="<?php echo ruta_cotizaciones_emitir ?>">   
+        <button type="submit" name="emitir_cot" id="ec" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> EMITIR NUEVA SOLICITUD</button>
+      </form>
     </div>
-
-
-    <div class="contenedor4">
-        <a href="<?php echo ruta_compras_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a> 
-    </div> 
-
-    
   </body>
 
 </html>

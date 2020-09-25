@@ -450,7 +450,7 @@ public static function obtener_facturas_filtradas($conexion,$criterio){
                     fecha LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
                     sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR 
                     estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" ) 
-                    and (sucursal = "santa ana") and (estado = "Pendiente")';
+                    and (sucursal = "santa ana") and (estado = "Listo")';
             
             $sentencia = $conexion ->prepare($sql);
             

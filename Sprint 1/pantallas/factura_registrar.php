@@ -87,14 +87,14 @@ if (isset($_POST['enviar'])) {
         <td class="titulos">ID Orden de compra:</td>
         <td class="valor">
           <form method="post">
-            <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="cod_oc" id="codigo_oc" value="<?php
+            <input type="text" style="width: 84%; margin-right: 1,5%" readonly name="cod_oc" id="codigo_oc" value="<?php
 
               if (isset($_POST['seleccionar'])) {
 
                 echo $_POST['seleccionar'];
               } ?>">
             <a href="<?php echo ruta_seleccionar_oc ?>">
-              <button type="button" name="buscar" id="buscar" class="boton_buscar">
+              <button type="button" name="busqueda" id="buscar" class="boton_buscar">
                 <i class="fa fa-search"></i></button>
             </a>
           </form>

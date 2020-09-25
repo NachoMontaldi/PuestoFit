@@ -17,7 +17,7 @@
 <html>
   <head>
     <title>Remitos</title>
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/inventario_principal.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -42,7 +42,7 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR">
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+          <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>

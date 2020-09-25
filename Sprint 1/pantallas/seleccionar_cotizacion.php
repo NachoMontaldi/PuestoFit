@@ -54,7 +54,7 @@ Conexion::abrirConexion();
                                 <input type="text" class="form-control" id="searchBox"
                                     name="criterio" placeholder="BUSCAR">
                                 <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-                                <button name="buscar" id="buscar" class="boton_buscar"
+                                <button name="busqueda" id="buscar" class="boton_buscar"
                                     id="searchBotton"><i class="fa fa-search"></i></button>
                             </p>
                         </div>

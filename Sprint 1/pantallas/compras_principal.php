@@ -36,7 +36,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!---->
   </head>
-  
+   
   <body>
     <!-- BODY -->
     <!---BARRA DE BUSQUEDA-->
@@ -46,7 +46,7 @@
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR"/>
           <!--El button se hace de type = "submit" para que pueda trasladar datos-->
-          <button type="submit" name="buscar" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
+          <button type="submit" name="busqueda" id="buscar" class="boton_buscar"><i class="fa fa-search"></i></button>
         </p>
       </div>
     </form>
@@ -95,18 +95,5 @@
         <a href="<?php echo ruta_factura_registrar?>"><button type="submit" name="reg_factura" id="rf" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR FACTURA</button></a>                      
       </form>
     </div>
-
-
-
-
-   
-
-
-   
-
-
-    
-
   </body>
-
 </html>

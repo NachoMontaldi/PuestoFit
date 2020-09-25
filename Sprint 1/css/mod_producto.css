@@ -11,7 +11,7 @@ table {
   color:white;
   background-color:rgb(53, 58, 64);
   text-align: center;
-  font-family: 'Actor';
+ 
   font-size: 25px;
   font-stretch: ultra-condensed;
   padding: 20px;
@@ -44,7 +44,7 @@ margin-left: 5%;
   padding: 10px;
   text-align: right;
   font-size: 18px;
-  font-family: 'Actor';
+ 
   font-weight: bold;
 }
 
@@ -64,7 +64,7 @@ margin-left: 3%;
 .boton {
   padding: 7px;
   box-sizing: border-box;
-  font-family: 'Actor';
+ 
   font-size: 13px;
   border-radius: 4px;
   color:white;
@@ -72,7 +72,7 @@ margin-left: 3%;
   cursor: pointer;
 }
 #gd{
-background-color:rgb(26, 164, 53);
+  background-color: rgb(26, 143, 164);
 width: 108px;
 }
 #ld{
