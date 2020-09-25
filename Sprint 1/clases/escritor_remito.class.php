@@ -139,12 +139,12 @@ public static function escribir_remito_principal($fila){
         <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?></td>
         <td class="text-center"> <?php $sucursal= repositorio_remito::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
         echo $sucursal; ?></td>
-        <td class="text-center"> <?php 
-            if($fila ->obtener_estado() == 1){
+        <!--<td class="text-center"> <?php 
+            /*if($fila ->obtener_estado() == 1){
                 print "Pendiente";
             }elseif($fila ->obtener_estado() == 2){
-                print "Listo";} ?>
-        </td>
+                print "Listo";} */?>
+        </td>-->
         <td>
             <form method="post" action="<?php echo ruta_detalle_remito; ?>">
 
@@ -183,7 +183,7 @@ public static function escribir_remito_busqueda($fila){
         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td> 
         <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
-        <td class="text-center"> <?php echo $fila ->obtener_estado() ?>  </td>
+        <!--<td class="text-center"> <?php// echo $fila ->obtener_estado() ?>  </td>-->
         <td>
             <form method="post" action="<?php echo ruta_detalle_remito; ?>">
             <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_remito(); ?>" >Detalle</button>

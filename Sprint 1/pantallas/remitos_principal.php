@@ -58,7 +58,7 @@
             <th>Fecha</th>
             <th>Proveedor</th>
             <th>Sucursal</th>
-            <th>Estado</th>
+            <!--<th>Estado</th>-->
             <th>DETALLE</th>
           </tr>
         </thead>

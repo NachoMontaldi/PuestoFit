@@ -157,7 +157,8 @@ class repositorio_movimientos_stock {
     public static function actualizar_cantidad_prod($conexion,$cod_prod,$cantidad){
         $mov_insertado = false;
         
-        $cantidad_anterior = self::obtener_cantidad_ant($cod_prod);
+        $cantidad_anterior = self::obtener_cantidad_ant(Conexion::obtenerConexion(),$cod_prod);
+        echo $cantidad_anterior;
         $cantidad = $cantidad + $cantidad_anterior;
 
         if (isset($conexion)){
@@ -187,7 +188,7 @@ class repositorio_movimientos_stock {
         }
     }
 
-    public static function obtener_cantidad_ant($cod_prod){
+    public static function obtener_cantidad_ant($conexion,$cod_prod){
         if (isset($conexion)){ 
             $cantidad = 0; 
              try{

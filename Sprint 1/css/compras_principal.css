@@ -10,6 +10,7 @@
   .form-control {
     border-radius: 2px;   
     margin-bottom: 6%;
+
   }
   
   #searchBotton{
@@ -25,15 +26,17 @@
     width: 80%;
     border: 1px solid #39c;
     border-color: rgb(83, 83, 83);
-    background-color: rgb(225, 241, 243);
+    background-color: rgb(255, 255, 255);
   }
 
   /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */ 
 .table-responsive-lg{
   height: 400px;
-  overflow: auto;
-  width: 85%;
+  overflow: auto; 
+  width: 86%;
   margin:auto;
+  margin-left: auto;
+  margin-right: auto;
   
 }
 #grilla{

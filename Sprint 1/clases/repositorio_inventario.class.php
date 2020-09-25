@@ -134,7 +134,7 @@
                         $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
                                       $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
                                       $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
-                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],$fila['cod_prov']);
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro'],null);
                     }
                 }
 

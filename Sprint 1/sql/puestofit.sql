@@ -257,7 +257,7 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
      /*Vista grilla cotizaciones seleccionar */
     CREATE OR REPLACE VIEW
     grilla_cotizaciones_seleccionar AS
-    SELECT cod_cotizacion, cod_pedido, estados.nombre, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
+    SELECT cod_cotizacion, cod_pedido, estados.nombre as estado, fecha_emision, fecha_presupuesto, depositos.nombre as sucursal, proveedor, total 
     from cotizaciones
     INNER JOIN depositos
     ON cotizaciones.sucursal = depositos.cod_deposito

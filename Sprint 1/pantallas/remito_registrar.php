@@ -44,7 +44,6 @@ if (isset($_POST['registrar_remito'])) {
     //Actualiza la tabla movimientos_stock y la tabla stock_deposito
     repositorio_movimientos_stock::cargar_mov_stock($id);
 
-
     //redirige despues de insertar
     Redireccion::redirigir(ruta_remitos_principal);
   }  

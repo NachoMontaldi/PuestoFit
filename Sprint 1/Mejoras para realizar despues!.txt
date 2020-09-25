@@ -4,16 +4,35 @@
 -Inventario Principal:
 	*si se busca con el signo "$" no va a devolver nada->convertir en el metodo escritor_filas_filtradas
 	*mostrar emergente en caso de que la busqueda no devuelva nada
-	*usar la tabla stock_deposito
 
 -Pedido de reposicion
-	*no anda el boton detalle
+	*muestra raro el boton de registrar
+	*mostrar la table de detalles pareja(los titulos estan a la izquiera y los items al centro)
 
--Detalle Factura
-	*crearlo jejox
+-Seleccionar Producto en Registrar pedido reposicion:
+	*no muestra la existencia -> sacar ese campo de la table stock_deposito
+
+-Cotizaciones
+	*en cargar: alinear al centro el precio unitario para que se vea igual que los otros campos
+
+-Ordenes de compra
+	*en registrar: sacar el total como input y ponerlo en la grilla como las demas pantallas.
+
+-Pagos
+	*en principal: no muestra el importe, nose si no deberia mostrar el estado
+	*en seleccionar factura dentro de registrar: no muestra el total de la factura ni filtra por el tipo de factura
+	*en registrar pago: no muestra el total
+
+-Remitos
+	*muestra el total 0 porque no se carga bien en la parte de pagos (creo)
+	*en detalle: mostrar los subtotales al centro como el resto de los campos
+	*en registrar: falta actualizar el estado del pago a 2
+
+-stock_deposito
+	*cada vez que se registra un producto se deberia crear una fila por cada deposito y que la cantidad en cada deposito este en 0
 
 -EN TODOS LOS REGISTRAR
 	*si uno entra a seleccionar un producto, cotizacion,oc,etc y hace click en volver sin seleccionar nada tira error
 
--Registrar Factura
-	*arreglas el input del proveedor, se muestra raro
+
+

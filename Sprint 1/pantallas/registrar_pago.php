@@ -122,10 +122,10 @@ if (isset($_POST['enviar'])) {
                     <td colspan="4" align="right">
                       <h3>Total</h3>
                       </td>
-                                        <td align="center">
-                                            <h3> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;} ?> </h3>
-                                           
-                                        </td>
+                        <td align="center">
+                            <h3> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;} ?> </h3>
+                            
+                        </td>
 
                     </td>
                    
@@ -166,8 +166,7 @@ if (isset($_POST['enviar'])) {
       <tr>
         <td class="titulos">Tipo de Factura</td>
           <td class="valor">
-              <input type="text" readonly name="tipo_factura" id="tipo_factura" value="
-              <?php
+              <input type="text" readonly name="tipo_factura" id="tipo_factura" value="<?php
                         if (isset($_POST['seleccionar'])) {
 
                             echo $_POST['tipo_factura'];
@@ -180,8 +179,7 @@ if (isset($_POST['enviar'])) {
       <tr>
         <td class="titulos">Sucursal:</td>
         <td class="valor">
-          <input type="text" name="sucursal" id="sucursal" readonly value="
-          <?php
+          <input type="text" name="sucursal" id="sucursal" readonly value="<?php
                         if (isset($_POST['seleccionar'])) {
 
                             echo $_POST['sucursal'];

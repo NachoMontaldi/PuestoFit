@@ -21,7 +21,7 @@
 <html>
   <head>
     <title>Pedidos Reposicion</title>
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/inventario_principal.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

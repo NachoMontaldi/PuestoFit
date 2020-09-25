@@ -290,6 +290,7 @@ public static function escribir_filas_filtradas_facturas($criterio){
                     <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_orden_de_compra(); ?>" >Seleccionar</button>
                     <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                     <input  type="hidden" name="sucursal"  id="sucursal" value="<?php echo $fila -> obtener_sucursal() ;?>">    
+                    <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
                 </form> 
             </td>
     </tr>

@@ -24,12 +24,12 @@
       //Conexion :: cerrarConexion();
     }
                         
-?>
+?> 
  
 <html>
   <head>
     <title>Inventario Principal</title>
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/inventario_principal.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -66,12 +66,12 @@
           <tr></tr>
             <th>Cod. Prod</th>
             <th>Nombre</th>
-            <th>Existencia(unidades/kilos)</th>
+            <th>Existencia</th>
             <th>Categoría</th>
             <th>Marca</th>
-            <th>Precio compra(unitario/100grs.)</th>
-            <th>Precio venta(unitario/100grs.) </th> 
-            <th>VER DETALLE</th>
+            <th>Precio compra</th>
+            <th>Precio venta</th> 
+            <th>DETALLE</th>
             <th>EDITAR</th>
             <th>ELIMINAR</th>
           </tr>
