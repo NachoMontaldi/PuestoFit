@@ -160,7 +160,7 @@ class repositorio_movimientos_stock {
         $mov_insertado = false;
         
         $cantidad_anterior = self::obtener_cantidad_ant(Conexion::obtenerConexion(),$cod_prod);
-        echo $cantidad_anterior;
+        
         $cantidad = $cantidad + $cantidad_anterior;
 
         if (isset($conexion)){
@@ -427,29 +427,29 @@ class repositorio_movimientos_stock {
         return $sucursal;
     }
 
-    public static function insertar_movimiento_stock_validado($conexion, $movimiento_stock, $cod_mov){
+    public static function insertar_movimiento_stock_validado($conexion, $tipo, $motivo, $observaciones ,$cod_mov){
         $mov_actualizado = false;
         
         if (isset($conexion)){
             try{
                 $sql = 'update movimientos_stock set
-                        fecha = :fecha,
+                        fecha = NOW(),
                         tipo = :tipo,
                         motivo = :motivo,
                         sucursal = 1,
-                        observaciones= :observaciones,
-                        where cod_mov ='.$cod_mov;
+                        observaciones= :observaciones
+                        where cod_mov =' .$cod_mov;
                 
-                $fechatemp = $movimiento_stock -> obtener_fecha();
-                $tipotemp = $movimiento_stock -> obtener_tipo();
-                $motivotemp = $movimiento_stock -> obtener_motivo();
-                $observacionestemp = $movimiento_stock -> obtener_observaciones();
+                
+                $tipotemp = $tipo;
+                $motivotemp = $motivo;
+                $observacionestemp = $observaciones;
                 
 
                 $sentencia = $conexion ->prepare($sql);
 
                 
-                $sentencia -> bindParam(':fecha', $fechatemp, PDO::PARAM_STR);
+                
                 $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':motivo', $motivotemp , PDO::PARAM_STR);
                 $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
@@ -477,7 +477,6 @@ class repositorio_movimientos_stock {
             try{
                 $sql= 'select * from grilla_det_mov_stock where cod_mov='.$id_str;
                 
-                
                 $sentencia = $conexion ->prepare($sql);
                 
                 $sentencia -> execute();
@@ -489,6 +488,7 @@ class repositorio_movimientos_stock {
                         
                         $filas[] = new detalle_movimientos_stock($fila['cod_det_mov_stock'],$fila['cod_producto'],$fila['cantidad'],
                         $fila['cod_mov'], $fila['nombre'], $fila['marca']);
+                        
                     }
                 }
 

@@ -135,7 +135,7 @@ class escritor_movimientos_stock{
         <td class="text-center"> <?php echo $fila ->obtener_tipo() ?>  </td>
         <td class="text-center"> <?php 
             $sucursal= repositorio_movimientos_stock::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
-            echo $sucursal; ?> 
+             ?> 
         </td>
         
         <td class="text-center"> <?php echo $fila ->obtener_motivo() ?></td>
@@ -182,7 +182,7 @@ class escritor_movimientos_stock{
                 
                 <td>
                     <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
-                        <button type="submit" style="background-color:light-gray; padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_mov(); ?>" widht= 5%>Eliminar</button>
+                        <button type="submit" style="background-color:light-gray; padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_mov(); ?>" >Eliminar</button>
                     </form>
                 </td>
         </tr>

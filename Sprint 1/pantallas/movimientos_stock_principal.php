@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-//Otras clases y/o archivos a utilizar
+
     
     include_once '../conexion.class.php';
     include_once '../config.inc.php';

@@ -368,10 +368,11 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     /*Vista grilla registrar mov_stock*/
         CREATE OR REPLACE VIEW 
         grilla_det_mov_stock AS 
-        SELECT dms.cod_det_mov_stock, dms.cod_producto, i.nombre, dms.cantidad, i.marca, dms.cod_mov
-        FROM detalle_movimientos_stock dms
-        INNER JOIN inventario i
-        ON dms.cod_producto = i.cod_prod
+        SELECT cod_det_mov_stock, cod_producto, nombre, cantidad, marca, cod_mov
+        FROM detalle_movimientos_stock 
+        INNER JOIN inventario 
+        ON detalle_movimientos_stock.cod_producto = inventario.cod_prod
+        
        
 
 

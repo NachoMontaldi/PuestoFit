@@ -21,20 +21,21 @@ Conexion::abrirConexion();
     if (isset($_POST['vista'])) {
 
         $detalle_movimiento_stock = new detalle_movimientos_stock('', $_POST['cod_prod'], $_POST['cantidad'], $id,null,null);
-
+        
         repositorio_movimientos_stock::insertar_detalle_movimiento_stock(Conexion::obtenerConexion(), $detalle_movimiento_stock);
 
-        //Redireccion::redirigir(ruta_registrar_movimiento_stock);
+        
 
     }
 
     if (isset($_POST['enviar'])) {
 
-        $movimiento_validado = repositorio_movimientos_stock::validar_movimiento_stock(Conexion::obtenerConexion(), $id);
+        echo $_POST['tipo_ajuste']; 
 
-        $movimiento_stock = new movimientos_stock('',NOW(),$_POST['tipo_ajuste'],$_POST['motivo_ajuste'],1,null,null,$_POST['observaciones'],'');
-        
-        repositorio_movimientos_stock::insertar_movimiento_stock_validado(Conexion::obtenerConexion(), $movimiento_stock, $id);
+        $movimiento_validado = repositorio_movimientos_stock::validar_movimiento_stock(Conexion::obtenerConexion(), $id);      
+
+        repositorio_movimientos_stock::insertar_movimiento_stock_validado(Conexion::obtenerConexion(), $_POST['tipo_ajuste'], 
+                                                                        $_POST['motivo_ajuste'],$_POST['observaciones'], $id);
 
         $borrar = repositorio_movimientos_stock::eliminar_falsos(Conexion::obtenerConexion());
 
@@ -77,7 +78,7 @@ Conexion::abrirConexion();
                     REGISTRAR MOVIMIENTO DE STOCK
                 </td>
             </tr>
-            <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
+            
                 <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
@@ -112,7 +113,7 @@ Conexion::abrirConexion();
                                     repositorio_movimientos_stock::eliminar_detalle(Conexion::obtenerConexion(), $_POST['eliminar']);
                                     }
 
-                                    //escritor_movimientos_stock::escribir_detalles_movimientos_stock($id);
+                                    escritor_movimientos_stock::escribir_detalles_movimientos_stock($id);
 
                                     ?>
                             
@@ -121,6 +122,7 @@ Conexion::abrirConexion();
                     </div>
                 </td>
                 </tr>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                 <tr>
                     <td class="titulos">Marca:</td>
                     <td class="valor">
@@ -138,10 +140,11 @@ Conexion::abrirConexion();
                         <input type="number" name="cantidad" id="cantidad" min="1">
                     </td>
                 </tr>
+                
                 <tr>
                     <td class="valor" colspan="2">
                         <div class="botones">
-                            <button type="submit" name="vista" value="Agregar a Vista Previa" id="avp">AGREGAR VISTA PREVIA</button>
+                            <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
                         </div>
                     </td>
                 </tr>
@@ -150,9 +153,16 @@ Conexion::abrirConexion();
 
                             echo $_POST['seleccionar'];
 
-                        } ?> '>
+                        } ?>'>
+                <input type="hidden" name="nombre2" id="nombre2" value='<?php
+                        if (isset($_POST['seleccionar'])) {
+
+                            echo $_POST['nombre'];
+
+                        } ?>'>
+                
             </form>
-            <form action="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
                 <tr>
                     <td class="titulos">Fecha:</td>
                     <td class="valor">
@@ -168,8 +178,8 @@ Conexion::abrirConexion();
                     <td class="valor">
                         <select name="tipo_ajuste" id="tipo_ajuste" >
                             <option selected value="0"> Elije una opción</option>
-                            <option value="alta">Alta de producto</option>
-                            <option value="baja">Baja de producto</option>
+                            <option value="Alta">Alta de producto</option>
+                            <option value="Baja">Baja de producto</option>
                         </select>
                     </td>
                 </tr> 
@@ -191,10 +201,10 @@ Conexion::abrirConexion();
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
                     </td>
                 </tr>
-            </form>
+            
         </table>
     </div>
-
+    </form>
     <div class="contenedor4">
         <a href="<?php echo ruta_movimientos_stock_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
