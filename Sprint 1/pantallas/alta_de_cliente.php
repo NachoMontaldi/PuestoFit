@@ -2,13 +2,10 @@
 
 include_once '../conexion.class.php';
 include_once '../config.inc.php';
-include_once '../clases/inventario.class.php';
-include_once '../clases/repositorio_proveedores.class.php';
-include_once '../clases/repositorio_inventario.class.php';
-include_once '../clases/redireccion.class.php';
+
 include_once '../pantallas/barra_nav.php';
 
-if (isset($_POST['enviar'])) {
+/* if (isset($_POST['enviar'])) {
 
     Conexion::abrirConexion();
 
@@ -27,7 +24,7 @@ if (isset($_POST['enviar'])) {
 
         Redireccion::redirigir(ruta_inventario_principal);
     }
-}
+} */
 
 Conexion::cerrarConexion();
 
@@ -36,7 +33,7 @@ Conexion::cerrarConexion();
 <html>
 
 <head>
-    <title>Registrar un producto</title>
+    <title>Registrar un cliente</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/agregar_producto_pedido.css">
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
@@ -61,80 +58,42 @@ Conexion::cerrarConexion();
             <table class="tabla" border="1px">
                 <tr>
                     <td colspan="4" class="titulo">
-                        REGISTRAR UN NUEVO PRODUCTO
+                        REGISTRAR UN NUEVO CLIENTE
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos">Nombre producto:</td>
+                    <td class="titulos">Nombre y Apellido:</td>
                     <td class="valor" colspan="3">
                         <input type="text" name="nombre" id="nombre">
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos">Categoria:</td>
+                    <td class="titulos">DNI:</td>
+                    <td class="valor">
+                        <input type="text" name="dni" id="dni">
+                    </td>
+                    <td class="titulos">Fecha de nacimiento:</td>
+                    <td class="valor">
+                        <input type="date" name="fecha_nac" id="fecha_nac">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titulos">Dirección: </td>
+                    <td class="valor">
+                        <input type="text" name="direccion" id="direccion">
+                    </td>
+
+                    <td class="titulos">Teléfono:</td>
+                    <td class="valor">
+                        <input type="telefono" name="telefono" id="telefono">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="titulos" valign="top">Email:</td>
                     <td class="valor" colspan="3">
-                        <select name="categoria" id="categoria">
-                            <option selected value="0"> Elije una categoria</option>
-                            <option value="cereales">Cereales</option>
-                            <option value="yogures">Yogures</option>
-                            <option value="suplementos">Suplementos</option>
-                            <option value="barritas">Barritas</option>
-                        </select>
+                        <input type="email" name="email" id="email" >
                     </td>
-                </tr>
-                <tr>
-                    <td class="titulos">Marca:</td>
-                    <td class="valor">
-                        <input type="text" name="marca" id="marca">
-                    </td>
-                    <td class="titulos">Cantidad Mínima:</td>
-                    <td class="valor">
-                        <input type="number" name="cantidadMin" id="cantidadMin">
-                    </td>
-
-                </tr>
-                <tr>
-                    <td class="titulos">Precio de costo:</td>
-                    <td class="valor">
-                        <input type="number" name="precioC" id="precioC">
-                    </td>
-
-                    <td class="titulos">Precio de venta:</td>
-                    <td class="valor">
-                        <input type="number" name="precioV" id="precioV">
-                    </td>
-
-                </tr>
-                <tr>
-                    <td class="titulos" valign="top">Observaciones:</td>
-                    <td class="valor">
-                        <select name="contieneT" id="contieneT">
-                            <option selected value="0"> ¿Contiene TACC?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                        <br>
-                        <br>
-                        <select name="contieneA" id="contieneA">
-                            <option selected value="0"> ¿Contiene Azúcar?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                        <br>
-                        <br>
-                        <select name="contieneL" id="contieneL">
-                            <option selected value="0"> ¿Contiene Lactosa?</option>
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                    </td>
-                    <td class="titulos" valign="top">Descripción:</td>
-
-                    <td class="valor">
-                        <textarea name="descripcion" id="Descripcion"></textarea>
-                    </td>
-
-
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align:right" class="valor">
@@ -150,7 +109,7 @@ Conexion::cerrarConexion();
 
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_inventario_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+        <a href="<?php echo ruta_clientes_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
 
 </body>

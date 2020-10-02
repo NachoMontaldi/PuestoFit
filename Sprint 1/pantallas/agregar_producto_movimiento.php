@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
 include_once '../config.inc.php';
-include_once '../clases/escritor_filas.class.php';
 include_once '../conexion.class.php';
 include_once '../pantallas/barra_nav.php';
+include_once '../clases/escritor_movimientos_stock.class.php';
 
 Conexion::abrirConexion();
 
@@ -11,7 +11,7 @@ Conexion::abrirConexion();
 <html>
 
 <head></head>
-<title>Agregar Producto a Pedido de Reposicion</title>
+<title>Seleccionar producto para el ajuste de stock</title>
 <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
 <link rel="stylesheet" type="text/css" href="/puestofit/css/agregar_producto_pedido.css">
 <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
@@ -37,7 +37,7 @@ Conexion::abrirConexion();
             <table class="tabla" border="1px">
                 <tr>
                     <td colspan="4" class="titulo">
-                        AGREGAR PRODUCTO A PEDIDO DE REPOSICION
+                        SELECCIONAR PRODUCTO
                 <tr>
                     <td colspan="4" class="valor">
                         <!---BARRA DE BUSQUEDA-->
@@ -65,35 +65,23 @@ Conexion::abrirConexion();
                                         <th>Marca</th>
                                         <th>Categoría</th>
                                         <th>Precio Compra</th>
-                                        <th>
-                                            <!--Aqui van los check box para seleccionar el producto a añadir o en su defecto directamente los botones añadir y sacar el boton de abajo-->
-                                        </th>
+                                        <th></th>
                                     </tr>
                                     <?php
 
                                     if (isset($_POST['busqueda'])) {
 
                                         $criterio = $_POST['criterio'];
-                                        escritor_filas::escribir_filas_filtradas_producto($criterio);
+                                        escritor_movimientos_stock::escribir_productos_filtrados_sel($criterio);
                                     } else {
 
-                                        escritor_filas::escribir_filas_agregar_producto();
-                                    }
+                                        escritor_movimientos_stock::escribir_productos_sel();
+                                    } 
                                     ?>
                                     </tbody>
                             </table>
                         </div>
                     </td>
-                    <!--</tr>
-                    <tr>
-                        <td class="titulos" colspan="2">Cantidad:</td>
-                        <td class="valor">
-                            <input type="number" name="cantidad" id="cantidad">
-                        </td>
-                        <td style="text-align:right" class="valor">
-                            <button type="submit" name="enviar" id="gd" class="boton">AGREGAR</button>
-                        </td>
-                    </tr>-->
             </table>
         </form>
     </div>
@@ -102,7 +90,7 @@ Conexion::abrirConexion();
 
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_registrar_pedido_reposicion ?>"><button name="volver" id="volver">VOLVER</button></a>
+        <a href="<?php echo ruta_registrar_movimiento_stock ?>"><button name="volver" id="volver">VOLVER</button></a>
     </div>
 </body>
 

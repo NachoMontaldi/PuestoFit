@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <?php
 include_once '../config.inc.php';
-include_once '../clases/escritor_filas.class.php';
 include_once '../conexion.class.php';
-include_once '../clases/repositorio_proveedores.class.php';
 include_once '../pantallas/barra_nav.php';
 
 Conexion::abrirConexion();
 
-if (isset($_POST['guardar_cambios'])) {
+/* if (isset($_POST['guardar_cambios'])) {
 
 
 
@@ -22,15 +20,15 @@ if (isset($_POST['guardar_cambios'])) {
     $_POST['email']
   );
   print 'se guardo el cambio realizado con exito!';
-
+ 
 
   //Conexion :: cerrarConexion();
-} 
+}  */
 ?>
 <html>
 
 <head>
-  <title>Proveedores</title>
+  <title>Clientes</title>
 
   <!--  CSS -->
   <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
@@ -72,19 +70,18 @@ if (isset($_POST['guardar_cambios'])) {
     </div>
   </form>
 
-
-
   <!-- GRILLA -->
   <div class="table-responsive-lg">
     <table id="grilla" class="table-hover table table-bordered">
       <thead class="thead-dark">
         <tr colspan="6">
-          <div class="titulo_grilla"><h4>PROVEEDORES</h4></div>
+          <div class="titulo_grilla"><h4>CLIENTES</h4></div>
         </tr>
         <tr>
-          <th>Cod. Prov</th>
+          <th>Cod. Cliente</th>
+          <th>DNI/CUIL</th>
           <th>Nombre</th>
-          <th>CUIL</th>
+          <th>Fecha Nacimiento</th>
           <th>Dirección</th>
           <th>Teléfono</th>
           <th>Email</th>
@@ -94,7 +91,7 @@ if (isset($_POST['guardar_cambios'])) {
       </thead>
       <tbody>
         <?php
-        //Metodo para borrar un elemento de la tabla
+/*         //Metodo para borrar un elemento de la tabla
 
         if (isset($_POST['eliminar'])) {
 
@@ -107,17 +104,17 @@ if (isset($_POST['guardar_cambios'])) {
         } else { //si entra por else quiere decir que la pagina cargo desde la barra de navegacion
 
           escritor_filas::escribir_filas_proveedores();
-        }
+        } */
         ?>
       </tbody>
     </table>
   </div>
   <!---BOTONES VER DETALLE/MODIFICAR-->
   <div class="contenedor3">
-    <a href="<?php echo ruta_alta_de_proveedor ?>"><button type="submit" name="rp" id="rp" class="boton"><i class="fa fa-plus" aria-hidden="true"></i> REGISTRAR UN PROVEEDOR</button></a>
+    <a href="<?php echo ruta_alta_de_cliente ?>"><button type="submit" name="rp" id="rp" class="boton">
+    <i class="fa fa-plus" aria-hidden="true">
+    </i> REGISTRAR UN CLIENTE</button></a>
   </div>
   <!---->
-
 </body>
-
 </html>

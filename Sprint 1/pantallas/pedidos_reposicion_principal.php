@@ -23,7 +23,6 @@
     <title>Pedidos Reposicion</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -38,6 +37,8 @@
   </head>
 
   <body>
+  
+
 
     <!---BARRA DE BUSQUEDA-->
         <!--Se mete dentro de un form para poder usar el metodo post-->
@@ -51,14 +52,19 @@
       </div>
     </form>
     
+ 
+
     <!--TABLA NACHO-->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
-          <tr></tr>
+          <tr colspan="6">
+            <div class="titulo_grilla"><h4>PEDIDOS DE REPOSICIÓN</h4></div>
+          </tr>
+          <tr>
 <!--           SI ACA APARECEN LOS PEDIDOS REPOSICION QUE AUN NO FUERON COTIZADOS 
           ENTONCES SE PUEDEN ELIMINAR -->
-            <th>Cod. Ped.</th>
+            <th >Cod. Ped.</th>
             <th >Fecha</th>
             <th>Estado</th>
             <th>Sucursal</th>

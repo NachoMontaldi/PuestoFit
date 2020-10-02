@@ -2,40 +2,36 @@
 <?php
 include_once '../config.inc.php';
 include_once '../conexion.class.php';
-include_once '../clases/detalle_pedido.class.php';
-include_once '../clases/repositorio_pedido_reposicion.class.php';
-include_once '../clases/pedido_reposicion.class.php';
-include_once '../clases/redireccion.class.php';
-include_once '../clases/escritor_filas.class.php';
 include_once '../pantallas/barra_nav.php';
 
 Conexion::abrirConexion();
 
+/*           
+         if (isset($_POST['registrar_pedido'])) {
+
+            $pedido = new pedido_reposicion('', '', 1, 0);
+
+            $detalle_insertado = repositorio_pedido_reposicion::insertar_pedido(Conexion::obtenerConexion(), $pedido);
+        }
+        $id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
+        if (isset($_POST['vista'])) {
+
+            $detalle_pedido = new detalle_pedido('', $id, $_POST['nombre'], $_POST['marca'], $_POST['cantidad'], $_POST['observaciones']);
+
+            $detalle_insertado = repositorio_pedido_reposicion::insertar_detalle_pedido(Conexion::obtenerConexion(), $detalle_pedido);
+        }
 
 
-if (isset($_POST['registrar_pedido'])) {
+        if (isset($_POST['enviar'])) {
 
-    $pedido = new pedido_reposicion('', '', 1, 0);
-
-    $detalle_insertado = repositorio_pedido_reposicion::insertar_pedido(Conexion::obtenerConexion(), $pedido);
-}
-$id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
-if (isset($_POST['vista'])) {
-
-    $detalle_pedido = new detalle_pedido('', $id, $_POST['nombre'], $_POST['marca'], $_POST['cantidad'], $_POST['observaciones']);
-
-    $detalle_insertado = repositorio_pedido_reposicion::insertar_detalle_pedido(Conexion::obtenerConexion(), $detalle_pedido);
-}
+            $pedido_validado = repositorio_pedido_reposicion::validar_pedido(Conexion::obtenerConexion(), $id);
 
 
-if (isset($_POST['enviar'])) {
 
-    $pedido_validado = repositorio_pedido_reposicion::validar_pedido(Conexion::obtenerConexion(), $id);
+            $borrar = repositorio_pedido_reposicion::eliminar_falsos(Conexion::obtenerConexion());
 
-    $borrar = repositorio_pedido_reposicion::eliminar_falsos(Conexion::obtenerConexion());
-
-    Redireccion::redirigir(ruta_pedidos_reposicion_principal);
-}
+            Redireccion::redirigir(ruta_pedidos_reposicion_principal);
+        } */
 
 
 
@@ -43,7 +39,7 @@ if (isset($_POST['enviar'])) {
 <html>
 
 <head>
-    <title>Registrar Pedido de Reposición</title>
+    <title>Registrar Movimiento de Stock</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -70,7 +66,7 @@ if (isset($_POST['enviar'])) {
         <table class="tabla" border="1px">
             <tr>
                 <td colspan="3" class="titulo">
-                    REGISTRAR PEDIDO DE REPOSICION
+                    REGISTRAR MOVIMIENTO DE STOCK
                 </td>
             </tr>
             <tr>
@@ -84,39 +80,36 @@ if (isset($_POST['enviar'])) {
                         <table id="grilla" class="table-hover table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th id="vp" colspan="5">Vista Previa</th>
+                                    <th id="vp" colspan="4">Vista Previa</th>
                                 </tr>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Marca</th>
                                     <th>Cantidad</th>
-                                    <th>Observaciones</th>
-                                    <th></th>
+                                    <th>Motivo</th>
+                                    
                                 </tr>
                             <tbody>
-                                <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
+                                <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
                                     <?php
 
                                     //Metodo para borrar un elemento de la tabla
 
-                                    if (isset($_POST['eliminar'])) {
+                                   /*  if (isset($_POST['eliminar'])) {
 
                                         repositorio_pedido_reposicion::eliminar_detalle(Conexion::obtenerConexion(), $_POST['eliminar']);
                                     }
 
-
-
-
-                                    escritor_filas::escribir_detalles_pedido($id);
+                                    escritor_filas::escribir_detalles_pedido($id); */
 
                                     ?>
                                 </form>
                             </tbody>
-                        </table>
+                        </table> 
                     </div>
                 </td>
             </tr>
-            <form method="post" action="<?php echo ruta_registrar_pedido_reposicion ?>">
+            <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
                 <tr>
                     <td class="titulos">Nombre producto:</td>
                     <td class="valor">
@@ -125,7 +118,7 @@ if (isset($_POST['enviar'])) {
 
                                                                                                                                 echo $_POST['agregar'];
                                                                                                                             } ?>'>
-                        <a href="<?php echo ruta_agregar_producto_pedido ?>"><button type="button" name="busqueda" id="buscar" class="boton_buscar">
+                        <a href="<?php echo ruta_agregar_producto_movimiento ?>"><button type="button" name="busqueda" id="buscar" class="boton_buscar">
                                 <i class="fa fa-search"></i></button></a>
                     </td>
                 </tr>
@@ -133,10 +126,20 @@ if (isset($_POST['enviar'])) {
                     <td class="titulos">Marca:</td>
                     <td class="valor">
                         <input type="text" readonly name="marca" id="marca" value='<?php
-                                                                                    if (isset($_POST['agregar'])) {
+                                                                                    /* if (isset($_POST['agregar'])) {
 
                                                                                         echo $_POST['marca'];
-                                                                                    } ?>'>
+                                                                                    } */ ?>'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titulos">Tipo de ajuste:</td>
+                    <td class="valor">
+                        <select name="tipo_ajuste" id="tipo_ajuste" >
+                            <option selected value="0"> Elije una opción</option>
+                            <option value="alta">Alta de producto</option>
+                            <option value="baja">Baja de producto</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -146,17 +149,23 @@ if (isset($_POST['enviar'])) {
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos" valign="top">Observaciones:</td>
+                    <td class="titulos">Motivo de ajuste:</td>
                     <td class="valor">
-                        <textarea name="observaciones" id="observaciones"></textarea>
+                        <select name="motivo_ajuste" id="motivo_ajuste">
+                            <option selected value="0"> Elije una opción</option>
+                            <option value="motivo1">Producto expirado</option>
+                            <option value="motivo2">Producto faltante en inventario</option>
+                            <option value="motivo3">Producto sobrante en inventario</option>
+                            <option value="motivo4">Producto descartado por fallas</option>
+                        </select>
                     </td>
-                </tr>
-                <tr>
-                    <td class="valor" colspan="2">
-                        <div class="botones">
-                            <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
-                        </div>
-                    </td>
+                </tr> 
+                <tr></tr>
+                <td class="valor" colspan="2">
+                    <div class="botones">
+                        <input type="submit" name="vista" value="Agregar a Vista Previa" id="avp">
+                    </div>
+                </td>
                 </tr>
             </form>
             <form method="post">
@@ -170,7 +179,7 @@ if (isset($_POST['enviar'])) {
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_pedidos_reposicion_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+        <a href="<?php echo ruta_movimientos_stock_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
 </body>
 

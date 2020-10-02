@@ -90,7 +90,7 @@
                 <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
                 <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td> 
                 <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() ?></td>
-                <td>
+                <td class="text-center">
                 <?php
                     if(isset($_POST['ver_detalle'])){
                                                     

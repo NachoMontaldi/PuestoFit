@@ -40,6 +40,7 @@ if (isset($_POST['enviar'])) {
         <div id="formulario" class="form">
             <form name="formP1" action="" method="post">
                 <table class="tabla" border="1px">
+
                     <tr>
                         <td colspan="4" class="titulo">
                             REGISTRAR UN NUEVO PROVEEDOR

@@ -13,7 +13,7 @@ table {
     background-color:rgb(53, 58, 64);
     text-align: center;
     font-size: 25px;
-    font-stretch: ultra-condensed;
+    
     padding: 20px;
 }
 /* CONTENEDOR DE LA TABLA */
@@ -31,13 +31,7 @@ table {
 .valor {
     padding: 12px;
 }
-/* LABELS DE INPUTS */
-.titulos {
-    padding: 8px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-}
+
 /* BOTONES */
 
 .boton {

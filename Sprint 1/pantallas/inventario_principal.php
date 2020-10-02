@@ -31,7 +31,6 @@
     <title>Inventario Principal</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -47,6 +46,7 @@
 
   <body>
 
+    
     <!---BARRA DE BUSQUEDA-->
         <!--Se mete dentro de un form para poder usar el metodo post-->
     <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
@@ -59,11 +59,16 @@
       </div>
     </form>
     
+    
+
     <!--TABLA NACHO-->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
-          <tr></tr>
+          <tr>
+          <div class="titulo_grilla"><h4>SUCURSAL SANTA ANA</h4></div>
+          </tr>
+          <tr>
             <th>Cod. Prod</th>
             <th>Nombre</th>
             <th>Existencia</th>

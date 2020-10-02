@@ -100,6 +100,8 @@ public static function escribir_factura($fila){
 
                         <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="seleccionar" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Seleccionar</button>
                         <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                        <input  type="hidden" name="sucursal"  id="sucursal" value="<?php $sucursal= repositorio_factura::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+            echo $sucursal ;?>">
                         <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila -> obtener_numero_factura() ;?>">
                         <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
 
@@ -132,7 +134,7 @@ public static function escribir_remito_principal($fila){
         }
         ?>
     <tr>
-        <td class="text-center"> <?php echo $fila ->obtener_cod_remito() ?></td>
+        <td class="text-center"> <?php echo $fila ->obtener_num_remito() ?></td>
         <td class="text-center"> <?php $num = repositorio_remito::obtener_num_factura(Conexion::obtenerConexion(), $fila ->obtener_cod_factura());
         echo $num; ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
@@ -148,8 +150,11 @@ public static function escribir_remito_principal($fila){
         <td>
             <form method="post" action="<?php echo ruta_detalle_remito; ?>">
 
-                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_remito(); ?>">Detalle</button>
+                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila -> obtener_cod_remito(); ?>">Detalle</button>
+                <input  type="hidden" name="num_remito"  id="num_remito" value="<?php echo $fila -> obtener_num_remito() ;?>">
                 <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                <input  type="hidden" name="sucursal"  id="sucursal" value="<?php $sucursal= repositorio_factura::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
+            echo $sucursal;?>">
                 <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
             </form>
         </td>
@@ -178,7 +183,7 @@ public static function escribir_remito_busqueda($fila){
     }
     ?>
 <tr></tr>
-        <td class="text-center"> <?php echo $fila ->obtener_cod_remito() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_num_remito() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cod_factura() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td> 
         <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
@@ -186,9 +191,11 @@ public static function escribir_remito_busqueda($fila){
         <!--<td class="text-center"> <?php// echo $fila ->obtener_estado() ?>  </td>-->
         <td>
             <form method="post" action="<?php echo ruta_detalle_remito; ?>">
-            <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_remito(); ?>" >Detalle</button>
+            <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila -> obtener_cod_remito() ; ?>" >Detalle</button>
         <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+        <input  type="hidden" name="sucursal"  id="sucursal" value="<?php echo $fila -> obtener_sucursal() ;?>">
         <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
+        <input  type="hidden" name="num_remito"  id="num_remito" value="<?php echo $fila -> obtener_num_remito() ;?>">
         
             </form> 
         </td>
@@ -230,7 +237,8 @@ public static function escribir_detalle_remito($fila){
         <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td> 
         <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() ?></td>
-        <td>
+        <td class="text-center">
+
         <?php
             if(isset($_POST['ver_detalle'])){
                                             
@@ -282,6 +290,7 @@ public static function escribir_factura_sel($fila){
                     <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Seleccionar</button>
                     <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                     <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
+                    <input  type="hidden" name="sucursal"  id="sucursal" value="<?php echo $fila -> obtener_sucursal() ;?>">
                     <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila -> obtener_numero_factura() ;?>">
 
                 </form>

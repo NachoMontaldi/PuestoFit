@@ -4,6 +4,7 @@ include_once '../conexion.class.php';
 
 class remitos {
     private $cod_remito;
+    private $num_remito;
     private $fecha;
     private $proveedor;
     private $total;
@@ -13,9 +14,10 @@ class remitos {
     
     //Constructor 
 
-    public function __construct($cod_remito,$fecha, $proveedor,$total,$estado,$sucursal,$cod_factura){
+    public function __construct($cod_remito,$num_remito,$fecha, $proveedor,$total,$estado,$sucursal,$cod_factura){
 
         $this -> cod_remito =$cod_remito;
+        $this -> num_remito = $num_remito;
         $this -> fecha =$fecha;
         $this ->  proveedor =$proveedor;
         $this ->  total =$total;
@@ -27,6 +29,9 @@ class remitos {
     //Getters
     public function obtener_cod_remito() {
         return $this -> cod_remito;
+    }
+    public function obtener_num_remito() {
+        return $this -> num_remito;
     }
     
     public function obtener_fecha() {

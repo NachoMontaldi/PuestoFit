@@ -28,7 +28,6 @@ if(isset($_POST['ver_detalle'])){
     <title>Detalle producto</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/det_producto.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">

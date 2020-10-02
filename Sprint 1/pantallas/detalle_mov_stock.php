@@ -1,8 +1,8 @@
 <!DOCTYPE html>
   <?php include_once '../config.inc.php';
-  include_once '../conexion.class.php';
-  include_once '../clases/repositorio_factura.class.php';
-  include_once '../clases/escritor_factura.class.php';
+  include_once '../conexion.class.php'; 
+  include_once '../clases/repositorio_movimientos_stock.class.php';
+  include_once '../clases/escritor_movimientos_stock.class.php';
   include_once '../clases/redireccion.class.php';
   include_once '../pantallas/barra_nav.php';
 
@@ -13,12 +13,11 @@
     $factura_id = $_POST['ver_detalle'];
   }
 
-
   ?>
   <html>
 
   <head>
-    <title>Detalle factura Compras</title>
+    <title>Detalle Movimiento de Stock</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css" />
     <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet" />
@@ -40,22 +39,16 @@
     <div id="formulario" class="form">
       <table class="tabla" border="1px">
         <tr>
-          <td colspan="4" class="titulo">DETALLE FACTURA COMPRAS</td>
+          <td colspan="4" class="titulo">DETALLE MOVIMIENTO DE STOCK</td>
         </tr>
         <tr>
-          <td class="titulos">N° Factura:</td>
+          <td class="titulos">Cod. Movimiento:</td>
           <td class="valor">
-            <input type="text" readonly name="nro_factura" id="nro_factura" value="<?php echo $_POST['num_factura']; ?>">
+            <input type="text" readonly name="cod_movimiento" id="cod_movimiento" value="<?php echo $_POST['ver_detalle']; ?>">
           </td>
-          <td class="titulos">Tipo:</td>
+          <td class="titulos">Motivo de movimiento:</td>
           <td class="valor">
-            <input type="text" readonly name="tipo" id="tipo" value="<?php echo $_POST['tipo']; ?>">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="1" class="titulos">Proveedor:</td>
-          <td colspan="3" class="valor">
-            <input type="text" readonly name="proveedor" id="proveedor" value="<?php echo $_POST['proveedor']; ?>">
+            <input type="text" readonly name="motivo" id="motivo" value="<?php echo $_POST['motivo'];?>">
           </td>
         </tr>
         <tr>
@@ -69,35 +62,31 @@
                     <th class="text-center">Nombre producto</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center">Cantidad</th>
-                    <th class="text-center">Precio unitario</th>
-                    <th class="text-center">Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <?php
+                    <?php 
                     if (isset($_POST['ver_detalle'])) {
-                      escritor_factura::escribir_detalles_factura($_POST['ver_detalle']);
+                    escritor_movimientos_stock::escribir_detalles_movimiento($_POST['ver_detalle']);
                     } ?>
-                  </tr>
-                  <tr>
-                    <td colspan="5" align="right">
-                      <h4>Total</h4>
-                    </td>
-                    <td align="center">
-                      <h4>$ <?php echo $_POST['total']; ?> </h4>
-                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </td>
         </tr>
+        <tr>
+          <td colspan="1" class="titulos">Observaciones:</td>
+          <td colspan="3" class="valor"> 
+          <textarea name="observacion" readonly id="observacion" style="height: 100px; width: 100%;"> <?php echo $_POST['observacion']; ?> </textarea> 
+          </td>
+        </tr>
       </table>
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_compras_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_movimientos_stock_principal?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 

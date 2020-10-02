@@ -11,6 +11,8 @@ include_once '../Conexion.class.php';
 include_once '../clases/redireccion.class.php';
 include_once '../pantallas/barra_nav.php';
 include_once '../clases/repositorio_movimientos_stock.class.php';
+include_once '../clases/repositorio_remito.class.php';
+include_once '../clases/repositorio_pago.class.php';
 
 Conexion::abrirConexion();
 
@@ -26,7 +28,7 @@ if (isset($_POST['registrar_remito'])) {
   
   
    
- if (isset($_POST['enviar'])) {
+    if (isset($_POST['enviar'])) {
     
     // insertar los detalles
     repositorio_remito::cargar_detalles($_POST['cod_factura_compra2'], $id);
@@ -37,12 +39,15 @@ if (isset($_POST['registrar_remito'])) {
     // borrar los estados igual a 0
     repositorio_remito::eliminar_falsos(Conexion::obtenerConexion());
 
-    // actualizar proveedor, total , cod_factura_compra de remitos
-     repositorio_remito::remito_cargado(Conexion::obtenerConexion(), $id, $_POST['proveedor'], $_POST['total2'], 
+    // actualizar numero remito,proveedor, total , cod_factura_compra de remitos
+        repositorio_remito::remito_cargado(Conexion::obtenerConexion(), $id, $_POST['num_remito'], $_POST['proveedor'], $_POST['total2'], 
                                         $_POST['cod_factura_compra2']);  
     
     //Actualiza la tabla movimientos_stock y la tabla stock_deposito
     repositorio_movimientos_stock::cargar_mov_stock($id);
+
+    //Actualizar estado de factura a 4
+    repositorio_factura::actualizar_estado_entregado_factura(Conexion::obtenerConexion(),$_POST['cod_factura_compra2']) ;
 
     //redirige despues de insertar
     Redireccion::redirigir(ruta_remitos_principal);
@@ -55,7 +60,6 @@ if (isset($_POST['registrar_remito'])) {
     <title>Registrar Remito</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/remito_registrar.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,7 +94,7 @@ if (isset($_POST['registrar_remito'])) {
                         <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d"); ?>">
                     </td>
 
-                    <td rowspan="3">
+                    <td rowspan="5">
                         <!--Grilla de productos-->
                         <div class="table-responsive-lg">
                             <table id="grilla" class="table-hover table table-bordered">
@@ -116,11 +120,11 @@ if (isset($_POST['registrar_remito'])) {
                                     <tr>
 
                                         <td colspan="4" align="right">
-                                            <h3>Total</h3>
+                                            <h4>Total</h4>
                                         </td>
                                         <td align="center">
-                                            <h3> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;}//echo number_format($precio,2) ?> </h3>
-                                           
+                                            <h4> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;}//echo number_format($precio,2) ?> </h4>
+
                                         </td>
 
                                     </tr>
@@ -146,7 +150,24 @@ if (isset($_POST['registrar_remito'])) {
                         </form>
                     </td>
                 </tr>
-                <form method="post" action="<?php //echo $_SERVER['PHP_SELF']; ?>">
+                <form method="post" >
+                <tr>
+                    <td class="titulos">N° Remito:</td>
+                    <td class="valor">
+                    <input type="text" name="num_remito" id="num_remito">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titulos" readonly>Sucursal:</td>
+                    <td class="valor">
+                    <input type="text" name="sucursal" id="sucursal" readonly value="<?php
+                        if (isset($_POST['seleccionar'])) {
+
+                            echo $_POST['sucursal'];
+                        } 
+                        ?>">
+                    </td>
+                </tr>
                 <tr>
                     <td class="titulos">Proveedor:</td>
                     <td class="valor">

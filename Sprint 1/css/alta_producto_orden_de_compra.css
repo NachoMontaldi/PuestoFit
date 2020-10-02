@@ -17,7 +17,7 @@ textarea {
     background-color:rgb(53, 58, 64);
     text-align: center;
     font-size: 25px;
-    font-stretch: ultra-condensed;
+    
     padding: 20px;
 
 }
@@ -41,12 +41,7 @@ textarea {
     border-radius: 5px;
     font-style: oblique;
 }
-.titulos {
-    padding: 15px;
-    text-align: right;
-    font-size: 18px;
-    font-weight: bold;
-}
+
 
 /* BOTONES */
 .boton {

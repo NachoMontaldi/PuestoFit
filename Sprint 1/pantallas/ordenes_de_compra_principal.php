@@ -38,6 +38,8 @@
 </head>
 <body>
 
+
+
     <!---BARRA DE BUSQUEDA-->
     <!--Se mete dentro de un form para poder usar el metodo post-->
     <div>
@@ -51,10 +53,15 @@
       </div>
     </form>
     </div>
+
+
     <!--TABLA NACHO-->
     <div class="table-responsive-lg"  style="padding-top: 15px;">
         <table id="grilla" class="table-hover table table-bordered">
             <thead class="thead-dark">
+                <tr colspan="6">
+                    <div class="titulo_grilla"><h4>ORDENES DE COMPRA</h4></div>
+                </tr>
                 <tr>
                     <th>Cod. OC</th>
                     <th>Fecha Emisión</th>
@@ -62,7 +69,6 @@
                     <th>Estado</th>
                     <th>Sucursal</th>
                     <th>VER DETALLE</th>
-                    
                 </tr>
             </thead>
             <tbody>

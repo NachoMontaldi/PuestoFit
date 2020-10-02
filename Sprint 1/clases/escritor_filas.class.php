@@ -256,7 +256,6 @@ class escritor_filas{
                         <td class="text-center"> <?php echo $fila ->obtener_cod_prod() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
-                        <td class="text-center"> <?php echo $fila ->obtener_existencia() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
                         <td>
@@ -671,9 +670,9 @@ public static function escribir_detalle_pedido_det($fila){
                 <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
 
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                    <td>
+                    <td class="text-center">
                         <input type="hidden" name="cod_cotizacion" value="<?php echo $fila -> obtener_cod_cotizacion() ?>">
-                        <input type="number" name="precio_unitario" id="precio_unitario" value="<?php 
+                        <input class="text-center" type="number" name="precio_unitario" id="precio_unitario" value="<?php 
                         
                             if(isset($_POST['agregar'])){
                                 
@@ -689,7 +688,7 @@ public static function escribir_detalle_pedido_det($fila){
                             <?php } ?>
                     </form> 
                 </td>
-                <td>
+                <td >
                     <?php
                         if(isset($_POST['agregar'])){
                             

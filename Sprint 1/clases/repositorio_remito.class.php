@@ -58,7 +58,7 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new remitos($fila['cod_remito'], $fila['fecha'], $fila['proveedor'],
+                        $filas[] = new remitos($fila['cod_remito'], $fila['num_remito'],$fila['fecha'], $fila['proveedor'],
                                     $fila['total'], $fila['estado'],$fila ['sucursal'], $fila['cod_factura_compra']);
                     }
                 }
@@ -153,7 +153,7 @@
         if (isset($conexion)){
     
             try{
-                $sql= 'select * from grilla_remito where (cod_remito LIKE "%'.$criterio_min.'%" OR 
+                $sql= 'select * from grilla_remito where (num_remito LIKE "%'.$criterio_min.'%" OR 
                        num_factura LIKE "%'.$criterio_min.'%" OR fecha LIKE "%'.$criterio_min.'%" 
                        OR proveedor LIKE "%'.$criterio_min.'%" OR  sucursal LIKE "%'.$criterio_min.'%"
                        OR estado LIKE "%'.$criterio_min.'%") AND (sucursal = "Santa ana")';
@@ -166,7 +166,7 @@
                 
                 if(count($resultado)){
                     foreach($resultado as $fila){
-                        $filas[] = new remitos($fila['cod_remito'],$fila['fecha'],
+                        $filas[] = new remitos($fila['cod_remito'],$fila['num_remito'],$fila['fecha'],
                         $fila['proveedor'],null,
                         $fila['estado'],$fila['sucursal'],$fila['num_factura']);
                     }
@@ -267,8 +267,7 @@
                 
                 $resultado = $sentencia -> fetchColumn() ;
                 
-                $id = intval($resultado);
-                     
+                $id = intval($resultado);                  
     
                 
             }catch(PDOException $ex){
@@ -388,21 +387,23 @@
         }
     }
 
-    public static function remito_cargado($conexion,$cod_remito,$proveedor,$total,$cod_factura_compra){
+    public static function remito_cargado($conexion,$cod_remito,$num_remito,$proveedor,$total,$cod_factura_compra){
         
     $remito_actualizado = false;
     
     if (isset($conexion)){
         try{
-            $sql = 'update remitos set proveedor = :proveedor, total = :total,
+            $sql = 'update remitos set num_remito = :num_remito, proveedor = :proveedor, total = :total,
             cod_factura_compra = :cod_factura_compra  WHERE cod_remito =' . $cod_remito;
             
+            $num_remitotemp = $num_remito;
             $proveedortemp = $proveedor;
             $totaltemp = $total;
             $cod_octemp = $cod_factura_compra;
 
             $sentencia = $conexion ->prepare($sql);
             
+            $sentencia -> bindParam(':num_remito', $num_remitotemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':proveedor', $proveedortemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':total', $totaltemp, PDO::PARAM_STR);
             $sentencia -> bindParam(':cod_factura_compra', $cod_factura_compra, PDO::PARAM_STR);

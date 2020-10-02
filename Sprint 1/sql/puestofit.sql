@@ -144,6 +144,7 @@ create table detalle_facturas_compra(
 
 create table remitos(
     cod_remito int unique auto_increment,
+    num_remito int,
     fecha datetime,
     proveedor varchar(255),
     total int,
@@ -168,13 +169,27 @@ create table detalle_remitos(
 create table movimientos_stock(
     cod_mov int unique auto_increment,
     fecha datetime,
-    cod_producto int,
     tipo varchar(255),
-    cantidad int,
-    cod_det_remito int,
+    motivo varchar(255),
     sucursal int,
+    cod_remito int,
+    cod_factura_venta int,
+    observaciones varchar(255),
+    estado int,
     primary key(cod_mov),
-    FOREIGN key (cod_producto) REFERENCES inventario(cod_prod) ON DELETE CASCADE 
+    FOREIGN key (cod_remito) REFERENCES remitos(cod_remito) ON DELETE CASCADE 
+);
+
+create table detalle_movimientos_stock(
+    cod_det_mov_stock int unique auto_increment,
+    cod_producto int,
+    cantidad int,
+    cod_mov int,
+    cod_det_remito int,
+    cod_det_fac int,
+    primary key(cod_det_mov_stock),
+    FOREIGN key (cod_producto) REFERENCES inventario(cod_prod) ON DELETE CASCADE,
+    FOREIGN key (cod_mov) REFERENCES movimientos_stock(cod_mov) ON DELETE CASCADE,
     FOREIGN key (cod_det_remito) REFERENCES detalle_remitos(cod_det_remito) ON DELETE CASCADE 
 );
 
@@ -187,6 +202,7 @@ create table pagos(
     cod_pago int UNIQUE auto_increment,
     num_factura int,
     metodo_pago varchar(255),
+    observaciones varchar(255),
     sucursal int,
     fecha datetime,
     proveedor varchar(255),
@@ -287,7 +303,7 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     /*Vista grilla facturas_compra */
         CREATE OR REPLACE VIEW
         grilla_facturas_compra AS
-        SELECT num_factura, tipo, fecha, fecha_entrega_estimada,proveedor,cod_oc,estados.nombre as estado, depositos.nombre as sucursal
+        SELECT cod_factura_compra, num_factura, tipo, total, fecha, fecha_entrega_estimada,proveedor,cod_oc,estados.nombre as estado, depositos.nombre as sucursal
         from facturas_compra
         INNER JOIN depositos
         ON facturas_compra.sucursal = depositos.cod_deposito
@@ -297,17 +313,30 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     /*Vista grilla pagos_principal*/
         CREATE OR REPLACE VIEW
         grilla_pagos AS
-        SELECT cod_pago, num_factura, metodo_pago, depositos.nombre as sucursal, fecha, proveedor, total, estados.nombre as estado
+        SELECT cod_pago, num_factura, metodo_pago, observaciones, depositos.nombre as sucursal, 
+                fecha, proveedor, total, estados.nombre as estado
         from pagos
         INNER JOIN depositos
         ON pagos.sucursal = depositos.cod_deposito
         INNER JOIN estados
         ON pagos.estado = estados.cod
-    
+
+    /*Vista grilla movimientos_principal*/
+        CREATE OR REPLACE VIEW
+        grilla_movimientos AS
+        SELECT cod_mov, fecha, tipo, depositos.nombre as sucursal, motivo, estado.nombre as estado,
+                observaciones
+        from movimientos_stock 
+        INNER JOIN depositos
+        ON movimientos_stock.sucursal = depositos.cod_deposito 
+        INNER JOIN estados
+        ON movimientos_stock.estado = estados.cod
+
+
     /*Vista grilla remito */
         CREATE OR REPLACE VIEW
         grilla_remito AS
-        SELECT cod_remito, num_factura, remitos.fecha as fecha, remitos.proveedor as proveedor, depositos.nombre as sucursal, estados.nombre as estado
+        SELECT cod_remito, num_remito, num_factura, remitos.fecha as fecha, remitos.proveedor as proveedor, depositos.nombre as sucursal, estados.nombre as estado
         from remitos
         INNER JOIN depositos
         ON remitos.sucursal = depositos.cod_deposito
@@ -335,6 +364,14 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         INNER JOIN stock_deposito sd
         ON sd.cod_prod = i.cod_prod
         where sd.cod_deposito=1
+
+    /*Vista grilla registrar mov_stock*/
+        CREATE OR REPLACE VIEW 
+        grilla_det_mov_stock AS 
+        SELECT dms.cod_det_mov_stock, dms.cod_producto, i.nombre, dms.cantidad, i.marca, dms.cod_mov
+        FROM detalle_movimientos_stock dms
+        INNER JOIN inventario i
+        ON dms.cod_producto = i.cod_prod
        
 
 
@@ -350,6 +387,13 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     values('Santa ana','B° Santa Ana Manzana 20 Casa 5'),
     ('Tres Cerritos','Las Acacias 1268'),
     ('Centro','San Martín 788');
+
+    /*Carga de estados*/
+    insert into estados (cod,nombre)
+    values(1,"Pendiente"),
+    (2,"Listo"),
+    (3,"Cargada"),
+    (4,"Entregado"); 
     
     /*Carga tabla inventario*/
     insert into inventario (nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta,

@@ -326,8 +326,8 @@ public static function obtener_factura_filtradas($conexion,$criterio){
             
             if(count($resultado)){
                 foreach($resultado as $fila){
-                    $filas[] = new facturas_compra(null,$fila['num_factura'],$fila['tipo'],
-                    $fila['fecha'],$fila['fecha_entrega_estimada'],$fila['proveedor'],null,
+                    $filas[] = new facturas_compra($fila['cod_factura_compra'],$fila['num_factura'],$fila['tipo'],
+                    $fila['fecha'],$fila['fecha_entrega_estimada'],$fila['proveedor'],$fila['total'],
                     $fila['estado'],$fila['sucursal'],$fila['cod_oc']);
                 }
             }
@@ -438,6 +438,31 @@ public static function calcular_precios($nro_factura){
     
 }
 
+public static function actualizar_estado_entregado_factura($conexion,$cod_factura_compra){
+        
+    $factura_compra_actualizada = false;
+    
+    if (isset($conexion)){
+        try{
+
+            $sql = 'update facturas_compra set estado = 4 WHERE cod_factura_compra =' . $cod_factura_compra;
+            
+            $sentencia = $conexion ->prepare($sql);
+            
+            $factura_compra_actualizada = $sentencia -> execute();
+            
+        } catch(PDOException $ex){
+            print 'ERROR INSCo' . $ex -> getMessage();
+        }
+        
+        return $factura_compra_actualizada;
+    }
+    else{
+        echo 'No hay conexion!!';
+    }
+    
+}
+
 public static function obtener_facturas_filtradas($conexion,$criterio){
         
     $filas = [];
@@ -449,7 +474,8 @@ public static function obtener_facturas_filtradas($conexion,$criterio){
             $sql= 'select * from grilla_facturas_remito where (cod_factura_compra LIKE "%'.$criterio_min. '%" OR 
                     fecha LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
                     sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR 
-                    estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" ) 
+                    estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" OR 
+                    tipo LIKE "%'  .$criterio_min. '%") 
                     and (sucursal = "santa ana") and (estado = "Listo")';
             
             $sentencia = $conexion ->prepare($sql);

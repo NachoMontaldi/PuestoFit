@@ -61,7 +61,6 @@ if (isset($_POST['enviar'])) {
     <title>Registrar Orden de Compra</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_orden_de_compra.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -123,7 +122,7 @@ if (isset($_POST['enviar'])) {
                         <table id="grilla" class="table-hover table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th id="vp" colspan="9">Vista Previa</th>
+                                    <th id="vp" colspan="5">Vista Previa</th>
                                 </tr>
                                 <tr>
                                     <th>Nombre</th>
@@ -137,17 +136,25 @@ if (isset($_POST['enviar'])) {
 
                                     escritor_filas_ordenes_de_compra::escribir_detalles_cotizacion_oc($_POST['seleccionar']);
                                 } ?>
-                                </tbody>
-                        </table>
-                    </div>
-                </td>
-                </tr>
-                <tr>
-                    <td class="titulos">Total:</td>
-                    <td class="valor seg_col">
-                        <input type="number" readonly name="precioTotal" id="precioTotal" value="<?php echo $total; ?>">
-                    </td>
-                    <td style="text-align:right" class="valor" colspan="2">
+                                <tr>
+                                    <?php if(isset($_POST['seleccionar'])){ 
+                                    ?>
+                                    <td colspan="4" align="right">
+                                    <h4>Total</h4>
+                                    </td>
+                                    <td align="center">
+                                    <h4>$ <?php echo $total; ?> </h4>
+                                    </td>
+                                    </tr>
+                                    <?php } ?> 
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                <tr>
+                                        
+                    <td style="text-align:right" class="valor" colspan="4">
                         <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>
                     </td>
                 </tr>

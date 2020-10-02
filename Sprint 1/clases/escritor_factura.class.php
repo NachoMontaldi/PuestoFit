@@ -44,8 +44,10 @@ public static function escribir_factura($fila){
                                 print "Pendiente";
 
                             }elseif($fila ->obtener_estado() == 2){
-                            print "Listo";
-                        }  ?>  </td>
+                               print "Listo";
+                            }elseif($fila ->obtener_estado() == 4){
+                               print "Entregado"; 
+                            }  ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cod_orden_de_compra() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>                
@@ -53,8 +55,9 @@ public static function escribir_factura($fila){
         <td>
             <form method="post" action="<?php echo ruta_detalle_factura_compra; ?>">
 
-                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_numero_factura(); ?>" >Detalle</button>
+                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Detalle</button>
                 <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
+                <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_numero_factura() ;?>">
                 <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
                 <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila -> obtener_tipo() ;?>">
                 <input  type="hidden" name="cod_factura"  id="cod_factura" value="<?php echo $fila -> obtener_cod_factura_compra() ;?>">
@@ -96,7 +99,7 @@ public static function escribir_detalle_factura($fila){
         <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td> 
         <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() ?></td>
-        <td>
+        <td class="text-center">
         <?php
             if(isset($_POST['ver_detalle'])){
                                             
@@ -246,10 +249,12 @@ public static function escribir_filas_filtradas_facturas($criterio){
                 <td class="text-center"> <?php echo $fila ->obtener_fecha_entrega_estimada() ?>  </td>
                 <td>
                     <form method="post" action="<?php echo ruta_detalle_factura_compra; ?>">
-                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_numero_factura(); ?>" >Detalle</button>
+                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Detalle</button>
+                <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_numero_factura() ;?>">
                 <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                 <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
                 <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila -> obtener_tipo() ;?>">
+                
                     </form> 
                 </td>
               
@@ -285,7 +290,7 @@ public static function escribir_filas_filtradas_facturas($criterio){
             <td class="text-center"> <?php echo $fila ->obtener_proveedor()?></td>
             <td class="text-center"> <?php echo $fila ->obtener_total()?></td>
             <td class="text-center"> <?php echo $fila ->obtener_sucursal()?></td>
-            <td>
+            <td >
                 <form method="post" action="<?php echo ruta_factura_registrar; ?>">
                     <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_orden_de_compra(); ?>" >Seleccionar</button>
                     <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">

@@ -61,12 +61,12 @@
               <table class="table-hover table table-bordered grilla">
                 <thead class="thead-dark">
                   <tr>
-                    <th>Cod.Det.</th>
-                    <th>Nombre producto</th>
-                    <th>Marca</th>
-                    <th>Cantidad</th>
-                    <th>Precio unitario</th>
-                    <th>Subtotal</th>
+                    <th class="text-center">Cod.Det.</th>
+                    <th class="text-center">Nombre producto</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Precio unitario</th>
+                    <th class="text-center">Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,10 +78,10 @@
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                      <h3>Total</h3>
+                      <h4>Total</h4>
                     </td>
                     <td align="center">
-                      <h3>$ <?php echo $total; ?> </h3>
+                      <h4>$ <?php echo $total; ?> </h4>
                     </td>
                   </tr>
                 </tbody>
@@ -93,7 +93,7 @@
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_cotizaciones_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_ordenes_de_compra_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 

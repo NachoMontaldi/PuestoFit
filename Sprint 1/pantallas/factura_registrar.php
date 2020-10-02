@@ -129,12 +129,12 @@ if (isset($_POST['enviar'])) {
                   <tr>
 
                     <td colspan="4" align="right">
-                      <h3>Total</h3>
+                      <h4>Total</h4>
                     </td>
                     <td align="center">
-                      <h3> <?php if (isset($_POST['seleccionar'])) {
+                      <h4> <?php if (isset($_POST['seleccionar'])) {
                               echo $total . " $";
-                            } ?> </h3>
+                            } ?> </h4>
                     </td>
 
                   </tr>
@@ -166,8 +166,8 @@ if (isset($_POST['enviar'])) {
       </tr>
 
       <tr>  
-       <td class="titulos">Tipo de factura:</td>
-       <td class="valor">
+        <td class="titulos">Tipo de factura:</td>
+        <td class="valor">
           <!-- desplegable -->
           <select name="tipo_factura" id="tipo_factura">
               <option selected value="0"> Elije el tipo de factura</option>
@@ -178,19 +178,7 @@ if (isset($_POST['enviar'])) {
         </td>  
       </tr>
 
-      <tr>
-        <td class="titulos">Sucursal:</td>
-        <td class="valor">
-          <input type="text" name="sucursal" id="prov" readonly value="<?php
-
-            if (isset($_POST['seleccionar'])) {
-
-              echo $_POST['sucursal'];
-            }
-
-            ?>">
-        </td>
-      </tr>
+     
       <td class="titulos">Fecha Estimada de Entrega:</td>
       <td class="valor">
           <input autocomplete="off" type="date" min="<?php echo date("Y-m-d"); ?>" id="datepicker" name="datepicker">

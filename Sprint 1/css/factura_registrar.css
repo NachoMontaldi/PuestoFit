@@ -8,11 +8,18 @@ table {
 
 }
 
+textarea {
+    max-width: 200px;
+    max-height: 130px;
+    min-height: 130px;
+    min-width: 200px;
+}
+
 .titulo {
     color:white;
     background-color:rgb(53, 58, 64);
     font-size: 25px;
-    font-stretch: ultra-condensed;
+    
     padding: 20px;
     text-align: center;
     
@@ -21,7 +28,7 @@ table {
     padding: 15px 15px;
 }
 
-.form input , #metodo_pago, #tipo_factura {
+.form input , #metodo_pago, #tipo_factura, #observaciones {
   width: 100%;
   border-radius: 2px;
   border: 2px solid rgb(53, 58, 64);
@@ -35,7 +42,7 @@ table {
     
 }
 
-.titulos {
+{
     padding: 15px;
     font-size: 18px;
     width: 18%;

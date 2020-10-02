@@ -54,10 +54,10 @@
               <table class="table-hover table table-bordered grilla">
                 <thead class="thead-dark">
                   <tr>
-                    <th>Cod.Det.</th>
-                    <th>Nombre producto</th>
-                    <th>Marca</th>
-                    <th>Cantidad</th>
+                    <th class="text-center">Cod.Det.</th>
+                    <th class="text-center">Nombre producto</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Cantidad</th>
                   </tr>
                 </thead>
                 <tbody>

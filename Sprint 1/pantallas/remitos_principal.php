@@ -19,7 +19,6 @@
     <title>Remitos</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -35,6 +34,8 @@
 
   <body>
 
+  
+
     <!---BARRA DE BUSQUEDA-->
         <!--Se mete dentro de un form para poder usar el metodo post-->
     <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
@@ -46,14 +47,15 @@
         </p>
       </div>
     </form>
-    
-   
+    <!-- TABLA PRINCIPAL -->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
-          <tr></tr>
-
-            <th>Cod. Remito</th>
+          <tr colspan="6">
+            <div class="titulo_grilla"><h4>REMITOS</h4></div>
+          </tr>
+          <tr>
+            <th>Nº Remito</th>
             <th>N° Factura</th>
             <th>Fecha</th>
             <th>Proveedor</th>

@@ -1,6 +1,5 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,7 +12,7 @@
     <ul id="nav">
       <li><a href="">Inicio</a></li>
       <li>
-        <a href="">Clientes</a>
+        <a href="<?php echo ruta_clientes_principal ?>">Clientes</a>
         <!--        <ul>
                         <li><a href="">Submenu1</a></li>
                         <li><a href="">Submenu2</a></li>
@@ -41,6 +40,7 @@
         <a href="">Stock</a>
         <ul>
           <li><a href="<?php echo ruta_inventario_principal?>">Productos en deposito</a></li>
+          <li><a href="<?php echo ruta_movimientos_stock_principal?>">Movimientos de Stock</a></li>
           <li><a href="<?php echo ruta_pedidos_reposicion_principal?>">Pedidos de reposición</a></li>
         </ul>
       </li>

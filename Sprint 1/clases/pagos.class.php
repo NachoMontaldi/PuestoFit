@@ -6,6 +6,7 @@ class pagos {
     private $cod_pago;
     private $num_factura;
     private $metodo_pago;
+    private $obsrvaciones;
     private $sucursal;
     private $fecha;
     private $proveedor;
@@ -13,13 +14,15 @@ class pagos {
     private $estado;
     private $cod_factura_compra;
     
+    
     //Constructor 
 
-    public function __construct($cod_pago,$num_factura,$metodo_pago,$sucursal,$fecha,
+    public function __construct($cod_pago,$num_factura,$metodo_pago,$observaciones,$sucursal,$fecha,
                                 $proveedor,$total,$estado,$cod_factura_compra){
         $this -> cod_pago =$cod_pago;
         $this -> num_factura = $num_factura;
         $this -> metodo_pago = $metodo_pago;
+        $this -> observaciones = $observaciones;
         $this -> sucursal = $sucursal;
         $this -> fecha =$fecha;
         $this -> proveedor =$proveedor;
@@ -40,7 +43,11 @@ class pagos {
     public function obtener_metodo_pago() {
         return $this -> metodo_pago;
     }
-   
+
+    public function obtener_observaciones() {
+        return $this -> observaciones;
+    }
+
     public function obtener_sucursal() {
         return $this -> sucursal;
     }
@@ -85,6 +92,14 @@ class pagos {
 
     public function cambiar_sucursal($sucursal) {
         $this -> sucursal=$sucursal;
+    }
+
+    public function cambiar_metodo_pago($metodo_pago) {
+        return $this -> metodo_pago=$metodo_pago;
+    }
+
+    public function obtener_obvservaciones($observaciones) {
+        return $this -> observaciones=$observaciones;
     }
 }
 ?> 

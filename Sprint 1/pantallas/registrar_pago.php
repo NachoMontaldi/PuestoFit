@@ -35,10 +35,8 @@ if (isset($_POST['enviar'])) {
     
 
   //actualizar num_factura, metodo de pago , proveedor, total , cod_factura
-    repositorio_pago::pago_cargado(Conexion::obtenerConexion(), $id, $_POST['nro_factura'], $_POST['metodo_pago'],  $_POST['proveedor'], $_POST['total2'], 
-                                       $_POST['cod_factura_compra2']);  
-
-    
+    repositorio_pago::pago_cargado(Conexion::obtenerConexion(), $id, $_POST['nro_factura'], $_POST['metodo_pago'],
+                                  $_POST['observaciones'],$_POST['proveedor'], $_POST['total2'], $_POST['cod_factura_compra2']);  
 
    //actualiza el estado de pago a 1
    $pago_validado = repositorio_pago::estado_pago(Conexion::obtenerConexion(), $id);
@@ -48,14 +46,14 @@ if (isset($_POST['enviar'])) {
 
    //Actualizar estado de factura a 2
     repositorio_factura::actualizar_estado_listo_factura(Conexion::obtenerConexion(),$_POST['cod_factura_compra2']) ;
-    //Insertar egereso
+    
+    //Insertar egreso
     repositorio_pago::insertar_egreso_factura(Conexion::obtenerConexion(),$_POST['total2']);
 
-  //redirige despues de insertar
-  Redireccion::redirigir(ruta_pagos_principal);
+    //redirige despues de insertar
+    Redireccion::redirigir(ruta_pagos_principal);
 
-  
-}
+  }
 
 ?>
 <html>
@@ -96,7 +94,7 @@ if (isset($_POST['enviar'])) {
       <td class="valor">
         <input type="date" readonly name="fecha" id="fecha" value="<?php  echo date("Y-m-d");?>">
       </td>
-        <td rowspan="6">
+        <td rowspan="7">
           <!--Grilla de productos-->
           <div class="table-responsive-lg">
             <table id="grilla" class="table-hover table table-bordered">
@@ -120,10 +118,10 @@ if (isset($_POST['enviar'])) {
                   ?>
                   <tr>
                     <td colspan="4" align="right">
-                      <h3>Total</h3>
+                      <h4>Total</h4>
                       </td>
                         <td align="center">
-                            <h3> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;} ?> </h3>
+                            <h4> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;} ?> </h4>
                             
                         </td>
 
@@ -202,6 +200,12 @@ if (isset($_POST['enviar'])) {
 
             </select>
         </td>
+        <tr>
+          <td class="titulos" valign="top">Observaciones:</td>
+          <td class="valor">
+            <textarea name="observaciones" id="observaciones"></textarea>
+          </td>
+      </tr>
       <tr>
         <td colspan="3" style="text-align:right" class="valor">
           <button type="submit" name="enviar" id="gd" class="boton">REGISTRAR</button>

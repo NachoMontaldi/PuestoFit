@@ -184,6 +184,7 @@ class escritor_pago{
                         <td class="text-center"> <?php echo $fila ->obtener_cod_pago() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_num_factura() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_metodo_pago() ?>  </td>
+                        <td class="text-center"> <?php echo $fila ->obtener_observaciones() ?>  </td>
                         <td>
                         <?php
                         
@@ -202,6 +203,7 @@ class escritor_pago{
                                 <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_pago(); ?>" >Detalle</button>
                                 <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                                 <input  type="hidden" name="metodo_pago"  id="metodo_pago" value="<?php echo $fila -> obtener_metodo_pago() ;?>">
+                                <input  type="hidden" name="observaciones"  id="observaciones" value="<?php echo $fila -> obtener_observaciones() ;?>">
                                 <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila -> obtener_num_factura() ;?>">
                                 <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
             
@@ -235,6 +237,7 @@ class escritor_pago{
                     <td class="text-center"> <?php echo $fila ->obtener_cod_pago() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_num_factura() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_metodo_pago() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_observaciones() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
@@ -247,6 +250,7 @@ class escritor_pago{
                             <input  type="hidden" name="proveedor"  id="proveedor" value="<?php echo $fila -> obtener_proveedor() ;?>">
                             <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
                             <input  type="hidden" name="metodo_pago"  id="metodo_pago" value="<?php echo $fila -> obtener_metodo_pago() ;?>">
+                            <input  type="hidden" name="observaciones"  id="observaciones" value="<?php echo $fila -> obtener_observaciones() ;?>">
                             <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila -> obtener_num_factura() ;?>">
                         </form>
                     </td>
@@ -286,7 +290,7 @@ class escritor_pago{
                     <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td> 
                     <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() ?></td>
-                    <td>
+                    <td class="text-center">
                     <?php
                         if(isset($_POST['ver_detalle'])){
                                                         

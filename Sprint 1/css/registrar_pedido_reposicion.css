@@ -17,14 +17,14 @@ textarea {
     background-color:rgb(53, 58, 64);
     text-align: center;
     font-size: 25px;
-    font-stretch: ultra-condensed;
+    
     padding: 20px;
 }
 .form {
     padding: 20px 20px;
     margin-left: 10%;
 }
-.form input, #observaciones { 
+.form input, #observaciones, #tipo_ajuste, #motivo_ajuste { 
   width: 100%;
   border-radius: 2px;
   border: 2px solid rgb(53, 58, 64);
@@ -37,11 +37,10 @@ textarea {
     width:30%;
 }
 
-.titulos {
+{
     padding: 15px;
     text-align: right;
     font-size: 18px;
-    font-weight: bold;
     width: 18%;
 }
 

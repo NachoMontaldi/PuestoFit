@@ -57,18 +57,24 @@
           </td>
         </tr>
         <tr>
+          <td class="titulos">Observaciones:</td>
+          <td class="valor">
+            <input type="text" readonly name="observaciones" id="observaciones" value="<?php echo $_POST['observaciones']; ?>">
+          </td>
+        </tr>
+        <tr>
           <td colspan="2">
             <!--Grilla de productos para cotizacion-->
             <div class="table-responsive-lg">
               <table class="table-hover table table-bordered grilla">
                 <thead class="thead-dark">
                   <tr>
-                    <th>Cod.Det.</th>
-                    <th>Nombre producto</th>
-                    <th>Marca</th>
-                    <th>Cantidad</th>
-                    <th>Precio unitario</th>
-                    <th>Subtotal</th>
+                    <th class="text-center">Cod.Det.</th>
+                    <th class="text-center">Nombre producto</th>
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Precio unitario</th>
+                    <th class="text-center">Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,10 +88,10 @@
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                      <h3>Total</h3>
+                      <h4>Total</h4>
                     </td>
                     <td align="center">
-                      <h3>$ <?php echo $_POST['total']; ?> </h3>
+                      <h4>$ <?php echo $_POST['total']; ?> </h4>
                     </td>
                   </tr>
                 </tbody>

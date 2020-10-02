@@ -1,10 +1,8 @@
 * {
   margin: 0px;
-  padding: 0px;
-  font-family: Arial, Helvetica, sans-serif;
-    
-
+  padding: 0px; 
 }
+
 #header {
   background-color: rgb(26, 143, 164);
   height: 54px;
@@ -88,4 +86,10 @@ ol {
   background-color:rgb(26, 143, 164);
   cursor: pointer;
   margin-left: 1%;
+}
+
+.titulos {
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
 }

@@ -84,8 +84,8 @@
                     if(count($resultado)){
                         foreach($resultado as $fila){
                             $filas[] = new pagos($fila['cod_pago'],$fila['num_factura'],$fila['metodo_pago'],
-                            $fila['sucursal'], $fila['fecha'], $fila['proveedor'], $fila['total'], 
-                            $fila['estado'],  $fila['cod_factura_compra']);
+                            $fila['observaciones'],$fila['sucursal'], $fila['fecha'], $fila['proveedor'], 
+                            $fila['total'],$fila['estado'],  $fila['cod_factura_compra']);
                         }
                     } 
                 }catch(PDOException $ex){
@@ -119,9 +119,9 @@
                     
                     if(count($resultado)){
                         foreach($resultado as $fila){
-                            $filas[] = new pagos($fila['cod_pago'], $fila['num_factura'], $fila['metodo_pago'], 
-                            $fila['sucursal'], $fila['fecha'],  $fila['proveedor'], $fila['total'],$fila['estado'],
-                            null);
+                            $filas[] = new pagos($fila['cod_pago'], $fila['num_factura'], $fila['metodo_pago'],
+                            $fila['observaciones'],$fila['sucursal'], $fila['fecha'],  $fila['proveedor'], 
+                            $fila['total'],$fila['estado'],null);
                         }
                     }
                     
@@ -201,8 +201,9 @@
                     $sql= 'select * from grilla_facturas_remito where (cod_factura_compra LIKE "%'.$criterio_min. '%" OR 
                             fecha LIKE "%'. $criterio_min. '%" OR proveedor LIKE "%'  .$criterio_min. '%" OR
                             sucursal LIKE "%'  .$criterio_min. '%" OR  total LIKE "%'  .$criterio_min. '%" OR 
-                            estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" ) 
-                            and (sucursal = "santa ana")';
+                            estado LIKE "%'  .$criterio_min. '%" OR  num_factura LIKE "%'  .$criterio_min. '%" OR
+                            tipo LIKE "%'  .$criterio_min. '%") 
+                            and (sucursal = "santa ana") and (estado="Pendiente")';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -319,7 +320,8 @@
                 }
             }
         }
-        public static function insertar_detalle_pago($conexion,$cod_pago,$nombre,$marca,$cantidad, $precio_unitario){
+
+     public static function insertar_detalle_pago($conexion,$cod_pago,$nombre,$marca,$cantidad, $precio_unitario){
         
             $detalle_insertado = false;
           
@@ -358,7 +360,7 @@
             }
         
         }
-        public static function cargar_detalles($cod_fac, $cod_pago){
+    public static function cargar_detalles($cod_fac, $cod_pago){
 
             $filas = repositorio_factura::obtener_detalles_factura(Conexion::obtenerConexion(),$cod_fac);
     
@@ -379,25 +381,29 @@
             }
     
         }
-        public static function pago_cargado($conexion,$cod_pago,$num_factura,$metodo_pago,$proveedor,$total,$cod_factura_compra){
+    public static function pago_cargado($conexion,$cod_pago,$num_factura,$metodo_pago,$observaciones,$proveedor,$total,
+                                        $cod_factura_compra){
         
             $remito_actualizado = false;
             
             if (isset($conexion)){
                 try{
-                    $sql = 'update pagos set num_factura = :num_factura, metodo_pago = :metodo_pago, proveedor = :proveedor, total = :total,
+                    $sql = 'update pagos set num_factura = :num_factura, metodo_pago = :metodo_pago, 
+                    observaciones = :observaciones, proveedor = :proveedor, total = :total,
                     cod_factura_compra = :cod_factura_compra  WHERE cod_pago =' . $cod_pago;
                     
                     $proveedortemp = $proveedor;
                     $totaltemp = $total;
                     $cod_octemp = $cod_factura_compra;
                     $metodotemp = $metodo_pago;
+                    $observacionestemp = $observaciones;
                     $numfactemp = $num_factura;
         
                     $sentencia = $conexion ->prepare($sql);
                     
                     $sentencia -> bindParam(':num_factura', $numfactemp, PDO::PARAM_STR);
                     $sentencia -> bindParam(':metodo_pago', $metodotemp, PDO::PARAM_STR);
+                    $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
                     $sentencia -> bindParam(':proveedor', $proveedortemp, PDO::PARAM_STR);
                     $sentencia -> bindParam(':total', $totaltemp, PDO::PARAM_STR);
                     $sentencia -> bindParam(':cod_factura_compra', $cod_factura_compra, PDO::PARAM_STR);
@@ -416,7 +422,7 @@
             }
             
         }
-        public static function insertar_egreso_factura($conexion,$monto){
+    public static function insertar_egreso_factura($conexion,$monto){
         
             $insertado = false;
         
@@ -450,6 +456,55 @@
             echo 'No hubo conexion !!!';
         }
         
-    } 
     }
+    public static function actualizar_estado_listo_pago($conexion,$cod_pago){
+        
+        $pago_actualizado = false;
+        
+        if (isset($conexion)){
+            try{
+    
+                $sql = 'update pagos set estado = 2 WHERE cod_pago =' . $cod_pago;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $pago_actualizado = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $pago_actualizado;
+        }
+        else{
+            echo 'No hay conexion!!';
+        }
+        
+    }
+    
+    public static function obtener_cod_pago($conexion,$cod_factura_compra){        
+        if (isset($conexion)){
+            $id = 0;
+            try{
+                $sql= 'select cod_pago from pagos where cod_factura_compra=' .$cod_factura_compra;
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchColumn() ;
+                
+                $id = intval($resultado);
+                     
+    
+                
+            }catch(PDOException $ex){
+                print 'ERROR UID' . $ex -> getMessage();
+            }
+        }else{ echo 'no';}
+        
+        return $id;
+    }
+
+}
 ?>

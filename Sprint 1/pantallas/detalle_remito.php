@@ -15,6 +15,7 @@
   }
 
   $total = repositorio_remito::calcular_precios($remito_id); 
+  
   ?>
   <html>
 
@@ -44,9 +45,9 @@
           <td colspan="2" class="titulo">DETALLE REMITO</td>
         </tr>
         <tr>
-          <td class="titulos">Cod. Remito:</td>
+          <td class="titulos">N° Remito:</td>
           <td class="valor">
-            <input type="text" readonly name="id_remito" id="id_remito" value="<?php echo $_POST['ver_detalle']; ?>">
+            <input type="text" readonly name="id_remito" id="id_remito" value="<?php echo $_POST['num_remito']; ?>">
           </td>
         </tr>
         <tr>
@@ -81,10 +82,10 @@
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                      <h3>Total</h3>
+                      <h4>Total</h4>
                     </td>
                     <td align="center">
-                      <h3>$ <?php echo $total; ?> </h3>
+                      <h4>$ <?php echo $total; ?> </h4>
                     </td>
                   </tr>
                 </tbody>
