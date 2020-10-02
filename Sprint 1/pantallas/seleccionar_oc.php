@@ -83,6 +83,21 @@ Conexion::abrirConexion();
                       }                      
 
                       ?>
+                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+        </table>
+    </div>
+
+
+
+
+    <div class="contenedor4">
+        <a href="<?php echo ruta_registrar_orden_de_compra?>"><button name="volver" id="volver">VOLVER</button></a>
+    </div>
+</body>
 
 
 

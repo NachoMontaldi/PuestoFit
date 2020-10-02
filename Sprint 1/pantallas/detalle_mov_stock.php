@@ -38,19 +38,34 @@
 
     <div id="formulario" class="form">
       <table class="tabla" border="1px">
+      
         <tr>
           <td colspan="4" class="titulo">DETALLE MOVIMIENTO DE STOCK</td>
         </tr>
+
         <tr>
+
           <td class="titulos">Cod. Movimiento:</td>
           <td class="valor">
             <input type="text" readonly name="cod_movimiento" id="cod_movimiento" value="<?php echo $_POST['ver_detalle']; ?>">
           </td>
-          <td class="titulos">Motivo de movimiento:</td>
+
+          <td class="titulos">Tipo de movimiento:</td>
           <td class="valor">
+            <input type="text" readonly name="tipo" id="tipo" value="<?php echo $_POST['tipo'];?>">
+          </td>
+
+        </tr> 
+        <tr>
+
+          <td class="titulos" >Motivo de movimiento:</td>
+          <td class="valor" colspan="3" >
             <input type="text" readonly name="motivo" id="motivo" value="<?php echo $_POST['motivo'];?>">
           </td>
+
+
         </tr>
+
         <tr>
           <td colspan="4">
             <!--Grilla de productos para cotizacion-->

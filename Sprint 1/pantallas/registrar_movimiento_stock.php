@@ -30,14 +30,18 @@ Conexion::abrirConexion();
 
     if (isset($_POST['enviar'])) {
 
-        echo $_POST['tipo_ajuste']; 
-
+        //Actualiza el estado del movimiento a 1
         $movimiento_validado = repositorio_movimientos_stock::validar_movimiento_stock(Conexion::obtenerConexion(), $id);      
 
+        //Actualiza los campos tipo, motivo y observaciones
         repositorio_movimientos_stock::insertar_movimiento_stock_validado(Conexion::obtenerConexion(), $_POST['tipo_ajuste'], 
                                                                         $_POST['motivo_ajuste'],$_POST['observaciones'], $id);
 
+        //Elimina los movimientos que tengan estado 0
         $borrar = repositorio_movimientos_stock::eliminar_falsos(Conexion::obtenerConexion());
+
+        //Actualiza la cantidad en stock_deposito de los productos cargados
+        repositorio_movimientos_stock::actualizar_stock_deposito_mov($id,$_POST['tipo_ajuste']);
 
         Redireccion::redirigir(ruta_movimientos_stock_principal);
     }
@@ -104,7 +108,6 @@ Conexion::abrirConexion();
                                     <th>Marca</th>
                                     <th>Cantidad</th>
                                     <th>ELIMINAR</th>
-                                    
                                 </tr>
                             <tbody>
                                     <?php
@@ -192,6 +195,7 @@ Conexion::abrirConexion();
                             <option value="Faltantes en recuento inventario">Faltantes en recuento inventario</option>
                             <option value="Sobrantes en recuento inventario">Sobrantes en recuento inventario</option>
                             <option value="Productos descartados por fallas">Productos descartados por fallas</option>
+                            <option value="Siniestro">Siniestro</option>
                             <option value="Otro motivo">Otro motivo (aclarar en observaciones)</option>
                         </select>
                     </td>

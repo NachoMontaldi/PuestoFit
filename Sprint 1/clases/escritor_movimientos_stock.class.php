@@ -34,11 +34,11 @@ class escritor_movimientos_stock{
         <td class="text-center"> <?php echo $fila ->obtener_tipo() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_motivo() ?>  </td>
-        <td class="text-center"> <?php echo $fila ->obtener_observaciones() ?>  </td>
         <td>
             <form method="post" action="<?php echo ruta_detalle_mov_stock; ?>">
             <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_mov(); ?>" >Detalle</button>
             <input  type="hidden" name="cod_mov"  id="cod_mov" value="<?php echo $fila ->obtener_cod_mov() ;?>">
+            <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila ->obtener_tipo() ;?>">
             <input  type="hidden" name="motivo"  id="motivo" value="<?php echo $fila ->obtener_motivo() ;?>">
             <input  type="hidden" name="observacion"  id="observacion" value="<?php echo $fila ->obtener_observaciones ();?>">
             </form> 
@@ -58,7 +58,6 @@ class escritor_movimientos_stock{
                 self::escribir_producto_sel($fila);
             
             }
- 
             }            else{
             //$_SESSION['pedido']=0;
         }
@@ -112,7 +111,7 @@ class escritor_movimientos_stock{
     public static function escribir_movimientos_principal(){
         
         $filas = repositorio_movimientos_stock::obtener_movimientos(Conexion::obtenerConexion());
-         
+
         if(count($filas)){
     
             foreach($filas as $fila){
@@ -133,18 +132,15 @@ class escritor_movimientos_stock{
         <td class="text-center"> <?php echo $fila ->obtener_cod_mov() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_tipo() ?>  </td>
-        <td class="text-center"> <?php 
-            $sucursal= repositorio_movimientos_stock::obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());
-             ?> 
-        </td>
-        
-        <td class="text-center"> <?php echo $fila ->obtener_motivo() ?></td>
-        <td class="text-center"> <?php echo $fila ->obtener_observaciones() ?></td>    
+        <td class="text-center"> <?php echo $sucursal= repositorio_movimientos_stock::
+        obtener_sucursal(Conexion::obtenerConexion(),$fila ->obtener_sucursal());?></td>
+        <td class="text-center"> <?php echo $fila ->obtener_motivo() ?></td>   
         <td>
             <form method="post" action="<?php echo ruta_detalle_mov_stock; ?>">
-
-                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_mov(); ?>" >Detalle</button>
+                <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" 
+                class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_mov();?>">Detalle</button>
                 <input  type="hidden" name="motivo"  id="motivo" value="<?php echo $fila ->obtener_motivo() ;?>">
+                <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila ->obtener_tipo();?>">
                 <input  type="hidden" name="observacion"  id="observacion" value="<?php echo $fila ->obtener_observaciones();?>">
             </form>
         </td>

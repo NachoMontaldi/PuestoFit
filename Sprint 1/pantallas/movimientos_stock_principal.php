@@ -43,13 +43,11 @@
         </p>
       </div>
     </form>
-    
-   
     <!--TABLA NACHO-->
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
-          <tr colspan="6">
+          <tr colspan="5">
             <div class="titulo_grilla"><h4>MOVIMIENTOS DE STOCK</h4></div>
           </tr>
           <tr></tr>
@@ -58,14 +56,12 @@
             <th>Tipo</th>
             <th>Sucursal</th>
             <th>Motivo</th>
-            <th>Observaciones</th>
             <th>DETALLE</th>
           </tr>
         </thead>
         <tbody>
             <?php
                 if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
-                                
 
                 $criterio= $_POST['criterio']; 
                 escritor_movimientos_stock::escribir_filas_filtradas_movimientos($criterio);

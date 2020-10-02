@@ -100,7 +100,7 @@ if (isset($_POST['enviar'])) {
           </form>
 
         </td>
-        <td rowspan="6">
+        <td rowspan="5">
           <!--Grilla de productos-->
           <div class="table-responsive-lg">
             <table id="grilla" class="table-hover table table-bordered">

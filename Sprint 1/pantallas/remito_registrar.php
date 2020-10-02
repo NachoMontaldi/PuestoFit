@@ -44,7 +44,7 @@ if (isset($_POST['registrar_remito'])) {
                                         $_POST['cod_factura_compra2']);  
     
     //Actualiza la tabla movimientos_stock y la tabla stock_deposito
-    repositorio_movimientos_stock::cargar_mov_stock($id);
+    repositorio_movimientos_stock::cargar_mov_stock_compras($id);
 
     //Actualizar estado de factura a 4
     repositorio_factura::actualizar_estado_entregado_factura(Conexion::obtenerConexion(),$_POST['cod_factura_compra2']) ;
