@@ -8,11 +8,7 @@
     border-radius: 5px;
     padding: 5px;
 }
-{
-    padding: 5px;
-    text-align: right;
-    font-size: 18px;
-}
+
 
 /* ////////////////////////////////////GRILLA ////////////////////////////////////////////////////// */
 .table-responsive-lg{
@@ -26,7 +22,7 @@
 
 .grilla{
     text-align: center;
-    font-family: Actor;
+    font-family: 'Actor';
 }
 
 .grilla tbody {

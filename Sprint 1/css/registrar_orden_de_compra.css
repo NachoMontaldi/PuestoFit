@@ -36,12 +36,6 @@ textarea {
     
 }
 
-{
-    padding: 15px;
-    text-align: right;
-    font-size: 18px;
-}
-
 .seg_col{
   width: 30%;
 }
@@ -116,5 +110,5 @@ textarea {
   
 #grilla{
     text-align: center;
-    font-family: Actor;
+    font-family: 'Actor';
 }

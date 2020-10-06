@@ -44,9 +44,11 @@ define('ruta_detalle_pagos',servidor.'/pantallas/detalle_pagos.php');
 define('ruta_movimientos_stock_principal',servidor.'/pantallas/movimientos_stock_principal.php');
 define('ruta_detalle_mov_stock',servidor.'/pantallas/detalle_mov_stock.php');
 define('ruta_registrar_movimiento_stock',servidor.'/pantallas/registrar_movimiento_stock.php');
+define('ruta_registrar_detalle_movimiento',servidor.'/pantallas/registrar_detalle_movimiento.php');
 define('ruta_agregar_producto_movimiento',servidor.'/pantallas/agregar_producto_movimiento.php');
 define('ruta_clientes_principal',servidor.'/pantallas/clientes_principal.php');
 define('ruta_alta_de_cliente',servidor.'/pantallas/alta_de_cliente.php');
+define('ruta_modificar_cliente',servidor.'/pantallas/modificar_cliente.php');
 
 
 

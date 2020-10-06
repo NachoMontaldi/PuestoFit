@@ -94,7 +94,7 @@ class escritor_movimientos_stock{
             <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_precio_compra()." $" ?>  </td>
             <td>
-                <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
+                <form method="post" action="<?php echo ruta_registrar_detalle_movimiento ?>">
 
                     <button type="submit" style="background-color:light-gray; padding:8% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_prod(); ?>" >Seleccionar</button>
                     <input type="hidden" name="marca"  id="marca" value="<?php echo $fila -> obtener_marca() ;?>">
@@ -177,7 +177,7 @@ class escritor_movimientos_stock{
                 <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
                 
                 <td>
-                    <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
+                    <form method="post" action="<?php echo ruta_registrar_detalle_movimiento?>">
                         <button type="submit" style="background-color:light-gray; padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_mov(); ?>" >Eliminar</button>
                     </form>
                 </td>
@@ -214,5 +214,6 @@ class escritor_movimientos_stock{
                 <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
         </tr>
     <?php
-    } 
+    }
+
 }

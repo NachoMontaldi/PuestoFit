@@ -32,12 +32,7 @@ table {
     width:20%;
 }
 
-{
-    padding: 15px;
-    text-align: right;
-    font-size: 18px;
-    width: 18%;
-}
+
 
 #celda-avp{
     padding: 12px;
@@ -105,5 +100,5 @@ table {
   
   #grilla{
     text-align: center;
-    font-family: Actor;
+    font-family: 'Actor';
   }

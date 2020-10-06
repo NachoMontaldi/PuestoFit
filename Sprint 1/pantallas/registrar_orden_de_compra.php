@@ -50,7 +50,7 @@ if (isset($_POST['enviar'])) {
     repositorio_cotizacion::actualizar_estado_listo(Conexion::obtenerConexion(),$_POST['cod_cotizacion']);
 
     //redirige despues de insertar
-    //Redireccion::redirigir(ruta_ordenes_de_compra_principal); 
+    Redireccion::redirigir(ruta_ordenes_de_compra_principal); 
 }
 
 ?>

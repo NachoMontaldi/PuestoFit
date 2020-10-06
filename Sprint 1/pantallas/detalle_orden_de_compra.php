@@ -21,7 +21,7 @@
     <title>Detalle Orden de Compra</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/puestofit/css/cotizaciones_cargar.css" />
-    <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family='Actor'" rel="stylesheet" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />

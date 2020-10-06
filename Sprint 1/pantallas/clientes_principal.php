@@ -3,27 +3,30 @@
 include_once '../config.inc.php';
 include_once '../conexion.class.php';
 include_once '../pantallas/barra_nav.php';
+include_once '../clases/clientes.class.php';
+include_once '../clases/repositorio_clientes.class.php';
+include_once '../clases/escritor_clientes.class.php';
 
 Conexion::abrirConexion();
 
-/* if (isset($_POST['guardar_cambios'])) {
+if (isset($_POST['guardar_cambios'])) {
 
 
 
-  $cambio = repositorio_proveedores::actualizar_proveedores(
+  $cambio = repositorio_clientes::actualizar_clientes(
     Conexion::obtenerConexion(),
     $_POST['id'],
-    $_POST['cuil'],
     $_POST['nombre'],
+    $_POST['dni'],
+    $_POST['fecha_nac'],
     $_POST['direccion'],
     $_POST['telefono'],
     $_POST['email']
   );
-  print 'se guardo el cambio realizado con exito!';
- 
+  
 
-  //Conexion :: cerrarConexion();
-}  */
+  
+}  
 ?>
 <html>
 
@@ -35,7 +38,7 @@ Conexion::abrirConexion();
   <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
   <!---->
 
-  <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family='Actor'' rel='stylesheet'>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -78,7 +81,7 @@ Conexion::abrirConexion();
           <div class="titulo_grilla"><h4>CLIENTES</h4></div>
         </tr>
         <tr>
-          <th>Cod. Cliente</th>
+          <th>Cod. Cli.</th>
           <th>DNI/CUIL</th>
           <th>Nombre</th>
           <th>Fecha Nacimiento</th>
@@ -87,24 +90,27 @@ Conexion::abrirConexion();
           <th>Email</th>
           <th>EDITAR</th>
           <th>ELIMINAR</th>
-        </tr>
+        </tr> 
       </thead>
       <tbody>
         <?php
-/*         //Metodo para borrar un elemento de la tabla
+         //Metodo para borrar un elemento de la tabla
 
         if (isset($_POST['eliminar'])) {
 
-          repositorio_proveedores::eliminar_proveedor(Conexion::obtenerConexion(), $_POST['eliminar']);
-        }
+          repositorio_clientes::eliminar_cliente(Conexion::obtenerConexion(), $_POST['eliminar']);
+        } 
         //Metodo para cargar la tabla desde la base
+        
         if (isset($_POST['busqueda'])) { //si entra en el if quiere decir que la pagina se cargo por la busqueda
+
           $criterio = $_POST['criterio'];
-          escritor_filas::escribir_filas_filtradas_proveedores($criterio);
+          escritor_clientes::escribir_filas_filtradas_clientes($criterio);
+
         } else { //si entra por else quiere decir que la pagina cargo desde la barra de navegacion
 
-          escritor_filas::escribir_filas_proveedores();
-        } */
+          escritor_clientes::escribir_filas_clientes();
+        } 
         ?>
       </tbody>
     </table>

@@ -13,8 +13,8 @@ Conexion::abrirConexion();
 <head></head>
 <title>Seleccionar producto para el ajuste de stock</title>
 <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-<link rel="stylesheet" type="text/css" href="/puestofit/css/agregar_producto_pedido.css">
-<link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="/puestofit/css/seleccionar_pedido_rep.css">
+<link href='https://fonts.googleapis.com/css?family='Actor'' rel='stylesheet'>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -90,7 +90,7 @@ Conexion::abrirConexion();
 
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_registrar_movimiento_stock ?>"><button name="volver" id="volver">VOLVER</button></a>
+        <a href="<?php echo ruta_registrar_detalle_movimiento ?>"><button name="volver" id="volver">VOLVER</button></a>
     </div>
 </body>
 

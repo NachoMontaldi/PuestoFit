@@ -2,31 +2,26 @@
 
 include_once '../conexion.class.php';
 include_once '../config.inc.php';
-
+include_once '../clases/clientes.class.php';
+include_once '../clases/repositorio_clientes.class.php';
+include_once '../clases/redireccion.class.php';
 include_once '../pantallas/barra_nav.php';
 
-/* if (isset($_POST['enviar'])) {
+if (isset($_POST['enviar'])) {
 
     Conexion::abrirConexion();
 
-    //$id_proveedor = repositorio_proveedores::obtener_id_proveedor(Conexion::obtenerConexion(), $_POST['proveedor']);
+    $cliente = new Clientes('', $_POST['nombre'], $_POST['dni'], $_POST['fecha_nac'],$_POST['direccion'], $_POST['telefono'], $_POST['email']);
 
-    $inventario = new Inventario('', $_POST['nombre'],null, $_POST['cantidadMin'], $_POST['categoria'],$_POST['marca'], $_POST['precioC'], $_POST['precioV'], $_POST['contieneT'], $_POST['contieneA'], $_POST['contieneL'], $_POST['descripcion'], '');
+    $cliente_insertado = repositorio_clientes::insertar_cliente(Conexion::obtenerConexion(), $cliente);
 
-    //Salvo la cantidad
-    $inventario_insertado = repositorio_inventario::insertar_inventario(Conexion::obtenerConexion(), $inventario);
-    $cod_prod = repositorio_inventario::obtener_ultimo_insertado(Conexion::obtenerConexion());
-
-    //Insertar nuevo producto a tabla stock por deposito a todas las sucursales
-    $stock_insertado = repositorio_inventario::insertar_prod_stock_deposito(Conexion::obtenerConexion(),$cod_prod);
-
-    if ($inventario_insertado && $stock_insertado) {
-
-        Redireccion::redirigir(ruta_inventario_principal);
+    if ($cliente_insertado) {
+        Redireccion::redirigir(ruta_clientes_principal);
     }
-} */
 
-Conexion::cerrarConexion();
+    Conexion::cerrarConexion();
+} 
+
 
 ?>
 <!DOCTYPE html>
@@ -35,8 +30,8 @@ Conexion::cerrarConexion();
 <head>
     <title>Registrar un cliente</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/agregar_producto_pedido.css">
-    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/alta_mod_proveedor.css">
+    <link href='https://fonts.googleapis.com/css?family='Actor'' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -68,7 +63,7 @@ Conexion::cerrarConexion();
                     </td>
                 </tr>
                 <tr>
-                    <td class="titulos">DNI:</td>
+                    <td class="titulos">DNI/CUIL:</td>
                     <td class="valor">
                         <input type="text" name="dni" id="dni">
                     </td>

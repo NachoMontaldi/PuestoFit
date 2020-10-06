@@ -43,13 +43,16 @@ if (isset($_POST['registrar_remito'])) {
         repositorio_remito::remito_cargado(Conexion::obtenerConexion(), $id, $_POST['num_remito'], $_POST['proveedor'], $_POST['total2'], 
                                         $_POST['cod_factura_compra2']);  
     
-    //Actualiza la tabla movimientos_stock y la tabla stock_deposito
+    //Actualiza las tablas movimientos_stock, detalle_movimientos de stock y stock_deposito
     repositorio_movimientos_stock::cargar_mov_stock_compras($id);
 
     //Actualizar estado de factura a 4
     repositorio_factura::actualizar_estado_entregado_factura(Conexion::obtenerConexion(),$_POST['cod_factura_compra2']) ;
 
-    //redirige despues de insertar
+    //Elimina los movimientos_stock que tengan estado 0
+    $borrar = repositorio_movimientos_stock::eliminar_falsos(Conexion::obtenerConexion());
+    
+    //redirige a remitos_principal despues de insertar
     Redireccion::redirigir(ruta_remitos_principal);
   }  
   ?>

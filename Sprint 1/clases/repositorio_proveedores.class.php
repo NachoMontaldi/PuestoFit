@@ -90,6 +90,7 @@
             }
         }
      }
+     
      public static function obtener_proveedores_filtrado($conexion,$criterio){
         
         $filas = [];
@@ -124,6 +125,7 @@
         
         return $filas;
     }
+
     public static function obtener_proveedor($conexion,$cod_prov){
         
         $filas = '';
@@ -175,14 +177,6 @@
 
                 $sentencia -> execute();
 
-                
-                /*$resultado = $sentencia -> rowCount();
-
-                if (count($resultado)) {
-                    $actualizacion_correcta = true;
-                } else {
-                    $actualizacion_correcta = false;
-                }*/
             
         }catch(PDOException $ex){
                 print 'ERROR ' . $ex -> getMessage();

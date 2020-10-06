@@ -232,6 +232,17 @@ create table egresos(
     primary key (cod_egreso)
 );
 
+create table clientes (
+    cod_cliente int not null unique auto_increment,
+    nombre varchar(255) null,
+    dni int null,
+    fecha_nacimiento date,
+    direccion varchar(255)  null,
+    telefono varchar(255),
+    email varchar(255),
+    primary key (cod_cliente)
+);
+
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);
