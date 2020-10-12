@@ -191,9 +191,7 @@ if (isset($_POST['enviar'])) {
         <td class="valor">
             <!-- desplegable -->
             <select name="metodo_pago" id="metodo_pago">
-                <option selected value=""> Elije un Metodo de pago</option>
-        
-              
+              <option selected value=""> Elije un Metodo de pago</option>            
               <option value="Transferencia Bancaria">Transferencia Bancaria</option>  
               <option value="Pago con tarjeta">Pago con tarjeta</option>  
               <option value="Cheque">Cheque</option>  

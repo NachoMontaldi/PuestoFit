@@ -49,6 +49,12 @@ define('ruta_agregar_producto_movimiento',servidor.'/pantallas/agregar_producto_
 define('ruta_clientes_principal',servidor.'/pantallas/clientes_principal.php');
 define('ruta_alta_de_cliente',servidor.'/pantallas/alta_de_cliente.php');
 define('ruta_modificar_cliente',servidor.'/pantallas/modificar_cliente.php');
+define('ruta_ventas_principal',servidor.'/pantallas/ventas_principal.php');
+define('ruta_registrar_venta',servidor.'/pantallas/registrar_venta.php');
+define('ruta_agregar_producto_venta',servidor.'/pantallas/agregar_producto_venta.php');
+define('ruta_agregar_cliente_venta',servidor.'/pantallas/agregar_cliente_venta.php');
+define('ruta_registrar_detalle_venta',servidor.'/pantallas/registrar_detalle_venta.php');
+define('ruta_detalle_venta',servidor.'/pantallas/detalle_venta.php');
 
 
 

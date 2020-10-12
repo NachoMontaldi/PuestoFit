@@ -223,7 +223,7 @@
         return $filas;
     }
 
-    public static function actualizar_inventario($conexion, $cod_prod, $nombre, $existencia, $cantidad_min, $marca, 
+    public static function actualizar_inventario($conexion, $cod_prod, $nombre, $cantidad_min, $marca, 
                                                  $categoria, $precio_compra, $precio_venta, $contiene_T, $contiene_A, 
                                                  $contiene_L, $descripcion){
         $actualizacion_correcta = false;
@@ -231,13 +231,12 @@
         if (isset($conexion)){
             
             try{
-                $sql = "UPDATE inventario set nombre = :nombre, existencia = :existencia, cantidad_min = :cantidad_min, marca = :marca, categoria = :categoria, precio_compra = :precio_compra, precio_venta = :precio_venta, contiene_T = :contiene_T, contiene_A = :contiene_A, contiene_L = :contiene_L, descripcion = :descripcion WHERE
+                $sql = "UPDATE inventario set nombre = :nombre,  cantidad_min = :cantidad_min, marca = :marca, categoria = :categoria, precio_compra = :precio_compra, precio_venta = :precio_venta, contiene_T = :contiene_T, contiene_A = :contiene_A, contiene_L = :contiene_L, descripcion = :descripcion WHERE
                 cod_prod = :cod_prod ";
 
                 $sentencia = $conexion ->prepare($sql);
 
                 $sentencia -> bindParam (':nombre', $nombre, PDO :: PARAM_STR);
-                $sentencia -> bindParam (':existencia', $existencia, PDO :: PARAM_STR);
                 $sentencia -> bindParam (':cantidad_min', $cantidad_min, PDO :: PARAM_STR);
                 $sentencia -> bindParam (':marca', $marca, PDO :: PARAM_STR);
                 $sentencia -> bindParam (':categoria', $categoria, PDO :: PARAM_STR);
@@ -384,6 +383,43 @@
                 $sql= 'select * from inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
                        nombre LIKE "%'. $criterio_min. '%" OR marca LIKE "%' .$criterio_min.'%" OR 
                        categoria LIKE "%'  .$criterio_min.'%" OR precio_compra LIKE "%' .$criterio_min.'%") 
+                       ';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new Inventario($fila['cod_prod'], $fila['nombre'], $fila['existencia'],
+                                      $fila['cantidad_min'], $fila['marca'], $fila['categoria'],$fila['precio_compra'],
+                                      $fila['precio_venta'],$fila['contiene_T'],$fila['contiene_A'],
+                                      $fila['contiene_L'],$fila['descripcion'],$fila['fecha_registro']);
+                    }
+                }
+
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
+
+    public static function obtener_productos_filtrados_vta($conexion,$criterio){
+        
+        $filas = [];
+        $criterio_min=strtolower($criterio);
+        
+        if (isset($conexion)){
+        
+            try{
+                $sql= 'select * from inventario where (cod_prod LIKE "%'.$criterio_min. '%" OR 
+                       nombre LIKE "%'. $criterio_min. '%" OR marca LIKE "%' .$criterio_min.'%" OR 
+                       categoria LIKE "%'  .$criterio_min.'%" OR precio_venta LIKE "%' .$criterio_min.'%") 
                        ';
                 
                 $sentencia = $conexion ->prepare($sql);

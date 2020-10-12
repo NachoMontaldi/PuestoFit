@@ -40,6 +40,7 @@ class escritor_movimientos_stock{
             <input  type="hidden" name="cod_mov"  id="cod_mov" value="<?php echo $fila ->obtener_cod_mov() ;?>">
             <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila ->obtener_tipo() ;?>">
             <input  type="hidden" name="motivo"  id="motivo" value="<?php echo $fila ->obtener_motivo() ;?>">
+            <input  type="hidden" name="fecha"  id="fecha" value="<?php echo $fila ->obtener_fecha() ; ?>">
             <input  type="hidden" name="observacion"  id="observacion" value="<?php echo $fila ->obtener_observaciones ();?>">
             </form> 
         </td>
@@ -141,6 +142,7 @@ class escritor_movimientos_stock{
                 class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_mov();?>">Detalle</button>
                 <input  type="hidden" name="motivo"  id="motivo" value="<?php echo $fila ->obtener_motivo() ;?>">
                 <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila ->obtener_tipo();?>">
+                <input  type="hidden" name="fecha"  id="fecha" value="<?php echo $fila ->obtener_fecha() ; ?>">
                 <input  type="hidden" name="observacion"  id="observacion" value="<?php echo $fila ->obtener_observaciones();?>">
             </form>
         </td>

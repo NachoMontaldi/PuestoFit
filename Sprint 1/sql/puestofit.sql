@@ -243,6 +243,30 @@ create table clientes (
     primary key (cod_cliente)
 );
 
+create table ventas (
+    cod_venta int not null unique auto_increment,
+    fecha date,
+    num_factura int,
+    tipo_factura varchar(255),
+    cod_cliente int,
+    sucursal int,
+    met_pago varchar(255),
+    observaciones varchar(255),
+    importe int,
+    primary key (cod_venta),
+    FOREIGN key (cod_cliente) REFERENCES clientes(cod_cliente) on DELETE CASCADE
+);
+create table detalle_ventas(
+    cod_det_venta int unique auto_increment,
+    cod_venta int,
+    nombre varchar(255),
+    marca varchar(255),
+    cantidad int,
+    precio_unitario int,
+    primary key (cod_det_venta),
+    FOREIGN key (cod_venta) REFERENCES ventas(cod_venta) on DELETE CASCADE
+);
+
 /* Claves*/
 
 ALTER TABLE stock_deposito ADD CONSTRAINT FK_stock_cod_deposito FOREIGN KEY(cod_deposito) REFERENCES depositos(cod_deposito);
@@ -384,6 +408,14 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         INNER JOIN inventario 
         ON detalle_movimientos_stock.cod_producto = inventario.cod_prod
         
+    /*Vista grilla ventas de ventas principal*/
+        CREATE OR REPLACE VIEW 
+        grilla_ventas AS 
+        SELECT cod_venta, depositos.nombre as sucursal, clientes.cod_cliente as cliente ,fecha, importe FROM ventas
+        INNER JOIN depositos 
+        ON ventas.sucursal = depositos.cod_deposito
+        INNER JOIN clientes
+        ON ventas.cod_cliente = clientes.cod_cliente;
        
 
 

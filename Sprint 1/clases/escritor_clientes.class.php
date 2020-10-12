@@ -94,6 +94,83 @@ public static function escribir_filas_filtradas_clientes($criterio){
     </tr>
 <?php
         }
+        /////////////////////ESCRITORES PARA AGREGAR CLIENTE A LA VENTA 
+        public static function escribir_filas_clientes_agregar(){
+        
+            $filas = repositorio_clientes::obtener_clientes(Conexion::obtenerConexion());
+            
+            if(count($filas)){
+    
+                foreach($filas as $fila){
+                    self::escribir_fila_clientes_agregar($fila);
+                }
+    
+                }            else{
+             }
+            }
+        
+        public static function escribir_fila_clientes_agregar($fila){
+            if(!isset($fila)){
+    
+                return;
+            }
+            ?>
+        <tr>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_cliente() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_dni() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_direccion() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_telefono() ?>  </td>
+                <td>
+                    <form method="post" action="<?php echo ruta_registrar_venta ?>">
+                        <button type="submit"  style="background-color:light-gray; padding:6% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_cliente(); ?>" widht= 5%>Seleccionar</button>
+                        <input  type="hidden" name="nombre"  id="nombre" value="<?php echo $fila -> obtener_nombre() ;?>">
+                    </form>
+                </td>
+               
+        </tr>
+    <?php
+            }
+    
+    public static function escribir_filas_filtradas_clientes_agregar($criterio){
+            
+                $filas = repositorio_clientes::obtener_clientes_filtrados(Conexion::obtenerConexion(),$criterio);
+                
+                if(count($filas)){
+        
+                    foreach($filas as $fila){
+                    
+                        self::escribir_fila_cliente_agregar($fila);
+                    
+                    }
+        
+                }else{
+                    //$_SESSION['pedido']=0;
+                }
+            }
+        
+        public static function escribir_fila_cliente_agregar($fila){
+            if(!isset($fila)){
+    
+                return;
+            }
+            ?>
+        <tr>
+                <td class="text-center"> <?php echo $fila ->obtener_cod_cliente() ?></td>
+                <td class="text-center"> <?php echo $fila ->obtener_dni() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_direccion() ?>  </td>
+                <td class="text-center"> <?php echo $fila ->obtener_telefono() ?>  </td>
+                <td>
+                    <form method="post" action="<?php echo ruta_registrar_venta ?>">
+                        <button type="submit"  style="background-color:light-gray; padding:6% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="seleccionar" name="seleccionar" value="<?php echo $fila->obtener_cod_cliente(); ?>" widht= 5%>Seleccionar</button>
+                        <input  type="hidden" name="nombre"  id="nombre" value="<?php echo $fila -> obtener_nombre() ;?>">
+                    </form>
+                </td>
+                
+        </tr>
+    <?php
+            }
 
 
 }

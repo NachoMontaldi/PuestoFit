@@ -17,7 +17,7 @@
         
       
       
-      $cambio = repositorio_inventario :: actualizar_inventario(Conexion :: obtenerConexion(),$_POST['id'],$_POST['nombre'],$_POST['cantidad'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion']);
+      $cambio = repositorio_inventario :: actualizar_inventario(Conexion :: obtenerConexion(),$_POST['id'],$_POST['nombre'],$_POST['cantidadMin'],$_POST['marca'],$_POST['categoria'],$_POST['precioC'],$_POST['precioV'],$_POST['contieneT'],$_POST['contieneA'],$_POST['contieneL'],$_POST['descripcion']);
       print 'se guardo el cambio realizado con exito!';
      
       
@@ -72,8 +72,8 @@
             <th>Cod. Prod</th>
             <th>Nombre</th>
             <th>Existencia</th>
-            <th>Categoría</th>
             <th>Marca</th>
+            <th>Categoría</th>
             <th>Precio compra</th>
             <th>Precio venta</th> 
             <th>DETALLE</th>
