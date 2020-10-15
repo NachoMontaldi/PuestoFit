@@ -82,6 +82,7 @@
       
     
     <form method="post" action="<?php echo ruta_registrar_movimiento_stock ?>">
+      <br>
       <a href="<?php echo ruta_registrar_movimiento_stock?>"><button type="submit" name="registrar_mov_stock" id="rped" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>  REGISTRAR AJUSTE DE STOCK</button></a>                      
     </form>
     </div>

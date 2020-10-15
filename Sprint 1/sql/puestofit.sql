@@ -253,9 +253,11 @@ create table ventas (
     met_pago varchar(255),
     observaciones varchar(255),
     importe int,
+    estado int,
     primary key (cod_venta),
     FOREIGN key (cod_cliente) REFERENCES clientes(cod_cliente) on DELETE CASCADE
 );
+
 create table detalle_ventas(
     cod_det_venta int unique auto_increment,
     cod_venta int,
@@ -410,8 +412,9 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         
     /*Vista grilla ventas de ventas principal*/
         CREATE OR REPLACE VIEW 
-        grilla_ventas AS 
-        SELECT cod_venta, depositos.nombre as sucursal, clientes.cod_cliente as cliente ,fecha, importe FROM ventas
+        grilla_ventas_principal AS 
+        SELECT cod_venta,fecha, num_factura, tipo_factura, clientes.nombre as cliente ,
+        depositos.nombre as sucursal, met_pago, observaciones , importe, estado FROM ventas
         INNER JOIN depositos 
         ON ventas.sucursal = depositos.cod_deposito
         INNER JOIN clientes

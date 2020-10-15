@@ -25,7 +25,7 @@
         <a href="">Ventas</a>
           <ul>
               <li><a href="<?php echo ruta_ventas_principal?>">Ventas por deposito</a></li>
-              <li><a href="<?php echo ruta_registrar_detalle_venta?>">Registrar ventas</a></li>
+              <!-- <li><a href="<?php?>">Registrar ventas</a></li> -->
           </ul>
       </li>
       <li><a href="<?php echo ruta_proveedor_principal ?>">Proveedores</a></li>

@@ -11,9 +11,9 @@
         
         
 
-        /* public static function escribir_filas_filtradas_ventas($criterio){
+        public static function escribir_filas_filtradas_ventas($criterio){
                                     
-            $filas = repositorio_venta::obtener_venta_filtradas(Conexion::obtenerConexion(),$criterio);
+            $filas = repositorio_ventas::obtener_venta_filtradas(Conexion::obtenerConexion(),$criterio);
             
             if(count($filas)){
 
@@ -31,70 +31,76 @@
                 return;
             }
             ?>
-        <tr>
+            <tr>
                 <td class="text-center"> <?php echo $fila ->obtener_venta() ?></td>
-                <td class="text-center"> <?php 
-                    $sucursal= repositorio_venta::obtener_venta(Conexion::obtenerConexion(),$fila -> obtener_sucursal());
-                    echo $sucursal; ?> 
-                </td>
-                <td class="text-center"> <?php echo $fila -> obtener_cliente() ?>  </td>
-                <td class="text-center"> <?php echo $fila ->//obtener_fecha() ?>  </td>                
-                <td>
+                <td class="text-center"> <?php echo $fila ->obtener_sucursal()?></td>
+                <td class="text-center"><?php echo $fila ->obtener_cod_cliente()?>    </td>
+                <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>  
+                <td class="text-center"> <?php echo $fila ->obtener_importe() ?>  </td>              
                 <td>
                     <form method="post" action="<?php echo ruta_detalle_venta; ?>">
-                        <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Detalle</button>
-                        <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_numero_factura() ;?>">
+                        <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_venta(); ?>" >Detalle</button>
+                        <input  type="hidden" name="cod_venta"  id="cod_total" value="<?php echo $fila ->obtener_venta() ;?>">
+                        <input  type="hidden" name="fecha_venta"  id="fecha_venta" value="<?php echo $fila ->obtener_fecha() ;?>">
+                        <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_num_factura() ;?>">
                         <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila -> obtener_tipo_factura() ;?>">
-                        <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
+                        <input  type="hidden" name="importe"  id="importe" value="<?php echo $fila -> obtener_importe() ;?>">
                     </form> 
                 </td>
-              
-        </tr>
-    <?php
-    }
-
-    public static function escribir_ventas(){
-        
-        $filas = repositorio_venta:://obtener_ventas_compra(Conexion::obtenerConexion());
-        
-        if(count($filas)){
-    
-            foreach($filas as $fila){
-                self::escribir_venta($fila);
-            }
-    
-        }            
-    
-    }
-    
-    public static function escribir_venta($fila){
-            if(!isset($fila)){
-    
-                return;
-            }
-            ?>
-        <tr>
-            <td class="text-center"> <?php echo $fila ->obtener_venta() ?></td>
-            <td class="text-center"> <?php 
-                $sucursal= repositorio_venta:://obtener_venta(Conexion::obtenerConexion(),$fila ->//obtener_sucursal());
-                echo $sucursal; ?> 
-            </td>
-            <td class="text-center"> <?php echo $fila ->//obtener_cliente() ?>  </td>
-            <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>                
-            <td>
-                <form method="post" action="<?php echo ruta_detalle_venta; ?>">
-    
-                    <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_cod_factura_compra(); ?>" >Detalle</button>
-                    <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_numero_factura() ;?>">
-                    <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila -> obtener_tipo_factura() ;?>">
-                    <input  type="hidden" name="total"  id="total" value="<?php echo $fila -> obtener_total() ;?>">
-                </form>
-            </td>
-        </tr>
-    <?php
+                <td>
+                    <form method="post" action="<?php echo $_SERVER['PHP_SELF' ] ?>">
+                        <button type="submit" style="background-color:#ff7514; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php /* echo $fila->obtener_venta();  */?>" >Anular</button>
+                    </form>
+                </td>
+            </tr>
+            <?php
         }
 
- */
+        public static function escribir_ventas(){
+            
+            $filas = repositorio_ventas::obtener_venta(Conexion::obtenerConexion());
+            
+            if(count($filas)){
+        
+                foreach($filas as $fila){
+                    self::escribir_venta($fila);
+                }
+        
+            }            
+        
+        }
+        
+        public static function escribir_venta($fila){
+                if(!isset($fila)){
+        
+                    return;
+                }
+                ?>
+            <tr>
+                    <td class="text-center"> <?php echo $fila ->obtener_venta() ?></td>
+                    <td class="text-center"> <?php echo $fila ->obtener_sucursal()?></td>
+                    <td class="text-center"><?php echo $fila ->obtener_cod_cliente()?>    </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>  
+                    <td class="text-center"> <?php echo "$".$fila ->obtener_importe() ?>  </td>              
+                    <td>
+                        <form method="post" action="<?php echo ruta_detalle_venta; ?>">
+                            <button type="submit" style="background-color:light-gray; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="ver_detalle" name="ver_detalle" value="<?php echo $fila->obtener_venta(); ?>" >Detalle</button>
+                            <input  type="hidden" name="cod_venta"  id="cod_total" value="<?php echo $fila ->obtener_venta() ;?>">
+                            <input  type="hidden" name="fecha_venta"  id="fecha_venta" value="<?php echo $fila ->obtener_fecha() ;?>">
+                            <input  type="hidden" name="num_factura"  id="num_factura" value="<?php echo $fila ->obtener_num_factura() ;?>">
+                            <input  type="hidden" name="tipo"  id="tipo" value="<?php echo $fila -> obtener_tipo_factura() ;?>">
+                            <input  type="hidden" name="importe"  id="importe" value="<?php echo $fila -> obtener_importe() ;?>">
+                        </form> 
+                    </td>
+                    <td>
+                        <form method="post" action="<?php echo $_SERVER['PHP_SELF' ] ?>">
+                            <button type="submit" style="background-color:#ff7514; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php /* echo $fila->obtener_venta();  */?>" >Anular</button>
+                        </form>
+                    </td>
+
+            </tr>
+        <?php
+            }
 
     public static function escribir_productos_sel(){
             
@@ -161,16 +167,16 @@
     public static function escribir_detalles_venta($id) {
 
         $filas = repositorio_ventas::obtener_detalles_venta(Conexion::obtenerConexion(),$id);
-
         if(count($filas)){
-
             foreach($filas as $fila){
 
                 self::escribir_detalle_venta($fila);
                 
             }
 
-        } 
+        } else {
+            print 'tomal';
+        }
 
     }
 
@@ -203,6 +209,54 @@
             ?>   
             </td>    
         </tr>
+<?php
+}
+
+public static function escribir_detalles_venta_reg($id) {
+
+    $filas = repositorio_ventas::obtener_detalles_venta(Conexion::obtenerConexion(),$id);
+    
+    if(count($filas)){
+        
+        foreach($filas as $fila){
+
+            self::escribir_detalle_venta_reg($fila);
+            
+        }
+
+    }
+
+}
+
+public static function escribir_detalle_venta_reg($fila){
+    
+    if(!isset($fila)){
+
+            return;
+    }
+
+        ?>
+                    
+    <tr>
+       
+        <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() ?></td>
+        <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td> 
+        <td class="text-center">
+        <?php
+                                            
+            $subtotal= $fila -> obtener_cantidad() * $fila -> obtener_precio_unitario();
+                echo "$".$subtotal;
+                
+        ?>   
+        </td>
+        <td>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                <button type="submit" style="background-color:rgba(177, 60, 30, 0.9); padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_venta(); ?>" widht= 5%>Eliminar</button>
+            </form>
+        </td>    
+    </tr>
 <?php
 }
 

@@ -3,21 +3,39 @@
 include_once '../conexion.class.php';
 include_once '../config.inc.php';
 include_once '../pantallas/barra_nav.php';
+include_once '../clases/ventas.class.php';
+include_once '../clases/repositorio_ventas.class.php';
+include_once '../clases/repositorio_movimientos_stock.class.php';
+include_once '../clases/escritor_ventas.class.php';
+include_once '../clases/redireccion.class.php';
 
-/* if (isset($_POST['enviar'])) {
+Conexion::abrirConexion();
 
-    Conexion::abrirConexion();
+$id = repositorio_ventas::obtener_ultimo_id(Conexion::obtenerConexion());
+$total = repositorio_ventas::calcular_precios($id);
 
-    $cliente = new Clientes('', $_POST['nombre'], $_POST['dni'], $_POST['fecha_nac'],$_POST['direccion'], $_POST['telefono'], $_POST['email']);
+if (isset($_POST['enviar'])) {
 
-    $cliente_insertado = repositorio_clientes::insertar_cliente(Conexion::obtenerConexion(), $cliente);
+    
+    repositorio_ventas::venta_cargada(Conexion::obtenerConexion(), $id,  $_POST['num_factura'], 
+        $_POST['tipo_factura'], $_POST['cod_cliente'], $_POST['metodo_pago'], $_POST['observaciones'], $_POST['importe']);
 
-    if ($cliente_insertado) {
-        Redireccion::redirigir(ruta_clientes_principal);
-    }
+ //actualiza el estado de venta a 1
+    $venta_validada = repositorio_ventas::estado_venta(Conexion::obtenerConexion(), $id);
 
-    Conexion::cerrarConexion();
-    }  */
+   // borrar los estados igual a 0
+    repositorio_ventas::eliminar_falsos(Conexion::obtenerConexion());
+
+    //Actualiza las tablas movimientos_stock, detalle_movimientos de stock y stock_deposito
+    repositorio_movimientos_stock::cargar_mov_stock_ventas($id);
+
+    //Elimina los movimientos_stock que tengan estado 0
+    $borrar = repositorio_movimientos_stock::eliminar_falsos(Conexion::obtenerConexion());
+
+    Redireccion::redirigir(ruta_ventas_principal);
+
+    
+    }   
 
 
 ?>
@@ -54,6 +72,10 @@ include_once '../pantallas/barra_nav.php';
                     </td>
                 </tr>
                 <tr>
+                <td class="titulos">Fecha:</td>
+                <td class="valor">
+                    <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d"); ?>">
+                </td>
                     <td class="titulos">Sucursal:</td>
                     <td class="valor" colspan="3">
                         <input type="text" readonly name="sucursal" id="sucursal" value='Santa Ana'>
@@ -62,7 +84,7 @@ include_once '../pantallas/barra_nav.php';
                 <tr>
                     <td class="titulos">Cod. Cliente:</td>
                     <td class="valor" colspan="3">
-                        <input type="text" style="width: 90%; margin-right: 0%" readonly name="nombre" id="nombre" value='<?php
+                        <input type="" style="width: 90%; margin-right: 0%" readonly name="cod_cliente" id="cod_cliente" value='<?php
                                     if (isset($_POST['seleccionar'])) {
 
                                     echo $_POST['seleccionar'];
@@ -74,9 +96,9 @@ include_once '../pantallas/barra_nav.php';
                 <tr>
                     <td class="titulos">Nombre Cliente:</td>
                     <td class="valor" colspan="3">
-                        <input type="text" readonly name="sucursal" id="sucursal" value='<?php if (isset($_POST['seleccionar'])) {
+                        <input type="text" readonly name="nombre" id="nombre" value='<?php if (isset($_POST['seleccionar'])) {
                                                                                                     echo $_POST['nombre'];
-                                                                                                    }?>'>
+                                                                                                    } ?>'>
                     </td>
                 </tr>
 
@@ -86,7 +108,8 @@ include_once '../pantallas/barra_nav.php';
                     <td class="valor" colspan="3">
                         <!-- desplegable -->
                         <select name="metodo_pago" id="metodo_pago">
-                        <option selected value=""> Elije un Metodo de pago</option>            
+                        <option selected value=""> Elije un Metodo de pago</option> 
+                        <option value="Efectivo">Efectivo</option>            
                         <option value="Transferencia Bancaria">Transferencia Bancaria</option>  
                         <option value="Pago con tarjeta">Pago con tarjeta</option>  
                         <option value="Cheque">Cheque</option>  
@@ -99,7 +122,7 @@ include_once '../pantallas/barra_nav.php';
                 <tr>
                     <td class="titulos">Nº Factura:</td>
                     <td class="valor">
-                        <input type="text" name="num_factura" id="num_factura">
+                        <input type="" name="num_factura" id="num_factura">
                     </td>
                     <td class="titulos">Tipo de factura:</td>
                     <td class="valor">
@@ -118,7 +141,7 @@ include_once '../pantallas/barra_nav.php';
                 <tr>
                     <td class="titulos" valign="top">Importe:</td>
                     <td class="valor" colspan="">
-                        <input type="" name="importe" id="importe" >
+                        <input type="" readonly name="importe" id="importe" value='<?php echo $total ; ?> '>
                     </td>
                     
                     <td class="titulos" valign="top">Observaciones:</td>

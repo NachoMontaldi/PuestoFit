@@ -13,11 +13,12 @@ class ventas {
     private $met_pago;
     private $observaciones;
     private $importe;
+    private $estado;
 
     //Constructor 
 
     public function __construct($cod_venta,$fecha,$num_factura, $tipo_factura, $cod_cliente,
-                                $sucursal, $met_pago, $observaciones, $importe){
+                                $sucursal, $met_pago, $observaciones, $importe, $estado){
 
         $this -> cod_venta = $cod_venta;
         $this -> fecha = $fecha;
@@ -28,6 +29,7 @@ class ventas {
         $this -> met_pago = $met_pago;
         $this -> observaciones = $observaciones;
         $this -> importe = $importe;
+        $this -> estado = $estado;
                      
     }
     //Getters
@@ -65,6 +67,10 @@ class ventas {
 
     public function obtener_importe() {
         return $this -> importe;
+    }
+
+    public function obtener_estado() {
+        return $this -> estado;
     }
     
     

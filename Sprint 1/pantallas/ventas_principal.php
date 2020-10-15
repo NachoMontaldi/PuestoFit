@@ -3,7 +3,9 @@
     include_once '../config.inc.php';
     include_once '../conexion.class.php';
     include_once '../pantallas/barra_nav.php';
-
+    include_once '../clases/escritor_ventas.class.php';
+    include_once '../clases/repositorio_ventas.class.php';
+ 
     Conexion::abrirConexion();
 
 ?>
@@ -41,7 +43,7 @@
     <!-- BODY -->
     <!---BARRA DE BUSQUEDA-->
         <!--Se mete dentro de un form para poder usar el metodo post-->
-    <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+    <form role="form" method="post" action="<?php  echo $_SERVER['PHP_SELF'] ?>">
       <div class="form-group"> 
         <p id="busqueda">
           <input type="text" class="form-control" id="searchBox" name="criterio" placeholder="BUSCAR"/>
@@ -55,7 +57,7 @@
     <div class="table-responsive-lg">
       <table id="grilla" class="table-hover table table-bordered" >
         <thead class="thead-dark">
-          <tr colspan="6">
+          <tr colspan="7">
             <div class="titulo_grilla"><h4>VENTAS</h4></div>
           </tr>
           <tr>
@@ -65,13 +67,14 @@
             <th>Fecha</th> 
             <th>Total</th>
             <th>DETALLE</th>
+            <th>ANULAR</th> 
           </tr> 
         </thead>
         <tbody>
         <?php
 
 
-        /*if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
+        if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
 
           $criterio= $_POST['criterio'];
           
@@ -80,8 +83,8 @@
         }else{//si entra por else quiere decir que la pagina cargo desde la barra de navegacion
 
           escritor_ventas::escribir_ventas(Conexion::obtenerConexion());
-
-        }*/
+          
+        } 
         
         
         ?>
@@ -91,9 +94,9 @@
     </div>
     <!---->
     <div class="contenedor3">
-      <form method ="post" action= "<?php echo ruta_factura_registrar ?>">
+      <form method ="post" action= "<?php  echo ruta_registrar_detalle_venta  ?>">
         <br>
-        <a href="<?php echo ruta_registrar_detalle_venta?>"><button type="submit" name="reg_venta" id="rv" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR VENTAS</button></a>                      
+        <a href="<?php  echo ruta_registrar_detalle_venta ?>"><button type="submit" name="reg_venta" id="rv" class="boton"><i class="fa fa-plus" aria-hidden="true"></i>   REGISTRAR VENTAS</button></a>                      
       </form>
     </div>
   </body>

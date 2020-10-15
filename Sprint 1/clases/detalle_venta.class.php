@@ -15,7 +15,7 @@ class detalle_venta {
     public function __construct($cod_det_venta,$cod_venta,
     $nombre,$marca,$cantidad,$precio_unitario){
         $this -> cod_det_venta =$cod_det_venta;
-        $this -> cod_factura_compra =$cod_venta;
+        $this -> cod_venta =$cod_venta;
         $this -> nombre =$nombre;
         $this -> marca =$marca;
         $this -> cantidad =$cantidad;

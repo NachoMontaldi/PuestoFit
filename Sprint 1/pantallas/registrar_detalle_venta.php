@@ -4,42 +4,40 @@ include_once '../config.inc.php';
 include_once '../conexion.class.php';
 include_once '../clases/redireccion.class.php';
 include_once '../pantallas/barra_nav.php';
+include_once '../clases/ventas.class.php';
+include_once '../clases/repositorio_ventas.class.php';
+include_once '../clases/escritor_ventas.class.php';
 
 Conexion::abrirConexion();
 
-/*
+if (isset($_POST['reg_venta'])) {
 
-if (isset($_POST['registrar_pedido'])) {
+    $venta = new ventas('','','','','',1,'','','',0);
 
-    $pedido = new pedido_reposicion('', '', 1, 0);
-
-    $detalle_insertado = repositorio_pedido_reposicion::insertar_pedido(Conexion::obtenerConexion(), $pedido);
+    repositorio_ventas::insertar_venta(Conexion::obtenerConexion(), $venta);
 }
-$id = repositorio_pedido_reposicion::obtener_ultimo_id(Conexion::obtenerConexion());
+
+$id = repositorio_ventas::obtener_ultimo_id(Conexion::obtenerConexion());
+
 if (isset($_POST['vista'])) {
+    
+    $detalle_venta = new detalle_venta('', $id, $_POST['nombre2'], $_POST['marca'], $_POST['cantidad'], $_POST['pu']);
 
-    $detalle_pedido = new detalle_pedido('', $id, $_POST['nombre'], $_POST['marca'], $_POST['cantidad'], $_POST['observaciones']);
+    $detalle_insertado = repositorio_ventas::insertar_detalle_venta(Conexion::obtenerConexion(), $detalle_venta);
 
-    $detalle_insertado = repositorio_pedido_reposicion::insertar_detalle_pedido(Conexion::obtenerConexion(), $detalle_pedido);
 }
 
+if (isset($_POST['eliminar']) or isset($_POST['seleccionar']) or isset($_POST['vista'])) {
 
-if (isset($_POST['enviar'])) {
+    $total = repositorio_ventas::calcular_precios($id);
 
-    $pedido_validado = repositorio_pedido_reposicion::validar_pedido(Conexion::obtenerConexion(), $id);
-
-    $borrar = repositorio_pedido_reposicion::eliminar_falsos(Conexion::obtenerConexion());
-
-    Redireccion::redirigir(ruta_pedidos_reposicion_principal);
-}*/
-
-
+}
 
 ?>
 <html>
 
 <head>
-    <title>Registrar Venta</title>
+    <title>Registrar Detalle Venta</title>
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -70,20 +68,11 @@ if (isset($_POST['enviar'])) {
                 </td>
             </tr>
             <tr>
-                <td class="titulos">Nombre producto:</td>
+                <td class="titulos">Fecha:</td>
                 <td class="valor">
-                    <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="nombre" id="nombre" value='<?php
-                        
-                        if (isset($_POST['seleccionar'])) {
-
-                            echo $_POST['nombre'];
-                        }
-                        
-                        ?>'>
-                    <a href="<?php echo ruta_agregar_producto_venta ?>"><button type="button" name="busqueda" id="buscar" class="boton_buscar">
-                            <i class="fa fa-search"></i></button></a>
+                    <input type="date" name="Fecha" id="Fecha" readonly value="<?php echo date("Y-m-d"); ?>">
                 </td>
-                <td colspan="2" rowspan="5">
+                <td colspan="2" rowspan="7">
                     <!--Grilla de productos-->
                     <div class="table-responsive-lg">
                         <table id="grilla" class="table-hover table table-bordered">
@@ -94,35 +83,72 @@ if (isset($_POST['enviar'])) {
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Marca</th>
-                                    <th>Precio U.</th>
+                                    <th>Precio</th>
                                     <th>Cantidad</th>
                                     <th>Subtotal</th>
-                                    <th>ELIMINAR</th>
+                                    <th>EMILINAR</th>
                                 </tr>
                             <tbody>
-                                <form method="post" action="<?php //echo ruta_registrar_pedido_reposicion ?>">
-                                    <?php/*
+
+                                    <?php 
 
                                     //Metodo para borrar un elemento de la tabla
 
                                     if (isset($_POST['eliminar'])) {
 
-                                        repositorio_pedido_reposicion::eliminar_detalle(Conexion::obtenerConexion(), $_POST['eliminar']);
+                                        repositorio_ventas::eliminar_detalle(Conexion::obtenerConexion(), $_POST['eliminar']);
                                     }
 
+                                    if (isset($_POST['eliminar']) or isset($_POST['seleccionar']) or isset($_POST['vista'])) {
 
+                                        $total = repositorio_ventas::calcular_precios($id);
+                                    
+                                    }
 
-
-                                    escritor_filas::escribir_detalles_pedido($id);
-                                    */
+                                    escritor_ventas::escribir_detalles_venta_reg($id);
+                                    
                                     ?>
-                                </form>
+                                    
+                                    <?php if((isset($_POST['vista']) or isset($_POST['eliminar']) 
+                                             or isset($_POST['seleccionar'])) && ($total !== 0)){ 
+                                    ?>
+                                        <tr>
+                                            <td colspan="5" align="right">
+                                                <h4>TOTAL:</h4>
+                                            </td>
+                                            <td align="center">
+                                                <h4>$ <?php echo $total; ?> </h4>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>     
                             </tbody>
                         </table>
                     </div>
                 </td>
             </tr>
-            <form method="post" action="<?php //echo ruta_registrar_pedido_reposicion ?>">
+            <tr>
+                    <td class="titulos">Sucursal:</td>
+                    <td class="valor">
+                        <input type="text" readonly name="sucursal" id="sucursal" value='Santa Ana'>
+                    </td>
+            </tr>
+            <tr>
+                <td class="titulos">Nombre producto:</td>
+                <td class="valor">
+                    <input type="text" style="width: 85%; margin-right: 1,5%" readonly name="nombre" id="nombre" value='<?php
+                        
+                         if (isset($_POST['seleccionar'])) {
+
+                            echo $_POST['nombre'];
+                        } 
+                        
+                        ?>'>
+                    <a href="<?php echo ruta_agregar_producto_venta ?>"><button type="button" name="busqueda" id="buscar" class="boton_buscar">
+                            <i class="fa fa-search"></i></button></a>
+                </td>
+               
+            </tr>
+            <form method="post" action=" <?php echo ruta_registrar_detalle_venta ?> ">
                 <tr>
                     <td class="titulos">Marca:</td>
                     <td class="valor">
@@ -130,7 +156,7 @@ if (isset($_POST['enviar'])) {
                             if (isset($_POST['seleccionar'])) {
 
                                 echo $_POST['marca'];
-                            }
+                            } 
                             
                             ?>'>
                     </td>
@@ -141,7 +167,7 @@ if (isset($_POST['enviar'])) {
                         <input readonly type="text" name="pu" id="cantidad" min="1" value='<?php
                             if (isset($_POST['seleccionar'])) {
 
-                                echo "$ ".$_POST['precio'];
+                              echo $_POST['precio']. " $";
                                 
                             }
                             
@@ -154,6 +180,12 @@ if (isset($_POST['enviar'])) {
                         <input type="number" name="cantidad" id="cantidad" min="1">
                     </td>
                 </tr>
+                <input type="hidden" name="nombre2" id="nombre2" value='<?php
+                         if (isset($_POST['seleccionar'])) {
+
+                            echo $_POST['nombre'];
+
+                        }  ?>'>
                 <tr>
                     <td class="valor" colspan="2">
                         <div class="botones">
@@ -162,18 +194,24 @@ if (isset($_POST['enviar'])) {
                     </td>
                 </tr>
             </form>
-            <form method="post">
+            <form method="post" action="<?php echo ruta_registrar_venta ?> ">
                 <tr>
                     <td colspan="4" style="text-align:right" class="valor">
-                        <button type="submit" name="enviar" id="gd" class="boton">CONTINUAR</button>
+                        <button type="submit" name="continuar" id="gd" class="boton">CONTINUAR</button>
                     </td>
                 </tr>
+                <input type="hidden" name="total" id="total" value='<?php
+                         if (isset($_POST['vista']) or isset($_POST['seleccionar']) or isset($_POST['eliminar'])) {
+
+                            echo $total;
+
+                        }  ?>'>
             </form>
         </table>
     </div>
 
     <div class="contenedor4">
-        <a href="<?php echo ruta_venta_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+        <a href="<?php echo ruta_ventas_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
 </body>
 

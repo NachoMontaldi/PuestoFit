@@ -82,7 +82,7 @@
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                      <h4>Total</h4>
+                      <h4>TOTAL:</h4>
                     </td>
                     <td align="center">
                       <h4>$ <?php echo $total; ?> </h4>

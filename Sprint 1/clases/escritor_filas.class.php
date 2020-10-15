@@ -616,7 +616,7 @@ public static function escribir_detalle_pedido_det($fila){
                     
                         <?php } elseif($fila -> obtener_estado()==2 || $fila -> obtener_estado()==3){
 
-                            echo $fila -> obtener_total()." $";
+                            echo "$ ".$fila -> obtener_total();
                         }
                     ?> </td>
                     <td><?php

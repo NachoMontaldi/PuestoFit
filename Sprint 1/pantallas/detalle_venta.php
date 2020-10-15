@@ -45,7 +45,7 @@
         <tr>
           <td class="titulos">Fecha:</td>
           <td class="valor">
-            <input type="text" readonly name="fecha" id="fecha" value="<?php //echo $_POST['fecha_venta']; ?>">
+            <input type="text" readonly name="fecha" id="fecha" value="<?php echo $_POST['fecha_venta']; ?>">
           </td>
           <td class="titulos">Sucursal:</td>
           <td class="valor">
@@ -55,11 +55,11 @@
         <tr>
           <td class="titulos">N° Factura:</td>
           <td class="valor">
-            <input type="text" readonly name="nro_factura" id="nro_factura" value="<?php //echo $_POST['num_factura']; ?>">
+            <input type="text" readonly name="nro_factura" id="nro_factura" value="<?php echo $_POST['num_factura']; ?>">
           </td>
           <td class="titulos">Tipo:</td>
           <td class="valor">
-            <input type="text" readonly name="tipo" id="tipo" value="<?php //echo $_POST['tipo']; ?>">
+            <input type="text" readonly name="tipo" id="tipo" value="<?php echo $_POST['tipo']; ?>">
           </td>
         </tr>
 
@@ -87,10 +87,10 @@
                   </tr>
                   <tr>
                     <td colspan="5" align="right">
-                      <h4>Total</h4>
+                      <h4>TOTAL:</h4>
                     </td>
                     <td align="center">
-                      <h4>$ <?php //echo $_POST['total']; ?> </h4>
+                      <h4>$ <?php echo $_POST['importe']; ?> </h4>
                     </td>
                   </tr>
                 </tbody>
@@ -102,7 +102,7 @@
     </div>
 
     <div class="contenedor4">
-      <a href="<?php echo ruta_compras_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
+      <a href="<?php echo ruta_ventas_principal ?>"><button type="submit" name="volver" id="volver">VOLVER</button></a>
     </div>
   </body>
 

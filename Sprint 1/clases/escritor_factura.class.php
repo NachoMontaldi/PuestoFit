@@ -190,10 +190,10 @@ public static function escribir_detalle_oc($fila){
 
                 ?>
             <tr>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_nombre() ?>  </td>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_marca() ?>  </td>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_precio_unitario() . " $"?>  </td>
-                    <td class="text-center" widht= 20%> <?php echo $fila ->obtener_cantidad() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_precio_unitario() . " $"?>  </td>
+                    <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
                     <td>
                     <?php
                         if(isset($_POST['seleccionar'])){

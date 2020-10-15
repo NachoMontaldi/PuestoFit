@@ -123,7 +123,7 @@ if (isset($_POST['registrar_remito'])) {
                                     <tr>
 
                                         <td colspan="4" align="right">
-                                            <h4>Total</h4>
+                                            <h4>TOTAL:</h4>
                                         </td>
                                         <td align="center">
                                             <h4> <?php  if (isset($_POST['seleccionar'])){ echo $_POST['total'] ;}//echo number_format($precio,2) ?> </h4>
