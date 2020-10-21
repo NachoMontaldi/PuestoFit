@@ -5,8 +5,22 @@
     include_once '../pantallas/barra_nav.php';
     include_once '../clases/escritor_ventas.class.php';
     include_once '../clases/repositorio_ventas.class.php';
+    include_once '../clases/repositorio_movimientos_stock.class.php';
  
     Conexion::abrirConexion();
+
+
+    if(isset($_POST['anular'])){ 
+
+        repositorio_ventas::actualizar_estado_anulada(Conexion::obtenerConexion(),$_POST['anular']);
+        $tipo = 'Entrada';
+        $motivo = 'Venta anulada';
+        $observaciones = repositorio_ventas::obtener_observaciones(Conexion::obtenerConexion(),$_POST['anular']);
+        $cod_mov = repositorio_movimientos_stock::obtener_cod_mov(Conexion::obtenerConexion(),$_POST['anular']);
+        repositorio_movimientos_stock::insertar_movimiento_stock_validado(Conexion::obtenerConexion(),$tipo, $motivo, 
+                                      $observaciones, $cod_mov);
+        repositorio_movimientos_stock::actualizar_stock_deposito_mov($cod_mov,$tipo);
+    }
 
 ?>
 <html>
@@ -72,7 +86,6 @@
         </thead>
         <tbody>
         <?php
-
 
         if(isset($_POST['busqueda'])){//si entra en el if quiere decir que la pagina se cargo por la busqueda
 

@@ -11,6 +11,71 @@ Conexion::abrirConexion();
 
 class repositorio_movimientos_stock {
 
+    public static function insertar_movimiento_stock($conexion){
+        $movimiento_stock_insertado = false;
+        
+        if (isset($conexion)){
+            try{
+
+                $sql = "insert into movimientos_stock(estado,sucursal) values (0,1)";
+                   
+                $sentencia = $conexion ->prepare($sql);
+
+                $orden_de_compra_insertada = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $movimiento_stock_insertado;
+        }
+        else{
+            echo 'No hubo conexion en cotizacion!!';
+        }
+        
+    }
+
+    public static function insertar_movimiento_stock_validado($conexion, $tipo, $motivo, $observaciones ,$cod_mov){
+        $mov_actualizado = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'update movimientos_stock set
+                        fecha = NOW(),
+                        tipo = :tipo,
+                        motivo = :motivo,
+                        sucursal = 1,
+                        observaciones= :observaciones
+                        where cod_mov =' .$cod_mov;
+                
+                
+                $tipotemp = $tipo;
+                $motivotemp = $motivo;
+                $observacionestemp = $observaciones;
+                
+
+                $sentencia = $conexion ->prepare($sql);
+
+                
+                
+                $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
+                $sentencia -> bindParam(':motivo', $motivotemp , PDO::PARAM_STR);
+                $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
+                
+                
+            $mov_actualizado = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $mov_actualizado;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+    }
+
     public static function cargar_mov_stock_compras($cod_remito){
         
         //Insertar movimiento de stock compra
@@ -69,6 +134,106 @@ class repositorio_movimientos_stock {
         }
         return $total;
     }
+
+    /*public static function cargar_venta_anulada($venta){
+        
+        //Insertar movimiento de stock venta
+        self::insertar_mov_stock_venta(Conexion::obtenerConexion(),$cod_venta);
+
+        $detalles = self ::obtener_detalles_venta(Conexion::obtenerConexion(),$cod_venta);
+        $total=0;
+
+        if(count($detalles)){
+
+            foreach($detalles as $detalle){
+            
+             //Obtiene el codigo del producto del detalle de la venta corresponiendte (dice remito pero hace ventas,
+            /* para reutilizar codigo) */  
+           /* $codigo= self::obtener_cod_producto_det_remito(Conexion::obtenerConexion(),$detalle -> obtener_nombre());
+
+            //Insertar en detalles de movimientos de stock compra
+            self::insertar_det_mov_stock_venta(Conexion::obtenerConexion(),$codigo,$detalle -> obtener_cantidad(),
+                                                $cod_mov_stock, $detalle -> obtener_cod_det_venta());
+            
+            //Actualiza la cantidad en stock_deposito de cada producto
+            self::actualizar_cantidad_prod_venta(Conexion::obtenerConexion(),$codigo,$detalle -> obtener_cantidad());
+            }
+
+        }
+        return $total;
+    }*/
+	
+   /* cod_mov
+    fecha
+    tipo
+    motivo
+    sucursal
+    cod_remito
+    cod_factura_venta
+    observaciones
+    estado
+    public static function insertar_movimiento_stock_venta_anulada($conexion, $tipo, $motivo, $observaciones ,$cod_mov){
+        $mov_actualizado = false;
+        
+        if (isset($conexion)){
+            try{
+                $sql = 'insert into  movimientos_stock (fecha, tipo, motivo, sucursal, cod_factura_venta, observaciones, estado)
+                        values (NOW(), :tipo, :motivo, 1, )
+                        fecha = NOW(),
+                        tipo = :tipo,
+                        motivo = :motivo,
+                        sucursal = 1,
+                        observaciones= :observaciones
+                        where cod_mov =' .$cod_mov;
+                
+                
+                $tipotemp = $tipo;
+                $motivotemp = $motivo;
+                $observacionestemp = $observaciones;
+                
+
+                $sentencia = $conexion ->prepare($sql);
+
+                
+                
+                $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
+                $sentencia -> bindParam(':motivo', $motivotemp , PDO::PARAM_STR);
+                $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
+                
+                
+            $mov_actualizado = $sentencia -> execute();
+                
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+            
+            return $mov_actualizado;
+        }
+        else{
+            echo 'No hubo conexion en detalle pedido!!';
+        }
+    }*/
+    public static function actualizar_stock_deposito_mov($cod_mov,$tipo_ajuste){
+    
+        $detalles = self :: obtener_detalles_movimientos_stock_deposito(Conexion::obtenerConexion(),$cod_mov);
+        
+        if(count($detalles)){
+    
+            foreach($detalles as $detalle){
+    
+                if($tipo_ajuste == "Entrada"){
+                    self::actualizar_cantidad_prod(Conexion::obtenerConexion(),$detalle -> obtener_cod_prod(),$detalle -> obtener_cantidad());
+                }elseif($tipo_ajuste == "Salida"){
+                    self::actualizar_cantidad_neg_prod(Conexion::obtenerConexion(),$detalle -> obtener_cod_prod(),$detalle -> obtener_cantidad());
+                }else{
+                    print "error en actualizar_stock_deposito_mov";
+                }
+                
+            }
+    
+            }
+            
+        }
 
     public static function insertar_det_mov_stock_compra($conexion,$cod_prod,$cantidad,$cod_mov_stock,$cod_det_remito){
         $mov_insertado = false;
@@ -404,9 +569,9 @@ class repositorio_movimientos_stock {
                 
                 $tipotemp = "Salida";
                 $motivotemp = "Venta";
-                $cod_factura_ventatemp = $cod_factura_venta;
+                $cod_factura_ventatemp = $cod_venta;
         
-                $sentencia = $conexion ->prepare($sql);
+                $sentencia = $conexion ->prepare($sql); 
 
                 $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
                 $sentencia -> bindParam(':motivo', $motivotemp, PDO::PARAM_STR);
@@ -603,29 +768,6 @@ class repositorio_movimientos_stock {
         }
      }
 
-     public static function insertar_movimiento_stock($conexion){
-        $movimiento_stock_insertado = false;
-        
-        if (isset($conexion)){
-            try{
-
-                $sql = "insert into movimientos_stock(estado,sucursal) values (0,1)";
-                   
-                $sentencia = $conexion ->prepare($sql);
-
-                $orden_de_compra_insertada = $sentencia -> execute();
-                
-            } catch(PDOException $ex){
-                print 'ERROR INSCo' . $ex -> getMessage();
-            }
-            
-            return $movimiento_stock_insertado;
-        }
-        else{
-            echo 'No hubo conexion en cotizacion!!';
-        }
-        
-    }
 
     public static function insertar_detalle_movimiento_stock($conexion,$detalle){
         $detalle_insertado = false;
@@ -687,46 +829,6 @@ class repositorio_movimientos_stock {
         return $sucursal;
     }
 
-    public static function insertar_movimiento_stock_validado($conexion, $tipo, $motivo, $observaciones ,$cod_mov){
-        $mov_actualizado = false;
-        
-        if (isset($conexion)){
-            try{
-                $sql = 'update movimientos_stock set
-                        fecha = NOW(),
-                        tipo = :tipo,
-                        motivo = :motivo,
-                        sucursal = 1,
-                        observaciones= :observaciones
-                        where cod_mov =' .$cod_mov;
-                
-                
-                $tipotemp = $tipo;
-                $motivotemp = $motivo;
-                $observacionestemp = $observaciones;
-                
-
-                $sentencia = $conexion ->prepare($sql);
-
-                
-                
-                $sentencia -> bindParam(':tipo', $tipotemp, PDO::PARAM_STR);
-                $sentencia -> bindParam(':motivo', $motivotemp , PDO::PARAM_STR);
-                $sentencia -> bindParam(':observaciones', $observacionestemp, PDO::PARAM_STR);
-                
-                
-            $mov_actualizado = $sentencia -> execute();
-                
-            } catch(PDOException $ex){
-                print 'ERROR INSCo' . $ex -> getMessage();
-            }
-            
-            return $mov_actualizado;
-        }
-        else{
-            echo 'No hubo conexion en detalle pedido!!';
-        }
-    }
     public static function obtener_detalles_movimientos_stock($conexion,$id){
         
         $filas = [];
@@ -780,27 +882,7 @@ class repositorio_movimientos_stock {
         else{ echo 'No hay conexion :(';}
      }
 
-    public static function actualizar_stock_deposito_mov($cod_mov,$tipo_ajuste){
     
-    $detalles = self :: obtener_detalles_movimientos_stock_deposito(Conexion::obtenerConexion(),$cod_mov);
-    
-    if(count($detalles)){
-
-        foreach($detalles as $detalle){
-
-            if($tipo_ajuste == "Entrada"){
-                self::actualizar_cantidad_prod(Conexion::obtenerConexion(),$detalle -> obtener_cod_prod(),$detalle -> obtener_cantidad());
-            }elseif($tipo_ajuste == "Salida"){
-                self::actualizar_cantidad_neg_prod(Conexion::obtenerConexion(),$detalle -> obtener_cod_prod(),$detalle -> obtener_cantidad());
-            }else{
-                print "error en actualizar_stock_deposito_mov";
-            }
-            
-        }
-
-        }
-        
-    }
 
     public static function obtener_detalles_movimientos_stock_deposito($conexion,$id){
         
@@ -835,6 +917,31 @@ class repositorio_movimientos_stock {
         
         return $filas;
     }
+
+    public static function obtener_cod_mov($conexion,$cod_venta){
+        if (isset($conexion)){ 
+        $cod_mov = 0;
+         try{
+                 
+                 $sql = 'select cod_mov from movimientos_stock where cod_factura_venta ='.$cod_venta;
+                 
+                 $sentencia = $conexion -> prepare($sql);
+     
+                 $sentencia -> execute();
+ 
+                 $resultado = $sentencia -> fetchColumn() ;
+                     
+                 $cod_mov= intval($resultado);
+ 
+             } catch(PDOException $ex){
+                 print 'ERROR INSCo' . $ex -> getMessage();
+             }
+         }
+         else{
+             echo 'No hubo conexion!!';
+         }
+        return $cod_mov;
+}
 
 }
 ?>

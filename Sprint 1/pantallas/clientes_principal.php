@@ -81,10 +81,10 @@ if (isset($_POST['guardar_cambios'])) {
           <div class="titulo_grilla"><h4>CLIENTES</h4></div>
         </tr>
         <tr>
-          <th>Cod. Cli.</th>
+          <th>Cod.Cli.</th>
           <th>DNI/CUIL</th>
           <th>Nombre</th>
-          <th>Fecha Nacimiento</th>
+          <th>Fecha Nac.</th>
           <th>Dirección</th>
           <th>Teléfono</th>
           <th>Email</th>

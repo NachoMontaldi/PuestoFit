@@ -28,7 +28,8 @@ table {
 
 .valor {
     padding: 12px;
-    width:30%;
+    width:30%; 
+    text-align: center;
 }
 
 

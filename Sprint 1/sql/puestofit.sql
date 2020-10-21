@@ -440,7 +440,8 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
     values(1,"Pendiente"),
     (2,"Listo"),
     (3,"Cargada"),
-    (4,"Entregado"); 
+    (4,"Entregado"),
+    (5,"Anulada"); 
     
     /*Carga tabla inventario*/
     insert into inventario (nombre,existencia,cantidad_min,marca,categoria,precio_compra,precio_venta,

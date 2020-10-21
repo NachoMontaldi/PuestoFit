@@ -49,7 +49,7 @@
                 </td>
                 <td>
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF' ] ?>">
-                        <button type="submit" style="background-color:#ff7514; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php /* echo $fila->obtener_venta();  */?>" >Anular</button>
+                        <button type="submit" style="background-color:rgba(177, 60, 30, 0.9); padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php echo $fila->obtener_venta();  ?>" >Anular</button>
                     </form>
                 </td>
             </tr>
@@ -71,7 +71,7 @@
         }
         
         public static function escribir_venta($fila){
-                if(!isset($fila)){
+                if(!isset($fila)){ 
         
                     return;
                 }
@@ -94,7 +94,7 @@
                     </td>
                     <td>
                         <form method="post" action="<?php echo $_SERVER['PHP_SELF' ] ?>">
-                            <button type="submit" style="background-color:#ff7514; padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php /* echo $fila->obtener_venta();  */?>" >Anular</button>
+                            <button type="submit" style="background-color:rgba(177, 60, 30, 0.9); padding:2% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="anular" name="anular" value="<?php  echo $fila->obtener_venta();  ?>" >Anular</button>
                         </form>
                     </td>
 
@@ -201,8 +201,6 @@
                                                 
                 $subtotal= $fila -> obtener_cantidad() * $fila -> obtener_precio_unitario();
                     echo "$".$subtotal;
-                    
-
                 }else{
                         print "$0";
                 }

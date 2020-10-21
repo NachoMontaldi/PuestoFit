@@ -72,9 +72,9 @@
             if (isset($conexion)){
         
                 try{
-                    $sql= 'select * from grilla_ventas_principal where (cod_venta LIKE "%'.$criterio_min. '%" OR 
+                    $sql= 'select * from grilla_ventas_principal where ((cod_venta LIKE "%'.$criterio_min. '%" OR 
                             sucursal LIKE "%'. $criterio_min. '%" OR cliente LIKE "%'  .$criterio_min. '%" OR
-                            fecha LIKE "%'  .$criterio_min. '%"OR importe LIKE "%'  .$criterio_min. '%")';
+                            fecha LIKE "%'  .$criterio_min. '%"OR importe LIKE "%'  .$criterio_min. '%") AND estado=1) order by cod_venta';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -105,7 +105,7 @@
             $filas = [];
             if (isset($conexion)){
                 try{
-                    $sql= 'select * from grilla_ventas_principal';
+                    $sql= 'select * from grilla_ventas_principal where estado = 1 order by cod_venta';
                     
                     $sentencia = $conexion ->prepare($sql);
                     
@@ -207,6 +207,31 @@
             
             return $id;
         }
+
+        public static function obtener_ultimo_num_fact($conexion){        
+            if (isset($conexion)){
+                
+                try{
+                    $sql= 'select  MAX(num_factura) from ventas';
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $sentencia -> execute();
+                    
+                    $resultado = $sentencia -> fetchColumn() ;
+                    
+                    $num_factura = intval($resultado);
+                        
+    
+                    
+                }catch(PDOException $ex){
+                    print 'ERROR UID' . $ex -> getMessage();
+                }
+            }else{ echo 'no';}
+            
+            return $num_factura;
+        }
+
         public static function venta_cargada($conexion,$cod_venta,$num_factura,$tipo_factura,$cod_cliente,$met_pago,$observaciones,$importe){
         
             $venta_actualizada = false;
@@ -311,4 +336,53 @@
             
         }
 
+        public static function actualizar_estado_anulada($conexion,$cod_venta){
+        
+            $venta_actualizada = false;
+            
+            if (isset($conexion)){
+                try{
+        
+                    $sql = 'update ventas set estado = 5 WHERE cod_venta =' . $cod_venta;
+                    
+                    $sentencia = $conexion ->prepare($sql);
+                    
+                    $venta_actualizada = $sentencia -> execute();
+                    
+                } catch(PDOException $ex){
+                    print 'ERROR INSCo' . $ex -> getMessage();
+                }
+                
+                return $venta_actualizada;
+            }
+            else{
+                echo 'No hay conexion!!';
+            }
+            
+        }
+
+        public static function obtener_observaciones($conexion,$cod_venta){
+            if (isset($conexion)){ 
+            $observaciones = "";
+             try{
+                     
+                     $sql = 'select observaciones from ventas where cod_venta ='.$cod_venta;
+                     
+                     $sentencia = $conexion -> prepare($sql);
+         
+                     $sentencia -> execute();
+     
+                     $resultado = $sentencia -> fetchColumn() ;
+                         
+                     $observaciones= strval($resultado);
+     
+                 } catch(PDOException $ex){
+                     print 'ERROR INSCo' . $ex -> getMessage();
+                 }
+             }
+             else{
+                 echo 'No hubo conexion!!';
+             }
+            return $observaciones;
     }
+}

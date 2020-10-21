@@ -12,12 +12,13 @@ include_once '../clases/redireccion.class.php';
 Conexion::abrirConexion();
 
 $id = repositorio_ventas::obtener_ultimo_id(Conexion::obtenerConexion());
+$num_fact = repositorio_ventas::obtener_ultimo_num_fact(Conexion::obtenerConexion());
 $total = repositorio_ventas::calcular_precios($id);
 
 if (isset($_POST['enviar'])) {
 
     
-    repositorio_ventas::venta_cargada(Conexion::obtenerConexion(), $id,  $_POST['num_factura'], 
+    repositorio_ventas::venta_cargada(Conexion::obtenerConexion(), $id,  $num_fact+1, 
         $_POST['tipo_factura'], $_POST['cod_cliente'], $_POST['metodo_pago'], $_POST['observaciones'], $_POST['importe']);
 
  //actualiza el estado de venta a 1
@@ -122,7 +123,12 @@ if (isset($_POST['enviar'])) {
                 <tr>
                     <td class="titulos">Nº Factura:</td>
                     <td class="valor">
-                        <input type="" name="num_factura" id="num_factura">
+                        <input readonly type="" name="num_factura" id="num_factura" value="<?php 
+                            if (isset($num_fact)) {
+
+                                echo $num_fact + 1;
+                            }
+                        ?> ">
                     </td>
                     <td class="titulos">Tipo de factura:</td>
                     <td class="valor">
@@ -131,7 +137,6 @@ if (isset($_POST['enviar'])) {
                         <option selected value="0"> Elije el tipo de factura</option>
                         <option value="A">A</option>  
                         <option value="B">B</option>  
-                        <option value="C">C</option>  
                     </select>
                     </td>  
 
@@ -144,7 +149,7 @@ if (isset($_POST['enviar'])) {
                         <input type="" readonly name="importe" id="importe" value='<?php echo $total ; ?> '>
                     </td>
                     
-                    <td class="titulos" valign="top">Observaciones:</td>
+                    <td class="titulos" valign="top" placeholder="Ingrese datos adicionales de metodo de pago">Observaciones:</td>
                     <td class="valor">
                         <textarea name="observaciones" id="observaciones"></textarea>
                     </td>
