@@ -427,7 +427,7 @@ public static function obtener_facturas_compra_remito($conexion){
     $filas = [];
     if (isset($conexion)){
         try{
-            $sql= 'select * from facturas_compra where estado=2;';
+            $sql= 'select * from facturas_compra where estado=1;';
             
             $sentencia = $conexion ->prepare($sql);
             

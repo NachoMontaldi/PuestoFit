@@ -55,6 +55,13 @@ define('ruta_agregar_producto_venta',servidor.'/pantallas/agregar_producto_venta
 define('ruta_agregar_cliente_venta',servidor.'/pantallas/agregar_cliente_venta.php');
 define('ruta_registrar_detalle_venta',servidor.'/pantallas/registrar_detalle_venta.php');
 define('ruta_detalle_venta',servidor.'/pantallas/detalle_venta.php');
+define('ruta_informes_ventas',servidor.'/pantallas/informes_ventas.php');
+define('ruta_informes_ranking',servidor.'/pantallas/informes_ranking.php');
+define('ruta_informes_egresos',servidor.'/pantallas/informes_egresos.php');
+define('ruta_informes_ingresos',servidor.'/pantallas/informes_ingresos.php');
+define('ruta_informes_saldo',servidor.'/pantallas/informes_saldo.php');
+define('ruta_pdf_venta',servidor.'/pantallas/pdf_venta.php');
+
 
 
 

@@ -3,6 +3,7 @@
     include_once '../conexion.class.php';
     include_once '../clases/ventas.class.php';
     include_once '../clases/detalle_venta.class.php';
+    require_once("../phpChart_Lite/phpChart_Lite/conf.php");
 
 
     class repositorio_ventas{
@@ -364,25 +365,155 @@
         public static function obtener_observaciones($conexion,$cod_venta){
             if (isset($conexion)){ 
             $observaciones = "";
-             try{
-                     
-                     $sql = 'select observaciones from ventas where cod_venta ='.$cod_venta;
-                     
-                     $sentencia = $conexion -> prepare($sql);
-         
-                     $sentencia -> execute();
-     
-                     $resultado = $sentencia -> fetchColumn() ;
-                         
-                     $observaciones= strval($resultado);
-     
-                 } catch(PDOException $ex){
-                     print 'ERROR INSCo' . $ex -> getMessage();
-                 }
-             }
-             else{
-                 echo 'No hubo conexion!!';
-             }
+            try{
+                    
+                    $sql = 'select observaciones from ventas where cod_venta ='.$cod_venta;
+                    
+                    $sentencia = $conexion -> prepare($sql);
+        
+                    $sentencia -> execute();
+    
+                    $resultado = $sentencia -> fetchColumn() ;
+                        
+                    $observaciones= strval($resultado);
+    
+                } catch(PDOException $ex){
+                    print 'ERROR INSCo' . $ex -> getMessage();
+                }
+            }
+            else{
+                echo 'No hubo conexion!!';
+            }
             return $observaciones;
     }
+/* OBTIENE EL NUMERO DE VENTAS EN UN MES PARA LUEGO UTILIZARLO PARA EL GRAFICO */
+    public static function obtener_numero_ventas($conexion,$mes){
+        if (isset($conexion)){ 
+        $ventas = "";
+    
+        try{
+                
+                $sql = 'select count(cod_venta) from ventas where fecha LIKE "%'.$mes. '%"' ;
+                
+                $sentencia = $conexion -> prepare($sql);
+    
+                $sentencia -> execute();
+
+                $resultado = $sentencia -> fetchColumn() ;
+                    
+                $ventas= intval($resultado);
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $ventas;
+    }
+/* OBTIENE EL GRAFICO HAY QUE HACER QUE ESTO SEA GENERICO */
+    public static function obtener_grafica_ventas($conexion/* ,$mes_inicio */){
+        if (isset($conexion)){ 
+        $ventas = "";
+        
+        try{
+
+            $s1 = array(
+                array(6,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-06-"),'Junio'),
+                array(7,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-07-"),'Julio'),
+                array(8,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-08-"),'Agosto'),
+                array(9,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-09-"),'Septiembre'),
+                array(10,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-10-"),'Octubre'),
+                array(11,repositorio_ventas::obtener_numero_ventas(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
+
+            $ventas = new C_PhpChartX(array($s1),'chart1');
+            $ventas->set_title(array('text'=>'Ultimos cinco meses'));
+            $ventas->add_plugins(array('cursor','pointLabels','barRenderer','categoryAxisRenderer'),true);
+            $ventas->set_animate(true);
+            $ventas->set_series_default(array(
+        'pointLabels'=> array(
+            'show'=> true,
+            'escapeHTML'=> false,
+            'ypadding'=> -15 
+        )
+    ));  
+            $ventas->set_animate(true);
+            
+            
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $ventas->draw(900, 500);
+    }
+/* OBTIENE CANTIDAD DE EGRESOS EN UN MES */
+    public static function obtener_ingresos($conexion,$mes){
+        if (isset($conexion)){ 
+        $importes = "";
+    
+        try{
+                
+                $sql = 'select sum(importe) from ventas where fecha LIKE "%'.$mes. '%"' ;
+                
+                $sentencia = $conexion -> prepare($sql);
+    
+                $sentencia -> execute();
+
+                $resultado = $sentencia -> fetchColumn() ;
+                    
+                $importes= intval($resultado);
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $importes;
+    }
+/* OBTIENE EL GRAFICO HAY QUE HACER QUE ESTO SEA GENERICO (QUE SE INGRESE EL MES ACTUAL Y SE CALCULEN 5 PARA ATRAS) */
+    public static function obtener_grafica_ingresos($conexion/* ,$mes_inicio */){
+        if (isset($conexion)){ 
+        $importes = "";
+        
+        try{
+
+            $s1 = array(
+                array(6,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-06-"),'Junio'),
+                array(7,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-07-"),'Julio'),
+                array(8,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-08-"),'Agosto'),
+                array(9,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-09-"),'Septiembre'),
+                array(10,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-10-"),'Octubre'),
+                array(11,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
+
+            $importes = new C_PhpChartX(array($s1),'chart1');
+            $importes->set_title(array('text'=>'Ultimos cinco meses'));
+            $importes->add_plugins(array('cursor','pointLabels','barRenderer','categoryAxisRenderer'),true);
+            $importes->set_animate(true);
+            $importes->set_series_default(array(
+        'pointLabels'=> array(
+            'show'=> true,
+            'escapeHTML'=> false,
+            'ypadding'=> -15)));  
+
+            $importes->set_animate(true);
+            
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $importes->draw(900, 500);
+    }
+
+    
 }

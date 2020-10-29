@@ -13,13 +13,19 @@
   </div>
   <div id="header">
     <ul id="nav">
-      <li><a href="">Inicio</a></li>
+      <li><a href="">Informes</a>
+        
+      <ul>
+                        <li><a href="<?php echo ruta_informes_ventas ?>">Nº Ventas</a></li>
+                        <li><a href="<?php echo ruta_informes_ranking ?>">Ranking de Productos</a></li>
+                        <li><a href="<?php echo ruta_informes_egresos?>">Egresos</a></li>
+                        <li><a href="<?php echo ruta_informes_ingresos ?>">Ingresos</a></li>
+                        <li><a href="<?php echo ruta_informes_saldo ?>">Saldo (Ingresos - Egresos)</a></li>
+                    </ul> 
+      </li>
       <li>
         <a href="<?php echo ruta_clientes_principal ?>">Clientes</a>
-        <!--        <ul>
-                        <li><a href="">Submenu1</a></li>
-                        <li><a href="">Submenu2</a></li>
-                    </ul> -->
+
       </li>
       <li>
         <a href="">Ventas</a>
