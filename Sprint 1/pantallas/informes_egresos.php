@@ -5,12 +5,14 @@ include_once '../conexion.class.php';
 include_once '../pantallas/barra_nav.php';
 include_once '../clases/repositorio_ventas.class.php';
 include_once '../clases/repositorio_factura.class.php';
+include_once '../clases/escritor_pago.class.php';
+include_once '../clases/repositorio_pago.class.php';
 require_once("../phpChart_Lite/phpChart_Lite/conf.php");
 
 Conexion::abrirConexion();
 
 ?>
-<!-- GRAFICO PARA MOSTRAR NUMERO DE VENTAS EN LOS ULTIMOS 5 MESES -->
+
 <html>
 
 <head>
@@ -34,44 +36,36 @@ Conexion::abrirConexion();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!---->
 
-    <style type="text/css">
-        .jqplot-target {
-            margin-left: 8%; 
-            margin-top: 20px;
-            width: 400px;
-            height: 300px;
-        }
-        .form {
-            margin-top: 7%;    
-        }
-    </style>
-
 </head>
 
     <body>
+    <br>
+    <br>
+    <br>
+    <div class="table-responsive-lg">
+            <table id="grilla" class="table-hover table table-bordered" >
+                <thead class="thead-dark">
+                <tr>
+                <td colspan="4" class="titulo">
+                    EGRESOS
 
-        <div id="formulario" class="form">
-            <table class="tabla" border="1px">
-                <tr>
-                    <td class="titulo">
-                        EGRESOS
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <?php
-                        repositorio_factura::obtener_grafica_egresos(Conexion::obtenerConexion());
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <div class="contenedor3">
-                        <form method="post" action="">
-                            <button type="submit" name="enviar" id="gd" class="boton"><i class="" aria-hidden="true"></i>Generar PDF</button>
-                        </form>
-                    </div>
-                </tr>
+                <tr>  
+                    <tr>
+                        <th>MES</th>
+                        <th>CANTIDAD DE COMPRAS</th>
+                        <th>TOTAL DE EGRESOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    escritor_pago :: escribir_filas_informe_egresos ();
+                    ?> 
+                </tbody>
             </table>
-        </div>
+        </div> 
+        <div align = "center">
+            <h3>Egresos</h3>
+        <?php repositorio_pago::obtener_grafica_egresos(Conexion::obtenerConexion()); ?>
+        </div>  
     </body>
 </html>

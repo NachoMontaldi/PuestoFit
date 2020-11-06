@@ -61,6 +61,10 @@ define('ruta_informes_egresos',servidor.'/pantallas/informes_egresos.php');
 define('ruta_informes_ingresos',servidor.'/pantallas/informes_ingresos.php');
 define('ruta_informes_saldo',servidor.'/pantallas/informes_saldo.php');
 define('ruta_pdf_venta',servidor.'/pantallas/pdf_venta.php');
+define('ruta_grafico_informes_ventas',servidor.'/pantallas/grafico_informes_ventas.php');
+define('ruta_grafico_informes_ranking',servidor.'/pantallas/grafico_informes_ranking.php');
+define('ruta_grafico_informes_saldo',servidor.'/pantallas/grafico_informes_saldo.php');
+define('ruta_grafico_informes_ingresos',servidor.'/pantallas/grafico_informes_ingresos.php');
 
 
 

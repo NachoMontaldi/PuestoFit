@@ -16,7 +16,7 @@
         $saldo = "";
     
         try{
-            $saldo = intval(repositorio_ventas::obtener_ingresos($conexion,$mes)) - intval(repositorio_factura::obtener_egresos($conexion,$mes));
+            $saldo = intval(repositorio_ventas::obtener_ingresos($conexion,$mes)) - intval(repositorio_pago::obtener_egresos($conexion,$mes));
             echo $saldo;
 
             } catch(PDOException $ex){
@@ -43,12 +43,12 @@
                 array(10,repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-10-"),'Octubre'),
                 array(11,repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-11-"),'Noviembre')); */
             $egresos = array(
-                array(6,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-06-"),'Junio'),
-                array(7,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-07-"),'Julio'),
-                array(8,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-08-"),'Agosto'),
-                array(9,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-09-"),'Septiembre'),
-                array(10,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-10-"),'Octubre'),
-                array(11,repositorio_factura::obtener_egresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
+                array(6,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-06-"),'Junio'),
+                array(7,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-07-"),'Julio'),
+                array(8,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-08-"),'Agosto'),
+                array(9,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-09-"),'Septiembre'),
+                array(10,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-10-"),'Octubre'),
+                array(11,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
             $ingresos = array(
                 array(6,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-06-"),'Junio'),
                 array(7,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-07-"),'Julio'),
@@ -58,14 +58,13 @@
                 array(11,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
 
             $saldo = new C_PhpChartX(array(/* $saldos,  */$egresos, $ingresos),'chart1');
-            $saldo->add_plugins(array('highlighter'));
-            $saldo->set_title(array('text'=>'Ultimos cinco meses'));
-            
+            $saldo->set_title(array('text'=>'Ultimo semestre - 
+            Eje Vertical:$$
+            - Eje Horizontal:Meses '));
+            $saldo->add_plugins(array('highlighter'));           
             $saldo->set_animate(true);
         
-            $saldo->add_series(array('yaxis'=>'y2axis'));
-            $saldo->add_series(array('yaxis'=>'y3axis'));
-            $saldo->add_series(array('yaxis'=>'y4axis'));
+       
             
 
             $saldo->set_axes(array(

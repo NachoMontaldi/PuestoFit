@@ -16,7 +16,6 @@
       <li><a href="">Informes</a>
         
       <ul>
-                        <li><a href="<?php echo ruta_informes_ventas ?>">Nº Ventas</a></li>
                         <li><a href="<?php echo ruta_informes_ranking ?>">Ranking de Productos</a></li>
                         <li><a href="<?php echo ruta_informes_egresos?>">Egresos</a></li>
                         <li><a href="<?php echo ruta_informes_ingresos ?>">Ingresos</a></li>

@@ -3,6 +3,7 @@
     
     include_once '../conexion.class.php';
     include_once '../config.inc.php';
+    include_once '../clases/ranking_prod.class.php';
     include_once '../clases/repositorio_ventas.class.php';
     include_once '../clases/detalle_venta.class.php';
     include_once '../clases/ventas.class.php';
@@ -257,6 +258,38 @@ public static function escribir_detalle_venta_reg($fila){
     </tr>
 <?php
 }
+
+/////////////////////ESCRITOR PARA INFORME VENTAS
+public static function escribir_filas_informe(){
+                                    
+    $filas = repositorio_ventas:: obtener_grilla_informe (Conexion::obtenerConexion());
+    
+    if(count($filas)){
+
+        foreach($filas as $fila){
+        
+            self::escribir_informe_ingresos($fila);
+        
+        }
+
+        }            
+}
+public static function escribir_informe_ingresos ($fila){
+    if(!isset($fila)){
+
+        return;
+    }
+    ?>
+<tr></tr>
+        <td class="text-center"> <?php echo $fila ->obtener_mes() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_total() ?>  </td>     
+        
+
+</tr>
+<?php
+}
+
 
 
 

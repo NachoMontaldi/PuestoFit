@@ -3,6 +3,7 @@
 include_once '../config.inc.php';
 include_once '../conexion.class.php';
 include_once '../pantallas/barra_nav.php';
+include_once '../clases/escritor_ventas.class.php';
 include_once '../clases/repositorio_ventas.class.php';
 include_once '../clases/repositorio_factura.class.php';
 require_once("../phpChart_Lite/phpChart_Lite/conf.php");
@@ -10,7 +11,6 @@ require_once("../phpChart_Lite/phpChart_Lite/conf.php");
 Conexion::abrirConexion();
 
 ?>
-<!-- GRAFICO PARA MOSTRAR NUMERO DE VENTAS EN LOS ULTIMOS 5 MESES -->
 <html>
 
 <head>
@@ -34,44 +34,41 @@ Conexion::abrirConexion();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!---->
 
-    <style type="text/css">
-        .jqplot-target {
-            margin-left: 8%; 
-            margin-top: 20px;
-            width: 400px;
-            height: 300px;
-        }
-        .form {
-            margin-top: 7%;    
-        }
-    </style>
 
 </head>
+ <body>
+    <br>
+    <br>
+    <br>
+    <div class="table-responsive-lg">
+            <table id="grilla" class="table-hover table table-bordered" >
+                <thead class="thead-dark">
+                <tr>
+                <td colspan="4" class="titulo">
+                    INGRESOS
 
-    <body>
-
-        <div id="formulario" class="form">
-            <table class="tabla" border="1px">
-                <tr>
-                    <td class="titulo">
-                        INGRESOS
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <?php
-                        $ventas = repositorio_ventas::obtener_grafica_ingresos(Conexion::obtenerConexion());
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <div class="contenedor3">
-                        <form method="post" action="">
-                            <button type="submit" name="enviar" id="gd" class="boton"><i class="" aria-hidden="true"></i>Generar PDF</button>
-                        </form>
-                    </div>
-                </tr>
+                <tr>  
+                    <tr>
+                        <th>MES</th>
+                        <th>CANTIDAD DE VENTAS</th>
+                        <th>TOTAL DE INGRESOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        escritor_ventas :: escribir_filas_informe();
+                    ?> 
+                </tbody>
             </table>
         </div>
+        
+        <div align = "center">
+            <h3>Ingresos</h3>
+            
+            <?php repositorio_ventas::obtener_grafica_ingresos(Conexion::obtenerConexion()); ?>
+         
+            <!-- <h3>Cantidad de Ventas</h3>
+            <?php //repositorio_ventas::obtener_grafica_ventas(Conexion::obtenerConexion()); ?> -->
+        </div>  
     </body>
 </html>

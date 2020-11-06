@@ -1,78 +1,124 @@
 <!DOCTYPE html>
 <?php
-include_once '../config.inc.php';
-include_once '../conexion.class.php';
-include_once '../pantallas/barra_nav.php';
-include_once '../clases/repositorio_ventas.class.php';
-include_once '../clases/repositorio_factura.class.php';
-include_once '../clases/repositorio_saldos.class.php';
-require_once("../phpChart_Lite/phpChart_Lite/conf.php");
+    include_once '../config.inc.php';
+    include_once '../pantallas/barra_nav.php';
+    include_once '../conexion.class.php';
+    include_once '../clases/repositorio_ventas.class.php';
+    include_once '../clases/repositorio_pago.class.php';
+    include_once '../clases/repositorio_saldos.class.php';
 
-Conexion::abrirConexion();
-
+    Conexion::abrirConexion();
+ 
 ?>
-<!-- GRAFICO PARA MOSTRAR NUMERO DE VENTAS EN LOS ULTIMOS 5 MESES -->
 <html>
 
-<head>
-    <title>Informes</title>
+  <head>
+    <title>Informe Saldo Ingresos-Egresos</title>
 
-
+  <!--  CSS -->
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
-    <link href='https://fonts.googleapis.com/css?family=' Actor'' rel='stylesheet'>
+  <!---->
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!--Tabla con bootstrap-->
+  <!--Tabla con bootstrap-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!---->
 
-    <style type="text/css">
-        .jqplot-target {
-            margin-left: 8%; 
-            margin-top: 20px;
-            width: 400px;
-            height: 300px;
-        }
-        .form {
-            margin-top: 7%;    
-        }
-    </style>
+  <!---->
+  </head>
+   
+  
 
-</head>
-
-    <body>
-
-        <div id="formulario" class="form">
-            <table class="tabla" border="1px">
-                <tr>
-                    <td class="titulo">
-                        SALDO
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <?php
-                        repositorio_saldos::obtener_grafica_saldos(Conexion::obtenerConexion());
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <div class="contenedor3">
-                        <form method="post" action="">
-                            <button type="submit" name="enviar" id="gd" class="boton"><i class="" aria-hidden="true"></i>Generar PDF</button>
-                        </form>
-                    </div>
-                </tr>
-            </table>
+  <body>
+    <!-- BODY -->
+    <div></div>
+    <br>
+    <br>
+    <br>
+    <!-- GRILLA -->
+    <div class="table-responsive-lg">
+      <table id="grilla" class="table-hover table table-bordered" >
+        <thead class="thead-dark">
+          <tr colspan="6">
+            <div class="titulo_grilla"><h4>SALDO INGRESOS-EGRESOS</h4></div>
+          </tr>
+          <tr>
+            <th>Mes</th>
+            <th>Junio</th>
+            <th>Julio</th>
+            <th>Agosto</th>
+            <th>Septiembre</th>
+            <th>Octubre</th>
+            <th>Noviembre</th> 
+          </tr> 
+          <tr>
+            <th>Ingresos</th>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-06-") ?> </td>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-07-') ?> </td>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-08-') ?> </td>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-09-') ?> </td>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-10-") ?> </td>
+                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-") ?> </td>
+          </tr>
+          <tr>
+            <th>Egresos</th>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-06-") ?> </td>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-07-") ?> </td>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-08-") ?> </td>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-09-") ?> </td>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-10-") ?> </td>
+                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-11-") ?> </td>
+          </tr>
+          <tr>
+            <th>Saldo</th>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-06-") ?> </td>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-07-") ?> </td>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-08-") ?> </td>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-09-") ?> </td>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-10-") ?> </td>
+                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-11-") ?> </td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+        <div align = "center">
+            <h3 >Saldo Ingresos - Egresos</h3>
+              <?php repositorio_saldos::obtener_grafica_saldos(Conexion::obtenerConexion()) ?>
         </div>
-    </body>
+    <div class="row">
+      <div class="col-md-6" align = "right">
+           <h4> Ingresos </h4>
+      </div>
+            
+      <div class="col-md-6">
+      <input readonly type="text" style="background-color:orange ; width:3%; hight:2%;">
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" align = "right">
+            <h4> Egresos </h4>
+        </div>      
+        <div class="col-md-6">
+          <input readonly type="text" style="background-color:#1ec6ff ; width:3%; hight:2%;">
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+  </body>
 </html>

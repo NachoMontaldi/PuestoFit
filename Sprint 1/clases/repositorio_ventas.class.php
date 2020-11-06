@@ -1,7 +1,8 @@
 <?php
     
     include_once '../conexion.class.php';
-    include_once '../clases/ventas.class.php';
+    include_once '../clases/ranking_prod.class.php';
+    include_once '../clases/informe_ingresos.class.php';
     include_once '../clases/detalle_venta.class.php';
     require_once("../phpChart_Lite/phpChart_Lite/conf.php");
 
@@ -458,7 +459,7 @@
     
         try{
                 
-                $sql = 'select sum(importe) from ventas where fecha LIKE "%'.$mes. '%"' ;
+                $sql = 'select sum(importe) from ventas where estado = 1 and (fecha LIKE "%' .$mes. '%")' ;
                 
                 $sentencia = $conexion -> prepare($sql);
     
@@ -493,11 +494,12 @@
                 array(11,repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
 
             $importes = new C_PhpChartX(array($s1),'chart1');
-            $importes->set_title(array('text'=>'Ultimos cinco meses'));
+            $importes->set_title(array('text'=>'Ultimo semestre - Eje Vertical:$$
+            - Eje Horizontal:Meses'));
             $importes->add_plugins(array('cursor','pointLabels','barRenderer','categoryAxisRenderer'),true);
             $importes->set_animate(true);
             $importes->set_series_default(array(
-        'pointLabels'=> array(
+            'pointLabels'=> array(
             'show'=> true,
             'escapeHTML'=> false,
             'ypadding'=> -15)));  
@@ -513,6 +515,35 @@
             echo 'No hubo conexion!!';
         }
         return $importes->draw(900, 500);
+    }
+    public static function obtener_grilla_informe($conexion){
+        
+        $filas = [];
+    
+        
+        if (isset($conexion)){
+    
+            try{
+                $sql= 'select * from grilla_informes_ingresos ';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new informe_ingresos ($fila['MES'],$fila['CANTIDAD DE VENTAS'],$fila['TOTAL INGRESOS']);
+                    }
+                }
+
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
     }
 
     

@@ -2,6 +2,7 @@
 
 include_once '../conexion.class.php';
 include_once '../clases/repositorio_factura.class.php';
+include_once '../clases/repositorio_pago.class.php';
 include_once '../config.inc.php';
 include_once '../clases/facturas_compra.class.php';
 include_once '../clases/ordenes_de_compra.class.php';
@@ -47,5 +48,35 @@ public static function escribir_pago($fila){
     </tr>
 <?php
     }
+/////////////////////ESCRITOR PARA INFORME EGRESOS
+public static function escribir_filas_informe_egresos(){
+                                    
+    $filas = repositorio_pago :: obtener_grilla_informe (Conexion::obtenerConexion());
+    
+    if(count($filas)){
+
+        foreach($filas as $fila){
+        
+            self::escribir_informe_egresos($fila);
+        
+        }
+
+        }            
+}
+public static function escribir_informe_egresos ($fila){
+    if(!isset($fila)){
+
+        return;
+    }
+    ?>
+<tr></tr>
+        <td class="text-center"> <?php echo $fila ->obtener_mes() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_total() ?>  </td>     
+        
+
+</tr>
+<?php
+}
 
 }

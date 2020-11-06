@@ -306,4 +306,35 @@ class escritor_pago{
                 </tr>
             <?php
             }
+
+            /////////////////////ESCRITOR PARA INFORME EGRESOS
+public static function escribir_filas_informe_egresos(){
+                                    
+    $filas = repositorio_pago :: obtener_grilla_informe (Conexion::obtenerConexion());
+    
+    if(count($filas)){
+
+        foreach($filas as $fila){
+        
+            self::escribir_informe_egresos($fila);
+        
+        }
+
+        }            
+}
+public static function escribir_informe_egresos ($fila){
+    if(!isset($fila)){
+
+        return;
+    }
+    ?>
+<tr></tr>
+        <td class="text-center"> <?php echo $fila ->obtener_mes() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
+        <td class="text-center"> <?php echo $fila ->obtener_total() ?>  </td>     
+        
+
+</tr>
+<?php
+}
 }

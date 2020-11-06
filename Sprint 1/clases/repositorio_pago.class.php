@@ -505,6 +505,102 @@
         
         return $id;
     }
+     /* OBTIENE CANTIDAD DE EGRESOS EN UN MES */
+     public static function obtener_egresos($conexion,$mes){
+        if (isset($conexion)){ 
+        $total = "";
+    
+        try{
+                
+                $sql = 'select sum(total) from pagos where fecha LIKE "%' .$mes. '%"' ;
+                
+                $sentencia = $conexion -> prepare($sql);
+    
+                $sentencia -> execute();
+
+                $resultado = $sentencia -> fetchColumn() ;
+                    
+                $total= intval($resultado);
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $total;
+    }
+/* OBTIENE EL GRAFICO HAY QUE HACER QUE ESTO SEA GENERICO */
+    public static function obtener_grafica_egresos($conexion/* ,$mes_inicio */){
+        if (isset($conexion)){ 
+        $total = "";
+        
+        try{
+
+            $s1 = array(
+                array(6,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-06-"),'Junio'),
+                array(7,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-07-"),'Julio'),
+                array(8,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-08-"),'Agosto'),
+                array(9,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-09-"),'Septiembre'),
+                array(10,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-10-"),'Octubre'),
+                array(11,repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-11-"),'Noviembre'));
+
+            $total = new C_PhpChartX(array($s1),'chart1');
+            $total->set_title(array('text'=>'Ultimo semestre - 
+            Eje Vertical:$$
+            - Eje Horizontal:Meses '));
+            $total->add_plugins(array('cursor','pointLabels','barRenderer','categoryAxisRenderer'),true);
+            $total->set_animate(true);
+            $total->set_series_default(array(
+        'pointLabels'=> array(
+            'show'=> true,
+            'escapeHTML'=> false,
+            'ypadding'=> -15)));  
+
+            $total->set_animate(true);
+            
+
+            } catch(PDOException $ex){
+                print 'ERROR INSCo' . $ex -> getMessage();
+            }
+        }
+        else{
+            echo 'No hubo conexion!!';
+        }
+        return $total->draw(900, 500);
+    }
+    public static function obtener_grilla_informe($conexion){
+        
+        $filas = [];
+    
+        
+        if (isset($conexion)){
+    
+            try{
+                $sql= 'select * from grilla_informes_egresos ';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+                
+                if(count($resultado)){
+                    foreach($resultado as $fila){
+                        $filas[] = new informe_ingresos ($fila['MES'],$fila['CANTIDAD DE OPERACIONES'],$fila['TOTAL EGRESOS']);
+                    }
+                }
+
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+        }else{ echo 'No hay conexion :(';}
+        
+        return $filas;
+    }
+
 
 }
+
 ?>

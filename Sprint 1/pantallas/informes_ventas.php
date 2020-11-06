@@ -33,17 +33,6 @@ Conexion::abrirConexion();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!---->
-    <style type="text/css">
-        .jqplot-target {
-            margin-left: 8%; 
-            margin-top: 20px;
-            width: 400px;
-            height: 300px;
-        }
-        .form {
-            margin-top: 7%;    
-        }
-    </style>
 
 </head>
 
@@ -55,20 +44,6 @@ Conexion::abrirConexion();
                     <td class="titulo">
                     Nº VENTAS
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <?php
-                        repositorio_ventas::obtener_grafica_ventas(Conexion::obtenerConexion());
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <div class="contenedor3">
-                        <form method="post" action="<?php echo ruta_pdf_venta ?>">
-                            <button type="submit" name="enviar" id="gd" class="boton"><i class="" aria-hidden="true"></i>Generar PDF</button>
-                        </form>
-                    </div>
                 </tr>
             </table>
         </div>

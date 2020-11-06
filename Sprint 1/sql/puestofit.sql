@@ -419,8 +419,41 @@ ALTER TABLE inventario ADD CONSTRAINT FK_inventario_depostios FOREIGN KEY(cod_de
         ON ventas.sucursal = depositos.cod_deposito
         INNER JOIN clientes
         ON ventas.cod_cliente = clientes.cod_cliente;
-       
 
+    /*Vista grilla informes de ranking de producto*/
+        CREATE OR REPLACE VIEW 
+        grilla_informes_ranking AS 
+        SELECT ROW_NUMBER() Over (Order By sum(dv.cantidad) desc),
+        sum(cantidad) as total_unidades,
+        sum(cantidad*dv.precio_unitario) as total,
+        i.cod_prod, 
+        dv.nombre,
+        i.marca,
+        i.categoria,
+        i.precio_compra,
+        i.precio_venta
+        FROM `detalle_ventas` dv
+        INNER JOIN inventario i
+        ON i.nombre= dv.nombre
+        group by dv.nombre
+        order by 'Total Vendidos' desc
+    
+     /* Vista grilla de ingresos*/
+    CREATE OR REPLACE VIEW 
+        grilla_informes_ingresos AS
+    SELECT MONTH(fecha) as num, MONTHNAME (fecha) as MES, count(cod_venta) as 'CANTIDAD DE VENTAS', SUM(importe) as 'TOTAL INGRESOS'
+    FROM ventas
+    where num_factura is not null AND estado = 1
+    group BY MES DESC
+    order by num ASC
+
+    /* Vista grilla de egresos*/ 
+    CREATE OR REPLACE VIEW 
+        grilla_informes_egresos AS
+    SELECT MONTH(fecha) as num, MONTHNAME (fecha) as MES, count(cod_pago) as 'CANTIDAD DE OPERACIONES', SUM(total) as 'TOTAL EGRESOS'
+    FROM pagos
+    group BY MES
+    order by num ASC
 
 /*Carga de elementos*/
     /*Carga de proveedores*/
