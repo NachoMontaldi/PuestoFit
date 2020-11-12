@@ -41,10 +41,9 @@
     </head>
     <br>
     <br>
-    <br>
     <body>
         <div class="table-responsive-lg">
-            <table id="grilla" class="table-hover table table-bordered" >
+            <table id="grilla" class="table-hover table table-bordered">
                 <thead class="thead-dark">
                     <tr colspan="6">
                         <div class="titulo_grilla"><h4>RANKING DE PRODUCTOS POR VENTA</h4></div>
@@ -70,22 +69,31 @@
         </div>
         <br>
         <br>
+        <div class="contenedor3">
+            <a href="<?php echo ruta_exportar_excel_ranking ?>"><button type="submit" name="reg_factura" id="rf" class="boton">
+            <i class="fa fa-print" aria-hidden="true">
+            </i> Exportar Excel</button></a>
+        </div>
+        <br>
+        <br>
+        <br>
         <div  style= "margin-left: auto; margin-right: auto; width:85%;">
             <canvas id="chart2" height="100"></canvas>
             <script language="javascript">
                 var ranking = document.getElementById("chart2");
 
-                Chart.defaults.global.defaultFontFamily = "Actor";
-                Chart.defaults.global.defaultFontSize = 18;
+                
+                Chart.defaults.global.defaultFontSize = 15;
+                
 
                 var densityData = {
-                label: 'Cantidad de Unidades Vendidas',
+                label: 'Top 10 Cantidad de Unidades Vendidas en el Último Semestre',
                 data: [
                         <?php
                             $conexion=Conexion::obtenerConexion();     
                             if (isset($conexion)){
                                 try{
-                                    $sql= 'select total_unidades from grilla_informes_ranking';
+                                    $sql= 'select total_unidades from grilla_informes_ranking limit 10';
                                     
                                     $sentencia = $conexion ->prepare($sql);
                                     
@@ -107,7 +115,32 @@
                                 }
                             }else{ echo 'No hay conexion';}
                         ?>
-                    ]
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 99, 132, 0.6)',
+                        'rgba(30, 99, 132, 0.6)',
+                        'rgba(60, 99, 132, 0.6)',
+                        'rgba(90, 99, 132, 0.6)',
+                        'rgba(120, 99, 132, 0.6)',
+                        'rgba(150, 99, 132, 0.6)',
+                        'rgba(180, 99, 132, 0.6)',
+                        'rgba(210, 99, 132, 0.6)',
+                        'rgba(240, 99, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 99, 132, 1)',
+                        'rgba(30, 99, 132, 1)',
+                        'rgba(60, 99, 132, 1)',
+                        'rgba(90, 99, 132, 1)',
+                        'rgba(120, 99, 132, 1)',
+                        'rgba(150, 99, 132, 1)',
+                        'rgba(180, 99, 132, 1)',
+                        'rgba(210, 99, 132, 1)',
+                        'rgba(240, 99, 132, 1)'
+                    ],
+                    borderWidth: 2,
+                    hoverBorderWidth: 0,
+                    
                 };
 
                 var barChart = new Chart(ranking, {
@@ -118,7 +151,7 @@
                             $conexion=Conexion::obtenerConexion();     
                             if (isset($conexion)){
                                 try{
-                                    $sql= 'select nombre from grilla_informes_ranking';
+                                    $sql= 'select nombre from grilla_informes_ranking limit 10';
                                     
                                     $sentencia = $conexion ->prepare($sql);
                                     

@@ -63,10 +63,15 @@
                     <td class="valor" colspan="3">
                         <select name="categoria" id="categoria">
                             <option selected value="0"> Elije una categoria</option>
-                            <option value="cereales">Cereales</option>
-                            <option value="yogures">Yogures</option>
-                            <option value="suplementos">Suplementos</option>
-                            <option value="barritas">Barritas</option>
+                            <option value="Cereales">Cereales</option>
+                            <option value="Lacteos">Lacteos</option>
+                            <option value="Suplementos">Suplementos</option>
+                            <option value="Barritas">Barritas</option>
+                            <option value="Endulzantes">Endulzantes</option>
+                            <option value="Postres">Postres</option>
+                            <option value="Aceites">Aceites</option>
+                            <option value="Frutos">Frutos</option>
+                            <option value="Harinas, Legumbres y Cereales">Harinas, Legumbres y Cereales</option>
                         </select>
                     </td>
                     

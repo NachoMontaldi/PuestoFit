@@ -6,9 +6,11 @@
     include_once '../clases/repositorio_ventas.class.php';
     include_once '../clases/repositorio_pago.class.php';
     include_once '../clases/repositorio_saldos.class.php';
+    include_once '../clases/repositorio_excel.class.php';
 
     Conexion::abrirConexion();
- 
+
+
 ?>
 <html>
 
@@ -39,18 +41,13 @@
 
   <!---->
   </head>
-   
-  
-
-  <body>
+    <body>
     <!-- BODY -->
-    <div></div>
-    <br>
     <br>
     <br>
     <!-- GRILLA -->
     <div class="table-responsive-lg">
-      <table id="grilla" class="table-hover table table-bordered" >
+      <table id="grilla" class="table-hover table table-bordered">
         <thead class="thead-dark">
           <tr colspan="6">
             <div class="titulo_grilla"><h4>SALDO INGRESOS-EGRESOS</h4></div>
@@ -66,43 +63,49 @@
           </tr> 
           <tr>
             <th>Ingresos</th>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-06-") ?> </td>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-07-') ?> </td>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-08-') ?> </td>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-09-') ?> </td>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-10-") ?> </td>
-                <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-") ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-06-") ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-07-') ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-08-') ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),'-09-') ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-10-") ?> </td>
+              <td><?php echo repositorio_ventas::obtener_ingresos(Conexion::obtenerConexion(),"-11-") ?> </td>
           </tr>
           <tr>
             <th>Egresos</th>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-06-") ?> </td>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-07-") ?> </td>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-08-") ?> </td>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-09-") ?> </td>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-10-") ?> </td>
-                <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-11-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-06-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-07-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-08-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-09-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-10-") ?> </td>
+              <td><?php echo repositorio_pago::obtener_egresos(Conexion::obtenerConexion(),"-11-") ?> </td>
           </tr>
           <tr>
             <th>Saldo</th>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-06-") ?> </td>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-07-") ?> </td>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-08-") ?> </td>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-09-") ?> </td>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-10-") ?> </td>
-                <td><?php repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-11-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-06-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-07-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-08-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-09-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-10-") ?> </td>
+              <td><?php echo repositorio_saldos::obtener_saldo(Conexion::obtenerConexion(),"-11-") ?> </td>
           </tr>
         </thead>
-        <tbody>
-        </tbody>
       </table>
     </div>
-        <div align = "center">
-            <h3 >Saldo Ingresos - Egresos</h3>
-              <?php repositorio_saldos::obtener_grafica_saldos(Conexion::obtenerConexion()) ?>
-        </div>
+    <div class="contenedor3">
+        <a href="<?php echo ruta_exportar_excel_saldo ?>"><button type="submit" name="reg_factura" id="rf" class="boton">
+        <i class="fa fa-print" aria-hidden="true">
+        </i> Exportar Excel</button></a>
+    </div>
+<br>
+<br>
+<br>
+    <div align = "center">
+        <h3 >Saldo Ingresos - Egresos</h3>
+          <?php repositorio_saldos::obtener_grafica_saldos(Conexion::obtenerConexion()) ?>
+    </div>
     <div class="row">
       <div class="col-md-6" align = "right">
-           <h4> Ingresos </h4>
+        <h4> Ingresos </h4>
       </div>
             
       <div class="col-md-6">
@@ -110,12 +113,12 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-md-6" align = "right">
-            <h4> Egresos </h4>
-        </div>      
-        <div class="col-md-6">
-          <input readonly type="text" style="background-color:#1ec6ff ; width:3%; hight:2%;">
-        </div>
+      <div class="col-md-6" align = "right">
+          <h4> Egresos </h4>
+      </div>      
+      <div class="col-md-6">
+        <input readonly type="text" style="background-color:#38A6C1 ; width:3%; hight:2%;">
+      </div>
     </div>
     <br>
     <br>

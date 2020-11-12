@@ -36,8 +36,8 @@
                     <td class="text-center"> <?php echo $fila ->obtener_nombre() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_marca() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_categoria() ?>  </td>
-                    <td class="text-center"> <?php echo $fila ->obtener_precio_compra() ?>  </td>
-                    <td class="text-center"> <?php echo $fila ->obtener_precio_venta() ?>  </td>
+                    <td class="text-center"> <?php echo "$".$fila ->obtener_precio_compra() ?>  </td>
+                    <td class="text-center"> <?php echo "$".$fila ->obtener_precio_venta() ?>  </td>
                 </tr>
 <?php
 

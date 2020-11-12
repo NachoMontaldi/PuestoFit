@@ -255,7 +255,7 @@ public static function escribir_detalle_venta_reg($fila){
                 <button type="submit" style="background-color:rgba(177, 60, 30, 0.9); padding:9% ; font-size: 14px; border-radius:2px;" class="btn btn-default btn-dark" id="eliminar" name="eliminar" value="<?php echo $fila->obtener_cod_det_venta(); ?>" widht= 5%>Eliminar</button>
             </form>
         </td>    
-    </tr>
+    </tr> 
 <?php
 }
 
@@ -283,7 +283,7 @@ public static function escribir_informe_ingresos ($fila){
 <tr></tr>
         <td class="text-center"> <?php echo $fila ->obtener_mes() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
-        <td class="text-center"> <?php echo $fila ->obtener_total() ?>  </td>     
+        <td class="text-center"> <?php echo "$".$fila ->obtener_total() ?>  </td>     
         
 
 </tr>

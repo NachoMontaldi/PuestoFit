@@ -34,7 +34,7 @@ public static function escribir_pago($fila){
             <td class="text-center"> <?php echo $fila ->obtener_cod_factura_compra() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
             <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
-            <td class="text-center"> <?php echo $fila ->"$".obtener_total() ?>  </td>
+            <td class="text-center"> <?php echo "$".$fila ->obtener_total() ?>  </td>
             
             <td>
                 <form method="post" action="<?php echo ruta_registrar_pago; ?>">

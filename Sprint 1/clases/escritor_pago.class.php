@@ -195,7 +195,7 @@ class escritor_pago{
                         
                         <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
                         <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
-                        <td class="text-center"> <?php echo $fila ->obtener_total() . "$" ?>  </td>
+                        <td class="text-center"> <?php echo "$".$fila ->obtener_total() ?>  </td>
                         
                         <td>
                             <form method="post" action="<?php echo ruta_detalle_pagos; ?>">
@@ -241,7 +241,7 @@ class escritor_pago{
                     <td class="text-center"> <?php echo $fila ->obtener_sucursal() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_fecha() ?>  </td>
                     <td class="text-center"> <?php echo $fila ->obtener_proveedor() ?>  </td>
-                    <td class="text-center"> <?php echo $fila ->obtener_total() . "$" ?>  </td>
+                    <td class="text-center"> <?php echo "$".$fila ->obtener_total() ?>  </td>
                     
                     <td>
                         <form method="post" action="<?php echo ruta_detalle_pagos; ?>">
@@ -331,7 +331,7 @@ public static function escribir_informe_egresos ($fila){
 <tr></tr>
         <td class="text-center"> <?php echo $fila ->obtener_mes() ?>  </td>
         <td class="text-center"> <?php echo $fila ->obtener_cantidad() ?>  </td>
-        <td class="text-center"> <?php echo $fila ->obtener_total() ?>  </td>     
+        <td class="text-center"> <?php echo "$".$fila ->obtener_total() ?>  </td>     
         
 
 </tr>

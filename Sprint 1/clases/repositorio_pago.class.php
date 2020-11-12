@@ -599,6 +599,46 @@
         
         return $filas;
     }
+    public static function obtener_egresos_excel($conexion){
+ 
+        if (isset($conexion)){
+    
+            try{
+                $sql= 'select * from grilla_informes_egresos ';
+                
+                $sentencia = $conexion ->prepare($sql);
+                
+                $sentencia -> execute();
+                
+                $resultado = $sentencia -> fetchAll();
+
+                $titulos = ['Numero','Mes','Cantidad Operaciones','Total Egresos'];
+    
+                $resultadoaux = [];
+    
+                $resultadoaux[0] = $titulos;
+            
+                if(count($resultado)){ 
+                    $arrlength = count($resultado);
+                    for($i = 0; $i < $arrlength; $i=$i+1) {
+                        $fila = $resultado[$i];
+                        $arrlengthinterno = count($fila);
+                        $filaaux = [];
+                        for($j = 0; $j < $arrlengthinterno/2; $j=$j+1) {
+                            $filaaux[$j] = $fila[$j];
+                        }
+                        $resultadoaux[$i+1] = $filaaux;
+                    }
+                }
+                
+            }catch(PDOException $ex){
+                print 'ERROR OT' . $ex -> getMessage();
+            }
+            
+        }else{ echo 'No hay conexion :(';}
+        
+        return $resultadoaux;
+    }
 
 
 }

@@ -20,7 +20,7 @@ Conexion::abrirConexion();
 
 
     <link rel="stylesheet" type="text/css" href="/puestofit/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/puestofit/css/registrar_pedido_reposicion.css">
+    <link rel="stylesheet" type="text/css" href="/puestofit/css/compras_principal.css">
     <link href='https://fonts.googleapis.com/css?family=' Actor'' rel='stylesheet'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -41,19 +41,15 @@ Conexion::abrirConexion();
     <body>
     <br>
     <br>
-    <br>
     <div class="table-responsive-lg">
-            <table id="grilla" class="table-hover table table-bordered" >
+            <table id="grilla" class="table-hover table table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                <td colspan="4" class="titulo">
-                    EGRESOS
-
-                <tr>  
+                <div class="titulo_grilla"><h4>EGRESOS</h4></div>
                     <tr>
-                        <th>MES</th>
-                        <th>CANTIDAD DE COMPRAS</th>
-                        <th>TOTAL DE EGRESOS</th>
+                        <th>Mes</th>
+                        <th>Cantidad de Compras</th>
+                        <th>Total de Egresos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,10 +58,21 @@ Conexion::abrirConexion();
                     ?> 
                 </tbody>
             </table>
-        </div> 
+        </div>
+        <div class="contenedor3">
+            <a href="<?php echo ruta_exportar_excel_egresos ?>"><button type="submit" name="reg_factura" id="rf" class="boton">
+            <i class="fa fa-print" aria-hidden="true">
+            </i> Exportar Excel</button></a>
+        </div>
+        <br>
+        <br>
+        <br>
         <div align = "center">
             <h3>Egresos</h3>
         <?php repositorio_pago::obtener_grafica_egresos(Conexion::obtenerConexion()); ?>
         </div>  
+        <br>
+        <br>
+        <br>
     </body>
 </html>
